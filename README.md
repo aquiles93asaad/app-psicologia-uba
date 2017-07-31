@@ -1,26 +1,47 @@
-Ionic App Base
-==============
+Configuración entorno Windows:
 
-A starting project for Ionic that optionally supports using custom SCSS.
+- Descargar GIT desde: https://git-for-windows.github.io/
 
-## Using this project
+- Instalarlo con la configuración por defecto
 
-We recommend using the [Ionic CLI](https://github.com/ionic-team/ionic-cli) to create new Ionic projects that are based on this project but use a ready-made starter template.
+- Instalar Node.js desde: https://nodejs.org/en/download/
+  Con eso se instala npm por defecto, pero no la versión más reciente.
 
-For example, to start a new Ionic project with the default tabs interface, make sure the `ionic` utility is installed:
+- Actualizar la versión de npm. En la consola:
+	npm install -g npm
 
-```bash
-$ npm install -g ionic cordova
-```
+- Instalar bower:
+	npm install -g bower
 
-Then run: 
+- Instalar el comando "gulp":
+	npm install --global gulp-cli
 
-```bash
-$ ionic start myProject tabs --type=ionic1 --cordova
-```
+- Instalar cordova e ionic:
+	npm install -g cordova ionic
 
-More info on this can be found on the Ionic [Getting Started](https://ionicframework.com/getting-started) page and the [Ionic CLI](https://github.com/ionic-team/ionic-cli) repo.
+- Instalar Java Development Kit (JDK) 8 o más desde: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
-## Issues
+- Instalar Android SDK desde: https://developer.android.com/studio/index.html#downloads al final de la página bajar solo las herramientas.
+  Crear una carpeta en C llamada "android" y descomprimir la carpeta tools que se baja en C:\android.
 
-Issues have been disabled on this repo. If you do find an issue or have a question, consider posting it on the [Ionic Forum](https://forum.ionicframework.com/). If there is truly an error, follow our guidelines for [submitting an issue](https://ionicframework.com/submit-issue/) to the main Ionic repository.
+- Agregar JAVA_HOME a las variables del entorno (click derecho sobre PC --> Propiedades --> Advanced System settings --> Enviromment variables) con el valor siendo la ruta a la carpeta del JDK
+
+- Agregar %JAVA_HOME\bin a la variable PATH
+  Después de cada cambio sobre las variables del entorno hay que cerrar y volver a abrir la consola para que tomen efecto los cambios
+
+- Bajar el archivo "packages_file.txt" que se encuentra en la misma carpeta que este archivo y dejarlo en C:\android
+
+- En la consola, ir a C:\android\tools\bin y correr el siguiente comando
+	sdkmanager --package_file=C:\android\packages_file.txt
+
+- Agregar ANDROID_HOME a las variables del entorno con el valor siendo la ruta a la carpeta del Android SDK
+
+- Agregar %ANDROID_HOME\tools y %ANDROID_HOME\platform-tools a la variable PATH
+
+Dependencias:
+    - Se deben bajar la primera vez que uno empieza a trabajar con el proyecto.
+    - Cuando se baja una dependecia nueva con "bower" o con "npm" hay que agregar la opción "--save", sino no se guarda la dependecia en los archivos de configuración de dependencias "package.json" "bower.json"
+    - Cuando se hace un pull de la branch donde uno esta trabajando, por las dudas se tienen que correr los comandos.
+    - Para correr los comandos en la consola, ir al root del proyecto y:
+        npm install
+        bower install
