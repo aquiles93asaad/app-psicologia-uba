@@ -26,7 +26,7 @@ Configuración entorno Windows:
 
 - Agregar JAVA_HOME a las variables del entorno (click derecho sobre PC --> Propiedades --> Advanced System settings --> Enviromment variables) con el valor siendo la ruta a la carpeta del JDK
 
-- Agregar %JAVA_HOME\bin a la variable PATH
+- Agregar %JAVA_HOME%\bin a la variable PATH
   Después de cada cambio sobre las variables del entorno hay que cerrar y volver a abrir la consola para que tomen efecto los cambios
 
 - Bajar el archivo "packages_file.txt" que se encuentra en la misma carpeta que este archivo y dejarlo en C:\android
@@ -36,7 +36,7 @@ Configuración entorno Windows:
 
 - Agregar ANDROID_HOME a las variables del entorno con el valor siendo la ruta a la carpeta del Android SDK
 
-- Agregar %ANDROID_HOME\tools y %ANDROID_HOME\platform-tools a la variable PATH
+- Agregar %ANDROID_HOME%\tools y %ANDROID_HOME%\platform-tools a la variable PATH
 
 Dependencias:
     - Se deben bajar la primera vez que uno empieza a trabajar con el proyecto.
