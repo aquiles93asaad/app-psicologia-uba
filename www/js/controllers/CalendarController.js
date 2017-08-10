@@ -28,7 +28,8 @@ function CalendarController($scope) {
                 center: 'title',
                 right: 'next'
             },
-            lang: 'es'
+            lang: 'es',
+            weekdaysShort: ['L', 'M', 'M', 'J', 'V', 'S', 'D']
         }
     };
 }

@@ -1,0 +1,27 @@
+.nav-bar-container {
+    .bar {
+        &.bar-header {
+            height: 50px;
+            background-image: none;
+            background-color: $header-color;
+            border-bottom: 1px solid $border-color;
+
+            .button {
+                color: $header-boton-color;
+
+                &:before {
+                    font-size: $font-size-12x-l;
+                }
+            }
+
+            .title {
+                left: 0;
+                text-align: center;
+                height: $distance-5x-l;
+                line-height: $distance-5x-l;
+                color: $font-color;
+                font-size: $font-size-4x-l;
+            }
+        }
+    }
+}
