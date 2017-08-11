@@ -12,6 +12,9 @@ function genericDaoService($q, $cordovaSQLite, dbName) {
         updateData: updateData,
         deleteData: deleteData,
         searchData: searchData,
+        searchById: searchById,
+        searchDataAll: searchDataAll,
+        searchDataCondition: searchDataCondition
         openDB: openDB
     };
 
@@ -52,9 +55,9 @@ function genericDaoService($q, $cordovaSQLite, dbName) {
             if(typeof val === 'string'){
                 val = "'" + val + "'";
             }
-            query = query + listFields[i] + val + " ";
+            query = query + listFields[i] + "=" + val + ",";
         }
-        query = query + "WHERE id=" + idValue;
+        query = query.slice(0, -1) + " WHERE id=" + idValue;
 
         return executeTransaction(deferred, query);
     }
@@ -67,9 +70,36 @@ function genericDaoService($q, $cordovaSQLite, dbName) {
         return executeTransaction(deferred, query);
     }
 
-    function searchData() {
+    function searchData(query) {
         var deferred = $q.defer();
-        
+        return executeTransaction(deferred, query);
+    }
+
+    function searchDataAll(tableName) {
+        var deferred = $q.defer();
+        var query = "SELECT * FROM " + tableName;
+        return executeTransaction(deferred, query);
+    }
+
+    function searchById(tableName, id) {
+        var deferred = $q.defer();
+        var query = "SELECT * FROM " + tableName + " WHERE id=" + id;
+        return executeTransaction(deferred, query);
+    }
+
+    function searchDataCondition(tableName, listField, listValue) {
+        var deferred = $q.defer();
+
+        var query = "SELECT * FROM " + tableName + "WHERE ";
+        for (var i = 0; i < listFields.length; i++) {
+            var val = listValues[i];
+            if(typeof val === 'string'){
+                val = "'" + val + "'";
+            }
+            query = query + listFields[i] + "=" + val + " AND ";
+        }
+        query = query.slice(0, -5);
+
         return deferred.promise;
     }
 
