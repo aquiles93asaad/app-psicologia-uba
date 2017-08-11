@@ -29,7 +29,12 @@ function CalendarController($scope) {
                 right: 'next'
             },
             lang: 'es',
-            weekdaysShort: ['L', 'M', 'M', 'J', 'V', 'S', 'D']
+            views: {
+                month: {
+                    columnFormat: 'd'
+                }
+            }
+            // dayNamesShort: ['L', 'M', 'M', 'J', 'V', 'S', 'D']
         }
     };
 }

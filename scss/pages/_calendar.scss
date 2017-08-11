@@ -1,0 +1,69 @@
+.calendar-container {
+    width: 100%;
+    background-color: $second-header-color;
+    color: white;
+
+    .fc-toolbar {
+        height: $distance-5x-l;
+        position: relative;
+        margin: $no-distance;
+        background-color: $third-header-color;
+
+        .fc-left,
+        .fc-right {
+            float: none;
+            @extend .vertical-centered;
+
+            button {
+                width: auto;
+                height: auto;
+                background: transparent;
+                border: none;
+                padding: $no-distance;
+                box-shadow: none;
+
+                .fc-icon {
+                    font-size: $font-size-3x-l;
+                    top: $no-distance;
+                    width: 100%;
+                    margin: $no-distance;
+                    color: $header-boton-color;
+                }
+            }
+        }
+
+        .fc-left {
+            left: $distance-s;
+        }
+
+        .fc-right {
+            right: $distance-s;
+        }
+
+        .fc-center {
+            width: 100%;
+
+            h2 {
+                width: 100%;
+                line-height: $font-size-17x-l;
+                text-transform: capitalize;
+                color: $header-boton-color;
+                font-size: $font-size-4x-l;
+            }
+        }
+    }
+
+    .fc-view-container {
+        .fc-row {
+            .fc-day-header {
+                height: $distance-2x-l;
+                vertical-align: middle;
+                text-transform: uppercase;
+            }
+
+            .fc-day-number {
+                text-align: center;
+            }
+        }
+    }
+}

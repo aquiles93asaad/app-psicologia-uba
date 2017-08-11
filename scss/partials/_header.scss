@@ -15,12 +15,13 @@
             }
 
             .title {
-                left: 0;
+                left: 0 !important;
                 text-align: center;
                 height: $distance-5x-l;
                 line-height: $distance-5x-l;
                 color: $font-color;
-                font-size: $font-size-4x-l;
+                font-size: $font-size-6x-l;
+                color: $header-boton-color;
             }
         }
     }
