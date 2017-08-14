@@ -1,0 +1,12 @@
+<ion-view view-title="Links">
+    <ion-content>
+        <div class="links-container">
+            <div class="link-container" ng-repeat="link in links" ng-click="goToPage(link.url)">
+                <div class="button-container">
+                    <button>{{link.title}}</button>
+                </div>
+                <img ng-src="{{link.image}}">
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

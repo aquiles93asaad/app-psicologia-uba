@@ -10,6 +10,26 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
         controller: 'AppController'
     })
 
+    .state('app.links', {
+        url: '/links',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/pages/links.html',
+                controller: 'LinksController'
+            }
+        }
+    })
+
+    .state('app.correlatives', {
+        url: '/correlatives',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/pages/correlatives.html',
+                controller: 'CorrelativesController'
+            }
+        }
+    })
+
     .state('app.calendar', {
         url: '/calendar',
         views: {
@@ -56,6 +76,16 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
             'menuContent': {
                 templateUrl: 'templates/pages/my-subject.html',
                 controller: 'MySubjectController'
+            }
+        }
+    })
+
+    .state('app.event', {
+        url: '/add-event',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/pages/event.html',
+                controller: 'EventController'
             }
         }
     });

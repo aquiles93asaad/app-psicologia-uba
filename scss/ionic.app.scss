@@ -4,11 +4,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 @import 'www/lib/font-awesome/scss/font-awesome.scss';
 
+@import 'scss/fonts';
 @import 'scss/variables';
 @import 'scss/mixins';
 @import 'scss/helpers';
 @import "www/lib/ionic/scss/ionic";
 
-@import "scss/pages/calendar";
 @import "scss/partials/menu";
 @import "scss/partials/header";
+@import "scss/pages/calendar";
+@import "scss/pages/links";

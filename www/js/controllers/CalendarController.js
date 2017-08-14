@@ -6,7 +6,7 @@ CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate'];
 
 function CalendarController($scope, $ionicSideMenuDelegate) {
     $ionicSideMenuDelegate.canDragContent(false);
-    
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -22,12 +22,26 @@ function CalendarController($scope, $ionicSideMenuDelegate) {
 
     $scope.uiConfig = {
         calendar:{
-            aspectRatio: 0.7,
+            aspectRatio: 0.72,
             editable: true,
+            customButtons: {
+                prevIcon: {
+                   icon: ' fa fa-chevron-left',
+                   click: function() {
+                       angular.element('.calendar-container').fullCalendar('prev');
+                   }
+               },
+               nextIcon: {
+                    icon: ' fa fa-chevron-right',
+                    click: function() {
+                        angular.element('.calendar-container').fullCalendar('next');
+                    }
+               }
+           },
             header:{
-                left: 'prev',
+                left: 'prevIcon',
                 center: 'title',
-                right: 'next'
+                right: 'nextIcon'
             },
             lang: 'es',
             views: {

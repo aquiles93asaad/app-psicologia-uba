@@ -4,24 +4,27 @@
     @include translate3d(-320px, 0, 0);
     z-index: 100 !important;
     min-height: 1px;
-    background: $header-color;
-    @include linear-gradient(top, to bottom, $header-color, 0%, $second-header-color, 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, $header-color), color-stop(100%, $second-header-color));
+    background: $menu-color;
+    @include linear-gradient(top, to bottom, $menu-color, 0%, $menu-color-2, 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, $menu-color), color-stop(100%, $menu-color-2));
 
     .scroll-content {
         .item {
-            //background-color: $dark;
-            border-bottom: 1px solid rgba(255,255,255,0.5);
-            //color: $light;
+            // background: $main-color;
+            // @include linear-gradient(top, to bottom, $main-color-alternate-2, 0%, $main-color, 100%);
+            // background: -webkit-gradient(left top, left bottom, color-stop(0%, $main-color-alternate-2), color-stop(100%, $main-color));
+            background-color: transparent;
+            border: none;
+            color: $secondary-color-alternate;
             padding: 0;
-            font-size: $font-size-l;
-            border-top: none;
-            margin: $no-distance -1px;
+            font-size: $font-size-x-l;
+            margin: $no-distance;
 
             span {
                 padding: $distance-m;
                 padding-left: $distance-5x-l;
                 display: block;
+                font-family: $opb;
             }
 
             .fa {
@@ -30,13 +33,17 @@
                 font-size: $font-size-2x-l;
             }
 
-            // &.chosen {
-            //     background-color: $light;
-            //     border-left: $distance-x-s solid $assertive-alternate;
-            //     color: $assertive-alternate;
-            //     border-bottom: none;
-            //     padding-left: $distance-x-s;
-            // }
+            &.chosen {
+                background-color: $secondary-color;
+                @include linear-gradient(top, to bottom, $secondary-color, 0%, $secondary-color-alternate, 100%);
+                background: -webkit-gradient(left top, left bottom, color-stop(0%, $secondary-color), color-stop(100%, $secondary-color-alternate));
+                border-left: $distance-x-s solid $main-color-alternate-2;
+                color: $main-color;
+
+                span {
+                    padding-left: $distance-6x-l;
+                }
+            }
 
             a {
                 border: none;

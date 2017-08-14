@@ -1,3 +1,7 @@
+body {
+    font-family: $opr;
+}
+
 body.menu-open {
     .menu-content.menu-animated {
         @include translate3d-forced(0, 0, 0);
@@ -10,6 +14,12 @@ body {
             top: 50px;
             @include translate3d(0, 0, 0);
         }
+    }
+}
+
+.menu-content {
+    .scroll-content {
+        background-color: $grey;
     }
 }
 
@@ -75,7 +85,21 @@ img {
 }
 
 .button-container {
-    padding: $distance-s;
+    margin-bottom: $distance-x-s;
+
+    button {
+        border: none;
+        border-radius: $distance-2x-s;
+        padding: $distance-x-s;
+        width: 100%;
+        background-color: $secondary-color;
+        @include linear-gradient(top, to bottom, $secondary-color, 0%, $secondary-color-alternate, 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, $secondary-color), color-stop(100%, $secondary-color-alternate));
+        color: $light;
+        font-family: $opb;
+        font-size: $font-size-l;
+        box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.25);
+    }
 
     a {
         text-decoration: none;

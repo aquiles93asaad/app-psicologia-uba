@@ -7,7 +7,7 @@
 
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="lib/fullcalendar/dist/fullcalendar.css"/>
-    <link href="css/ionic.app.min.css" rel="stylesheet">
+    <link href="css/ionic.app.css" rel="stylesheet">
 
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/moment/min/moment.min.js"></script>
@@ -31,19 +31,25 @@
     <!-- Generic DAO -->
     <script src="js/modules/GenericDAO/generic-dao-module.js"></script>
     <script src="js/modules/GenericDAO/generic-dao-service.js"></script>
+    <script src="js/modules/GenericDAO/populate-db-service.js"></script>
 
     <!-- Controllers -->
     <script src="js/controllers/AppController.js"></script>
+    <script src="js/controllers/LinksController.js"></script>
     <script src="js/controllers/CalendarController.js"></script>
     <script src="js/controllers/EventController.js"></script>
     <script src="js/controllers/MySubjectsController.js"></script>
     <script src="js/controllers/MySubjectController.js"></script>
     <script src="js/controllers/SubjectsController.js"></script>
     <script src="js/controllers/SubjectController.js"></script>
+    <script src="js/controllers/CorrelativesController.js"></script>
 
     <!-- Services -->
     <script src="js/services/SubjectsService.js"></script>
     <script src="js/services/EventsService.js"></script>
+
+    <!-- Directives -->
+    <script src="js/directives/menu-item.js"></script>
   </head>
 
   <body ng-app="UbaPsicologiaApp">

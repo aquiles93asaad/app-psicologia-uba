@@ -2,9 +2,9 @@ angular.module('UbaPsicologiaApp')
 
 .controller('SubjectsController', SubjectsController);
 
-SubjectsController.$inject = ['$scope'];
+SubjectsController.$inject = ['$scope', 'SubjectsService'];
 
-function SubjectsController($scope) {
+function SubjectsController($scope, SubjectsService) {
     $scope.subjects = [
         {id: 1, name: 'Nombre de materia 1'},
         {id: 2, name: 'Nombre de materia 2'},

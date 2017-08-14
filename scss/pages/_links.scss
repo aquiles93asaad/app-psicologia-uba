@@ -1,0 +1,18 @@
+.links-container {
+    margin-top: $distance-m;
+    padding: $no-distance $distance-x-s;
+
+    .link-container {
+        margin-bottom: $distance-s;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}

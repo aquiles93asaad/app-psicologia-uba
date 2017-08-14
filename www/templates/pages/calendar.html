@@ -1,8 +1,8 @@
-<ion-view view-title="Calendario">
+<ion-view view-title="Calendario" cache-view="false">
     <ion-content class="relative-parent">
         <div class="calendar-container" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
         <div class="floating-button-container">
-            <button class="floating-button">
+            <button class="floating-button" ui-sref="app.event">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
         </div>

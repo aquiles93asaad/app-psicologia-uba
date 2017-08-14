@@ -3,12 +3,12 @@
         &.bar-header {
             height: 50px;
             background-image: none;
-            @include linear-gradient(top, to bottom, $header-color, 0%, $second-header-color, 100%);
-            background: -webkit-gradient(left top, left bottom, color-stop(0%, $header-color), color-stop(100%, $second-header-color));
-            border-bottom: 1px solid $border-color;
+            @include linear-gradient(top, to bottom, $main-color, 0%, $main-color-alternate, 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, $main-color), color-stop(100%, $main-color-alternate));
+            box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.37);
 
             .button {
-                color: $header-button-color;
+                color: $secondary-color-alternate;
 
                 &:before {
                     font-size: $font-size-12x-l;
@@ -20,8 +20,9 @@
                 text-align: center;
                 height: $distance-5x-l;
                 line-height: $distance-5x-l;
-                color: $font-color;
+                color: $light;
                 font-size: $font-size-6x-l;
+                font-family: $opr;
             }
         }
     }
