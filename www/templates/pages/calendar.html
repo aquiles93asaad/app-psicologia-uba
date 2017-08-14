@@ -1,5 +1,10 @@
 <ion-view view-title="Calendario">
-    <ion-content>
+    <ion-content class="relative-parent">
         <div class="calendar-container" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
+        <div class="floating-button-container">
+            <button class="floating-button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+        </div>
     </ion-content>
 </ion-view>

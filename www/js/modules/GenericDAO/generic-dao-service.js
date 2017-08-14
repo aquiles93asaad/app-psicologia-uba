@@ -14,7 +14,7 @@ function genericDaoService($q, $cordovaSQLite, dbName) {
         searchData: searchData,
         searchById: searchById,
         searchDataAll: searchDataAll,
-        searchDataCondition: searchDataCondition
+        searchDataCondition: searchDataCondition,
         openDB: openDB
     };
 

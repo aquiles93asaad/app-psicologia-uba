@@ -77,3 +77,11 @@
          -o-transform: rotate($angle);
             transform: rotate($angle);
 }
+
+@mixin linear-gradient($direction, $lgDirection, $firstColor, $startPercent, $secondColor, $secondPercent) {
+    background: -moz-linear-gradient($direction, $header-color $startPercent, $second-header-color $secondPercent);
+    background: -webkit-linear-gradient($direction, $header-color $startPercent, $second-header-color $secondPercent);
+    background: -o-linear-gradient($direction, $header-color $startPercent, $second-header-color $secondPercent);
+    background: -ms-linear-gradient($direction, $header-color $startPercent, $second-header-color $secondPercent);
+    background: linear-gradient($lgDirection, $header-color $startPercent, $second-header-color $secondPercent);
+}

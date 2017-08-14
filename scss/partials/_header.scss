@@ -3,11 +3,12 @@
         &.bar-header {
             height: 50px;
             background-image: none;
-            background-color: $header-color;
+            @include linear-gradient(top, to bottom, $header-color, 0%, $second-header-color, 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, $header-color), color-stop(100%, $second-header-color));
             border-bottom: 1px solid $border-color;
 
             .button {
-                color: $header-boton-color;
+                color: $header-button-color;
 
                 &:before {
                     font-size: $font-size-12x-l;
@@ -21,7 +22,6 @@
                 line-height: $distance-5x-l;
                 color: $font-color;
                 font-size: $font-size-6x-l;
-                color: $header-boton-color;
             }
         }
     }

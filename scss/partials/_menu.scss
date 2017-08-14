@@ -1,3 +1,48 @@
 .menu {
-    .bar {}
+    top: 50px;
+    @include custom-transition(transform, 400ms);
+    @include translate3d(-320px, 0, 0);
+    z-index: 100 !important;
+    min-height: 1px;
+    background: $header-color;
+    @include linear-gradient(top, to bottom, $header-color, 0%, $second-header-color, 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, $header-color), color-stop(100%, $second-header-color));
+
+    .scroll-content {
+        .item {
+            //background-color: $dark;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            //color: $light;
+            padding: 0;
+            font-size: $font-size-l;
+            border-top: none;
+            margin: $no-distance -1px;
+
+            span {
+                padding: $distance-m;
+                padding-left: $distance-5x-l;
+                display: block;
+            }
+
+            .fa {
+                @extend .vertical-centered;
+                left: $distance-m;
+                font-size: $font-size-2x-l;
+            }
+
+            // &.chosen {
+            //     background-color: $light;
+            //     border-left: $distance-x-s solid $assertive-alternate;
+            //     color: $assertive-alternate;
+            //     border-bottom: none;
+            //     padding-left: $distance-x-s;
+            // }
+
+            a {
+                border: none;
+                background-color: transparent;
+                padding: $no-distance;
+            }
+        }
+    }
 }

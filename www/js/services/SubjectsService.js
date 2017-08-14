@@ -2,7 +2,7 @@ angular.module('UbaPsicologiaApp')
 
 .factory('SubjectsService', SubjectsService);
 
-ProductsService.$inject = ['$q', 'genericDaoService'];
+SubjectsService.$inject = ['$q', 'genericDaoService'];
 
 /* @ngInject */
 function SubjectsService($q, genericDaoService) {
@@ -18,12 +18,12 @@ function SubjectsService($q, genericDaoService) {
 		getPredCorrelatives: getPredCorrelatives,
 		getSucCorrelatives: getSucCorrelatives,
 		getNotes: getNotes,
-		createNote, createNote,
+		createNote: createNote,
 		updateNote: updateNote,
 		setState: setState,
 		setCurrentClass: setCurrentClass,
 		setDateCourse: setDateCourse,
-		deleteNote, deleteNote,
+		deleteNote: deleteNote,
 		resetSubject: resetSubject
 	};
 
@@ -32,7 +32,7 @@ function SubjectsService($q, genericDaoService) {
 	//Devuelve todas las materias
 	function getAll() {
 		var deferred = $q.defer();
-        genericDaoService.searchDataAll("SUBJECTS");
+        genericDaoService.searchDataAll("SUBJECTS")
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -45,7 +45,7 @@ function SubjectsService($q, genericDaoService) {
 	//Devuelve la materia con el id de input
 	function getById(id) {
 		var deferred = $q.defer();
-        genericDaoService.searchById(tableName, id);
+        genericDaoService.searchById(tableName, id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -59,7 +59,7 @@ function SubjectsService($q, genericDaoService) {
 	//Puede devolver más de un valor, ya que utiliza la sentencia LIKE
 	function getByName(name) {
 		var deferred = $q.defer();
-        genericDaoService.searchData("SELECT * FROM " + tableName + " WHERE name LIKE '%" + name + "%'");
+        genericDaoService.searchData("SELECT * FROM " + tableName + " WHERE name LIKE '%" + name + "%'")
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -72,7 +72,7 @@ function SubjectsService($q, genericDaoService) {
 	//Devuelve todas las catedras de la materia con el id de input
 	function getClasses(id) {
 		var deferred = $q.defer();
-        genericDaoService.searchData("SELECT c.* FROM " + tableName + " s JOIN CLASSES c ON s.id=c.subject_id WHERE s.id=" + id);
+        genericDaoService.searchData("SELECT c.* FROM " + tableName + " s JOIN CLASSES c ON s.id=c.subject_id WHERE s.id=" + id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -86,7 +86,7 @@ function SubjectsService($q, genericDaoService) {
 	//Si la materia nunca se cursó, devuelve NULL
 	function getActualClass(id) {
 		var deferred = $q.defer();
-        genericDaoService.searchData("SELECT c.* FROM " + tableName + " s JOIN CLASSES c ON s.id=c.subject_id WHERE s.id=" + id + " AND c.id=s.current_class_id");
+        genericDaoService.searchData("SELECT c.* FROM " + tableName + " s JOIN CLASSES c ON s.id=c.subject_id WHERE s.id=" + id + " AND c.id=s.current_class_id")
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -99,7 +99,7 @@ function SubjectsService($q, genericDaoService) {
 	//Devuelve las materias que son anteriores en el plan a la materia con el id de input
 	function getPredCorrelatives(id) {
 		var deferred = $q.defer();
-        genericDaoService.searchData("SELECT s.* FROM " + tableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_pred WHERE c.id_suc=" + id);
+        genericDaoService.searchData("SELECT s.* FROM " + tableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_pred WHERE c.id_suc=" + id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -112,7 +112,7 @@ function SubjectsService($q, genericDaoService) {
 	//Devuelve las materias que son posteriores en el plan a la materia con el id de input
 	function getSucCorrelatives(id) {
 		var deferred = $q.defer();
-        genericDaoService.searchData("SELECT s.* FROM " + tableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_suc WHERE c.id_pred=" + id);
+        genericDaoService.searchData("SELECT s.* FROM " + tableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_suc WHERE c.id_pred=" + id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -125,7 +125,7 @@ function SubjectsService($q, genericDaoService) {
 	//Devuelve todas las notas de la materia con el id de input
 	function getNotes(id) {
 		var deferred = $q.defer();
-        genericDaoService.searchData("SELECT n.* FROM " + tableName + " s JOIN NOTES n ON s.id=n.subject_id WHERE s.id=" + id);
+        genericDaoService.searchData("SELECT n.* FROM " + tableName + " s JOIN NOTES n ON s.id=n.subject_id WHERE s.id=" + id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -142,7 +142,7 @@ function SubjectsService($q, genericDaoService) {
 		//value es el valor de la nota. En num se guarda del 0 al 10, y en string se guarda 0 para desaprobado y 1 para aprobado
 	function createNote(subject_id, name, type, value) {
 		var deferred = $q.defer();
-        genericDaoService.insertData("NOTES", ["subject_id", "name", "type", "value"], [subject_id, name, type, value]);
+        genericDaoService.insertData("NOTES", ["subject_id", "name", "type", "value"], [subject_id, name, type, value])
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -155,7 +155,7 @@ function SubjectsService($q, genericDaoService) {
 	//Modifica la nota con el id de input
 	function updateNote(id, name, type, value) {
 		var deferred = $q.defer();
-        genericDaoService.updateData("NOTES", ["name", "type", "value"], [name, type, value], id);
+        genericDaoService.updateData("NOTES", ["name", "type", "value"], [name, type, value], id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -169,7 +169,7 @@ function SubjectsService($q, genericDaoService) {
 	//Establece el estado en el que se encuentra la materia ("sin cursar", "cursando", ...)
 	function setState(state, id) {
 		var deferred = $q.defer();
-        genericDaoService.updateData(tableName, ["state"], [state], id);
+        genericDaoService.updateData(tableName, ["state"], [state], id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -183,7 +183,7 @@ function SubjectsService($q, genericDaoService) {
 	//Establece el id de la catedra que se esta cursando actualmente
 	function setCurrentClass(class_id, subject_id) {
 		var deferred = $q.defer();
-        genericDaoService.updateData(tableName, ["current_class_id"], [class_id], subject_id);
+        genericDaoService.updateData(tableName, ["current_class_id"], [class_id], subject_id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -197,7 +197,7 @@ function SubjectsService($q, genericDaoService) {
 	//Modifica el dia en que se "inicio" esta cursada. Osea, el momento en que se paso a "Cursando" en la app
 	function setDateCourse(date_course, id) {
 		var deferred = $q.defer();
-        genericDaoService.updateData(tableName, ["date_course"], [date_course], id);
+        genericDaoService.updateData(tableName, ["date_course"], [date_course], id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -210,7 +210,7 @@ function SubjectsService($q, genericDaoService) {
 	//Elimina la nota con el id de input
 	function deleteNote(id) {
 		var deferred = $q.defer();
-        genericDaoService.deleteData("NOTES", id);
+        genericDaoService.deleteData("NOTES", id)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -223,7 +223,7 @@ function SubjectsService($q, genericDaoService) {
 	//Vuelve a la materia al estado original, como si nunca hubiera sido cursada.
 	function resetSubject(id) {
 		var deferred = $q.defer();
-        genericDaoService.updateData(tableName, ["state", "current_class_id", "date_course"], ["Sin Cursar", NULL, NULL], id);
+        genericDaoService.updateData(tableName, ["state", "current_class_id", "date_course"], ["Sin Cursar", NULL, NULL], id)
         .then(function(success) {
             deferred.resolve(success);
         })

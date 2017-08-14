@@ -2,18 +2,6 @@
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
-@font-face {
-    font-family: 'verdana';
-    src: url('../fonts/Verdana.eot?v=4.7.0');
-    src: url('../fonts/Verdana.eot?#iefix&v=4.7.0') format('embedded-opentype'),
-         url('../fonts/Verdana.woff2?v=4.7.0') format('woff2'),
-         url('../fonts/Verdana.woff?v=4.7.0') format('woff'),
-         url('../fonts/Verdana.ttf?v=4.7.0') format('truetype'),
-         url('../fonts/Verdana.svg?v=4.7.0#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
 @import 'www/lib/font-awesome/scss/font-awesome.scss';
 
 @import 'scss/variables';

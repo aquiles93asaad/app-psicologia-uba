@@ -1,3 +1,18 @@
+body.menu-open {
+    .menu-content.menu-animated {
+        @include translate3d-forced(0, 0, 0);
+    }
+}
+
+body {
+    .menu-content {
+        .view-container.menu-animated {
+            top: 50px;
+            @include translate3d(0, 0, 0);
+        }
+    }
+}
+
 .scroll-content {
     &.overflow-scroll {
         overflow-y: auto;

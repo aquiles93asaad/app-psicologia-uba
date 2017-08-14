@@ -2,9 +2,11 @@ angular.module('UbaPsicologiaApp')
 
 .controller('CalendarController', CalendarController);
 
-CalendarController.$inject = ['$scope'];
+CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate'];
 
-function CalendarController($scope) {
+function CalendarController($scope, $ionicSideMenuDelegate) {
+    $ionicSideMenuDelegate.canDragContent(false);
+    
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -12,16 +14,15 @@ function CalendarController($scope) {
 
     $scope.eventSources =[{
         events: [
-            {title: 'All Day Event',start: new Date(y, m, 1), backgroundColor: 'red'},
             {title: 'All Day Event',start: new Date(y, m, 1)},
-            {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-            {title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0), allDay: false, backgroundColor: 'red'}
+            {title: 'All Day Event',start: new Date(y, m, 1)},
+            {title: 'All Day Event',start: new Date(y, m, d - 5)}
         ]
     }];
 
     $scope.uiConfig = {
         calendar:{
-            height: 450,
+            aspectRatio: 0.7,
             editable: true,
             header:{
                 left: 'prev',
@@ -31,10 +32,10 @@ function CalendarController($scope) {
             lang: 'es',
             views: {
                 month: {
-                    columnFormat: 'd'
+                    columnFormat: 'ddd'
                 }
-            }
-            // dayNamesShort: ['L', 'M', 'M', 'J', 'V', 'S', 'D']
+            },
+            dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
         }
     };
 }

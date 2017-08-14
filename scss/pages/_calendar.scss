@@ -1,13 +1,38 @@
+.floating-button-container {
+    position: absolute;
+    bottom: $distance-m;
+    right: $distance-m;
+    width: $distance-5x-l;
+    height: $distance-5x-l;
+    border-radius: 50%;
+    background-color: $header-button-color;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);;
+
+    .floating-button {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: $font-color;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+
+        i {
+            font-size: 20px;
+        }
+    }
+}
+
 .calendar-container {
     width: 100%;
-    background-color: $second-header-color;
+    height: 100%;
+    background-color: $third-header-color;
     color: white;
 
     .fc-toolbar {
         height: $distance-5x-l;
         position: relative;
         margin: $no-distance;
-        background-color: $third-header-color;
 
         .fc-left,
         .fc-right {
@@ -27,7 +52,7 @@
                     top: $no-distance;
                     width: 100%;
                     margin: $no-distance;
-                    color: $header-boton-color;
+                    color: $header-button-color;
                 }
             }
         }
@@ -47,13 +72,24 @@
                 width: 100%;
                 line-height: $font-size-17x-l;
                 text-transform: capitalize;
-                color: $header-boton-color;
+                color: $font-color;
                 font-size: $font-size-4x-l;
             }
         }
     }
 
     .fc-view-container {
+        height: calc(100% - 50px);
+
+        .fc-view {
+            height: 100%;
+
+            .fc-scroller {
+                height: 100% !important;
+                overflow: hidden !important;
+            }
+        }
+
         .fc-row {
             .fc-day-header {
                 height: $distance-2x-l;
@@ -64,6 +100,16 @@
             .fc-day-number {
                 text-align: center;
             }
+        }
+
+        th, td {
+            border: none;
+        }
+
+        .fc-today {
+            background-color: transparent;
+            color: $header-button-color;
+            font-weight: bold;
         }
     }
 }
