@@ -19,37 +19,38 @@ function CalendarController($scope, $ionicSideMenuDelegate) {
             {title: 'All Day Event',start: new Date(y, m, d - 5)}
         ]
     }];
-
-    $scope.uiConfig = {
-        calendar:{
-            aspectRatio: 0.72,
-            editable: true,
-            customButtons: {
-                prevIcon: {
-                   icon: ' fa fa-chevron-left',
-                   click: function() {
-                       angular.element('.calendar-container').fullCalendar('prev');
+    document.addEventListener("deviceready", function () {
+        $scope.uiConfig = {
+            calendar:{
+                aspectRatio: 0.72,
+                editable: true,
+                customButtons: {
+                    prevIcon: {
+                       icon: ' fa fa-chevron-left',
+                       click: function() {
+                           angular.element('.calendar-container').fullCalendar('prev');
+                       }
+                   },
+                   nextIcon: {
+                        icon: ' fa fa-chevron-right',
+                        click: function() {
+                            angular.element('.calendar-container').fullCalendar('next');
+                        }
                    }
                },
-               nextIcon: {
-                    icon: ' fa fa-chevron-right',
-                    click: function() {
-                        angular.element('.calendar-container').fullCalendar('next');
+                header:{
+                    left: 'prevIcon',
+                    center: 'title',
+                    right: 'nextIcon'
+                },
+                lang: 'es',
+                views: {
+                    month: {
+                        columnFormat: 'ddd'
                     }
-               }
-           },
-            header:{
-                left: 'prevIcon',
-                center: 'title',
-                right: 'nextIcon'
-            },
-            lang: 'es',
-            views: {
-                month: {
-                    columnFormat: 'ddd'
-                }
-            },
-            dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
-        }
-    };
+                },
+                dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
+            }
+        };
+    }, false);
 }
