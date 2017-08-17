@@ -309,7 +309,14 @@ DbAccess.PopulateDB = function() {
 "INSERT INTO CLASSES (name,num_cat,subject_id) SELECT 'Prof. Tit. Reg. como coordinador J.J. Michel Fariña','823',id FROM SUBJECTS WHERE NAME='Cine y Subjetividad: el Método de Lectura Ético-Analítica de Películas y Series Televisivas.'";
   $cordovaSQLite.execute(db, insertClasses);
 
-  var insertCorrelatives = "INSERT INTO PRED_SUC_CORRELATIVES (id_pred,id_suc) VALUES (1,7)  " +
+  var insertCorrelatives =
+"INSERT INTO ANT_PRED_CORRELATIVES (id_pred,id_suc) VALUES (NULL,1) " +
+"INSERT INTO ANT_PRED_CORRELATIVES (id_pred,id_suc) VALUES (NULL,2) " +
+"INSERT INTO ANT_PRED_CORRELATIVES (id_pred,id_suc) VALUES (NULL,3) " +
+"INSERT INTO ANT_PRED_CORRELATIVES (id_pred,id_suc) VALUES (NULL,4) " +
+"INSERT INTO ANT_PRED_CORRELATIVES (id_pred,id_suc) VALUES (NULL,5) " +
+"INSERT INTO ANT_PRED_CORRELATIVES (id_pred,id_suc) VALUES (NULL,6) " +
+"INSERT INTO PRED_SUC_CORRELATIVES (id_pred,id_suc) VALUES (1,7)  " +
 "INSERT INTO PRED_SUC_CORRELATIVES (id_pred,id_suc) VALUES (1,8)  " +
 "INSERT INTO PRED_SUC_CORRELATIVES (id_pred,id_suc) VALUES (2,8)  " +
 "INSERT INTO PRED_SUC_CORRELATIVES (id_pred,id_suc) VALUES (3,9)  " +
