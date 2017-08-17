@@ -15,7 +15,7 @@ function SubjectsService($q, genericDaoService) {
 		getByName: getByName,
 		getClasses: getClasses,
 		getActualClass: getActualClass,
-		getNoneCorrelativesSubjects, getNoneCorrelativesSubjects,
+		getNoneCorrelativesSubjects: getNoneCorrelativesSubjects,
 		getPredCorrelatives: getPredCorrelatives,
 		getSucCorrelatives: getSucCorrelatives,
 		getNotes: getNotes,

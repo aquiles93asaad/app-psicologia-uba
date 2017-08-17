@@ -4,7 +4,7 @@ angular.module('UbaPsicologiaApp')
 
 menuItem.$inject = ['$state', '$ionicSideMenuDelegate'];
 
-function menuItem($state, $ionicSideMenuDelegate, ) {
+function menuItem($state, $ionicSideMenuDelegate) {
     var directive = {
         link: link,
         scope: true,

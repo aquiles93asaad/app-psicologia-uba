@@ -7,8 +7,8 @@ populateDbService.$inject = ['$q', '$cordovaSQLite', 'dbName'];
 function populateDbService($q, $cordovaSQLite, dbName) {
     var service = {
         createTables: createTables,
-        isnertSubjects isnertSubjects,
-        isnertClasses: isnertClasses,
+        insertSubjects: insertSubjects,
+        insertClasses: insertClasses,
         insertCorrelatives: insertCorrelatives
     };
 
@@ -31,13 +31,13 @@ function populateDbService($q, $cordovaSQLite, dbName) {
         return deferred.promise;
     }
 
-    function isnertSubjects() {
+    function insertSubjects() {
         var deferred = $q.defer();
 
         return deferred.promise;
     }
 
-    function isnertClasses() {
+    function insertClasses() {
         var deferred = $q.defer();
 
         return deferred.promise;
