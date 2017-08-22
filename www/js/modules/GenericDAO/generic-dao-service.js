@@ -104,7 +104,17 @@ function genericDaoService($q, $cordovaSQLite, dbName) {
     }
 
     function openDB() {
-        db = $cordovaSQLite.openDB({ name: dbName });
+        var deferred = $q.defer();
+
+        window.sqlitePlugin.openDatabase({ name: dbName, location: 'default' }, function(dataBase) {
+            db = dataBase;
+            deferred.resolve(dataBase);
+        }, function(err) {
+            console.log('Open database ERROR: ' + JSON.stringify(err));
+            deferred.reject();
+        });
+
+        return deferred.promise;
     }
 
     function executeTransaction(deferred, query) {

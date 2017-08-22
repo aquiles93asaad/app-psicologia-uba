@@ -34,10 +34,10 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {},
-            "cordova-sqlite-storage": {},
             "cordova-plugin-calendar": {},
             "cordova-plugin-x-toast": {},
-            "cordova-plugin-inappbrowser": {}
+            "cordova-plugin-inappbrowser": {},
+            "cordova-sqlite-storage": {}
         },
         "platforms": [
             "android"

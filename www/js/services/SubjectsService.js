@@ -98,7 +98,7 @@ function SubjectsService($q, genericDaoService) {
 	}
 
 	//Devuelve las materias que no tienen materias correlativas anteriores
-	function getNoneCorrelativesSubjects() {
+	function getPredCorrelatives() {
 		var deferred = $q.defer();
         genericDaoService.searchData("SELECT s.* FROM " + tableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_pred WHERE c.id_suc=" + id)
         .then(function(success) {
@@ -111,7 +111,7 @@ function SubjectsService($q, genericDaoService) {
 	}
 
 	//Devuelve las materias que son anteriores en el plan a la materia con el id de input
-	function getPredCorrelatives(id) {
+	function getNoneCorrelativesSubjects(id) {
 		var deferred = $q.defer();
         genericDaoService.searchData("SELECT s.* FROM " + tableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_suc WHERE c.id_pred IS NULL")
         .then(function(success) {

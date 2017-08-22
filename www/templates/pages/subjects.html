@@ -1,8 +1,9 @@
 <ion-view view-title="Materias">
     <ion-content>
         <ion-list>
-            <ion-item ng-repeat="subject in subjects" href="app.subject({subjectId: subject.id})">
+            <ion-item class="subject-item" ng-repeat="subject in subjects" ui-sref="app.subject({subjectId: subject.id})">
                 {{subject.name}}
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </ion-item>
         </ion-list>
     </ion-content>

@@ -1,7 +1,3 @@
-body {
-    font-family: $opr;
-}
-
 body.menu-open {
     .menu-content.menu-animated {
         @include translate3d-forced(0, 0, 0);
@@ -30,6 +26,10 @@ body {
 
     &.has-header {
         top: $distance-5x-l;
+    }
+
+    .list {
+        margin-top: $distance-2x-s;
     }
 }
 

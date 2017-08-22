@@ -1,0 +1,22 @@
+.list {
+    .subject-item {
+        font-size: $font-size-x-l;
+        color: $dark;
+        border: none;
+        margin: $no-distance;
+
+        a {
+            background-color: $grey;
+            font-family: $opr;
+            white-space: normal;
+            padding-top: $distance-m;
+            padding-bottom: $distance-m;
+
+            i {
+                @extend .vertical-centered;
+                right: $distance-x-l;
+                color: $secondary-color-alternate;
+            }
+        }
+    }
+}

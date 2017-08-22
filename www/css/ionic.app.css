@@ -2346,9 +2346,6 @@
 /* Font Size */
 /* Font Family */
 /* Distance Variables */
-body {
-  font-family: "Open Sans Regular"; }
-
 body.menu-open .menu-content.menu-animated {
   -webkit-transform: translate3d(0, 0, 0) !important;
   -moz-transform: translate3d(0, 0, 0) !important;
@@ -2373,11 +2370,14 @@ body .menu-content .view-container.menu-animated {
 .scroll-content.has-header {
   top: 50px; }
 
+.scroll-content .list {
+  margin-top: 5px; }
+
 .relative-parent {
   position: relative; }
 
 .vertical-centered, .menu .scroll-content .item .fa, .calendar-container .fc-toolbar .fc-left,
-.calendar-container .fc-toolbar .fc-right {
+.calendar-container .fc-toolbar .fc-right, .list .subject-item a i {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -12423,3 +12423,18 @@ a.button {
       max-width: 100%;
       display: block;
       margin: 0 auto; }
+
+.list .subject-item {
+  font-size: 18px;
+  color: #000;
+  border: none;
+  margin: 0; }
+  .list .subject-item a {
+    background-color: #e4e8ea;
+    font-family: "Open Sans Regular";
+    white-space: normal;
+    padding-top: 20px;
+    padding-bottom: 20px; }
+    .list .subject-item a i {
+      right: 30px;
+      color: #a1864c; }

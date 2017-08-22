@@ -93,7 +93,7 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
     $urlRouterProvider.otherwise('/app/calendar');
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, populateDbService, genericDaoService) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -105,6 +105,41 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
+        }
+
+        if(window.localStorage.getItem("DBExists") == null) {
+            genericDaoService.openDB()
+            .then(function(db) {
+                console.log("Data Base succefully Created");
+                return populateDbService.createTables(db);
+            })
+            .then(function() {
+                console.log("Tables created succefully");
+                return populateDbService.insertSubjects();
+            })
+            .then(function() {
+                console.log("Subjects inserted succefully");
+                return populateDbService.insertClasses();
+            })
+            .then(function() {
+                console.log("Classes inserted succefully");
+                return populateDbService.insertCorrelatives();
+            })
+            .then(function() {
+                console.log("Correlatives inserted succefully");
+                window.localStorage.setItem("DBExists", 'true');
+            })
+            .catch(function() {
+                console.log('ERROR with data base population');
+            })
+        } else {
+            genericDaoService.openDB()
+            .then(function(db) {
+                console.log("Data Base succefully Opened");
+            })
+            .catch(function() {
+                console.log("Data Base could not Opened");
+            });
         }
     });
 });
