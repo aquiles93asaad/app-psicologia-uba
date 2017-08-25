@@ -119,16 +119,16 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
             })
             .then(function() {
                 console.log("Subjects inserted succefully");
-                return populateDbService.insertClasses();
+                //return populateDbService.insertClasses();
             })
-            .then(function() {
-                console.log("Classes inserted succefully");
-                return populateDbService.insertCorrelatives();
-            })
-            .then(function() {
-                console.log("Correlatives inserted succefully");
-                window.localStorage.setItem("DBExists", 'true');
-            })
+            // .then(function() {
+            //     console.log("Classes inserted succefully");
+            //     return populateDbService.insertCorrelatives();
+            // })
+            // .then(function() {
+            //     console.log("Correlatives inserted succefully");
+            //     //window.localStorage.setItem("DBExists", 'true');
+            // })
             .catch(function() {
                 console.log('ERROR with data base population');
             })
