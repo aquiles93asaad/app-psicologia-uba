@@ -1,4 +1,19 @@
+"use strict";
+
 angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'ui.calendar'])
+
+.config(['dbConnectionManager', function(dbConnectionManager ) {
+    databaseProvider.setDatabaseName('PsiPlanner');
+    databaseProvider.setLocation('default');
+}])
+
+.config(['dbFixturesManager', function(dbFixturesManager ) {
+    /* Sets the version of the database */
+    databaseManagerProvider.setDatabaseVersion(1);
+
+    /* Set to true to run fixtures and override existing database */
+    databaseManagerProvider.enableFixturesRun(true);
+}])
 
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -105,41 +120,6 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
-        }
-
-        if(window.localStorage.getItem("DBExists") == null) {
-            genericDaoService.openDB()
-            .then(function(db) {
-                console.log("Data Base succefully Created");
-                return populateDbService.createTables(db);
-            })
-            .then(function() {
-                console.log("Tables created succefully");
-                return populateDbService.insertSubjects();
-            })
-            .then(function() {
-                console.log("Subjects inserted succefully");
-                //return populateDbService.insertClasses();
-            })
-            // .then(function() {
-            //     console.log("Classes inserted succefully");
-            //     return populateDbService.insertCorrelatives();
-            // })
-            // .then(function() {
-            //     console.log("Correlatives inserted succefully");
-            //     //window.localStorage.setItem("DBExists", 'true');
-            // })
-            .catch(function() {
-                console.log('ERROR with data base population');
-            })
-        } else {
-            genericDaoService.openDB()
-            .then(function(db) {
-                console.log("Data Base succefully Opened");
-            })
-            .catch(function() {
-                console.log("Data Base could not Opened");
-            });
         }
     });
 });
