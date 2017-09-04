@@ -21,9 +21,8 @@ function populateDbService($q, $cordovaSQLite, dbName) {
 
         db = dataBase;
 
-        var query = //"CREATE TABLE IF NOT EXISTS EVENTS (id INT NOT NULL UNIQUE, subject_id INT, color VARCHAR(30), title VARCHAR(100), description VARCHAR(500), date_start VARCHAR(50), date_end VARCHAR(50), alert_date VARCHAR(50), PRIMARY KEY(id))";
-            "DROP TABLE SUBJECTS GO" +
-            "CREATE TABLE IF NOT EXISTS SUBJECTS (id INT NOT NULL UNIQUE AUTO_INCREMENT, name VARCHAR(100), state VARCHAR(30), current_class_id INT, date_course VARCHAR(50), type VARCHAR(50), area VARCHAR(50), duration VARCHAR(20), formation VARCHAR(50), PRIMARY KEY(id)) GO";
+        var query = "CREATE TABLE IF NOT EXISTS SUBJECTS (id INT NOT NULL UNIQUE AUTO_INCREMENT, name VARCHAR(100), state VARCHAR(30), current_class_id INT, date_course VARCHAR(50), type VARCHAR(50), area VARCHAR(50), duration VARCHAR(20), formation VARCHAR(50), PRIMARY KEY(id)) GO";
+            //"CREATE TABLE IF NOT EXISTS EVENTS (id INT NOT NULL UNIQUE, subject_id INT, color VARCHAR(30), title VARCHAR(100), description VARCHAR(500), date_start VARCHAR(50), date_end VARCHAR(50), alert_date VARCHAR(50), PRIMARY KEY(id))";
             // "CREATE TABLE IF NOT EXISTS CLASSES (id INT NOT NULL UNIQUE, subject_id INT, name VARCHAR(100), num_cat VARCHAR(5), PRIMARY KEY(id));" +
             // "CREATE TABLE IF NOT EXISTS PRED_SUC_CORRELATIVES (id_pred INT NOT NULL, id_suc INT NOT NULL, PRIMARY KEY(id_pred, id_suc));" +
             // "CREATE TABLE IF NOT EXISTS NOTES (id INT NOT NULL, subject_id INT, name VARCHAR(100), type VARCHAR(10), value VARCHAR(5), PRIMARY KEY(id));"

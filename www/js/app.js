@@ -37,7 +37,8 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
                 templateUrl: 'templates/pages/calendar.html',
                 controller: 'CalendarController'
             }
-        }
+        },
+        events:
     })
 
     .state('app.subjects', {
@@ -47,6 +48,18 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
                 templateUrl: 'templates/pages/subjects.html',
                 controller: 'SubjectsController'
             }
+        },
+        resolve: {
+            subjects: ['SubjectsService', function(SubjectsService) {
+                return SubjectsService.getAll()
+                .then(function(subjects) {
+                    return subjects;
+                })
+                .catch(function(error) {
+                    console.error(error);
+                })
+                .finally()
+            }]
         }
     })
 
@@ -57,7 +70,8 @@ angular.module('UbaPsicologiaApp', ['ionic', 'ngCordova', 'genericDaoModule', 'u
                 templateUrl: 'templates/pages/subject.html',
                 controller: 'SubjectController'
             }
-        }
+        },
+        subject:
     })
 
     .state('app.mySubjects', {
