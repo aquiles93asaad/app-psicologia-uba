@@ -2,11 +2,9 @@ angular.module('UbaPsicologiaApp')
 
 .controller('CalendarController', CalendarController);
 
-CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate'];
+CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate', 'dbConnectionManager'];
 
-function CalendarController($scope, $ionicSideMenuDelegate) {
-    $ionicSideMenuDelegate.canDragContent(false);
-
+function CalendarController($scope, $ionicSideMenuDelegate, dbConnectionManager) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -20,6 +18,17 @@ function CalendarController($scope, $ionicSideMenuDelegate) {
         ]
     }];
     document.addEventListener("deviceready", function () {
+
+        databaseManager.initialize()
+        .then(function () {
+            entityManager.findAll('instance')
+            .then(function (data) {
+                $scope.instances = data;
+            });
+        });
+
+        $ionicSideMenuDelegate.canDragContent(false);
+
         $scope.uiConfig = {
             calendar:{
                 aspectRatio: 0.72,
