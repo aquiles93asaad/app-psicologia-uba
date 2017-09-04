@@ -1,4 +1,6 @@
-angular.module('UbaPsicologiaApp')
+"user strict";
+
+angular.module('PsiPlannerApp')
 
 .directive('menuItem', menuItem);
 
@@ -25,8 +27,5 @@ function menuItem($state, $ionicSideMenuDelegate) {
                 'transform' : 'translate3d(-320px, 0, 0)'
             });
         });
-        // $ionicHistory.nextViewOptions({
-        //     disableBack: true
-        // });
     }
 }

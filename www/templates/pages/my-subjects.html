@@ -1,8 +1,8 @@
 <ion-view view-title="Mi Carrera" cache-view="false">
     <ion-content>
         <ion-list>
-            <ion-item class="subject-item" ng-repeat="subject in subjects" href="app.subject({subjectId: subject.id})">
-                {{subject.name}}
+            <ion-item class="subject-item" ng-repeat="mySubject in mySubjects" href="app.mySubject({subjectId: mySubject.id})">
+                {{mySubject.name}}
                 <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </ion-item>
         </ion-list>

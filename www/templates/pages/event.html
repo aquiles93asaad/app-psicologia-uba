@@ -1,5 +1,60 @@
-<ion-view view-title="Agregar Evento">
-    <ion-content>
-        <span>agregar evento</span>
+<ion-view view-title="Evento">
+    <ion-content class="content-container">
+        <form>
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Titulo</span>
+                    <input type="text" ng-model="event.title" placeholder="Titulo">
+                    <div></div>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Desde</span>
+                    <input type="date" ng-model="event.date_start">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Hasta</span>
+                    <input type="date" ng-model="event.date_end">
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Materia
+                    </div>
+                    <select ng-model="event.subject_id">
+                        <option ng-repeat="subject in mySubjects" value="subject.id">{{subject.name}}</option>
+                    </select>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Notificación</span>
+                    <input type="date" ng-model="event.alert_date">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Descipción</span>
+                    <input type="text" ng-model="event.description" placeholder="Descipción">
+                    <div></div>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Color
+                    </div>
+                    <select ng-model="event.color">
+                        <option ng-repeat="color in colors" value="color.id">
+                            <span class="color.id">{{color.name}}</span>
+                        </option>
+                    </select>
+                </label>
+                <div class="button-container">
+                    <button ng-click="addEvent()">Guardar</button>
+                </div>
+                <!-- <div class="item item-toggle">
+                    Todo el día
+                    <label class="toggle toggle-royal">
+                        <input type="checkbox">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div> -->
+            </div>
+        </form>
     </ion-content>
 </ion-view>

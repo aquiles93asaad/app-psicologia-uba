@@ -1,10 +1,12 @@
-angular.module('UbaPsicologiaApp')
+"user strict";
+
+angular.module('PsiPlannerApp')
 
 .controller('CalendarController', CalendarController);
 
-CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate', 'dbConnectionManager'];
+CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate', 'dbFixturesManager'];
 
-function CalendarController($scope, $ionicSideMenuDelegate, dbConnectionManager) {
+function CalendarController($scope, $ionicSideMenuDelegate, dbFixturesManager) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -17,14 +19,12 @@ function CalendarController($scope, $ionicSideMenuDelegate, dbConnectionManager)
             {title: 'All Day Event',start: new Date(y, m, d - 5)}
         ]
     }];
+    
     document.addEventListener("deviceready", function () {
 
-        databaseManager.initialize()
-        .then(function () {
-            entityManager.findAll('instance')
-            .then(function (data) {
-                $scope.instances = data;
-            });
+        dbFixturesManager.initialize()
+        .then(function(data) {
+            console.log(data);
         });
 
         $ionicSideMenuDelegate.canDragContent(false);

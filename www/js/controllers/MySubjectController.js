@@ -1,4 +1,6 @@
-angular.module('UbaPsicologiaApp')
+"user strict";
+
+angular.module('PsiPlannerApp')
 
 .controller('MySubjectController', MySubjectController);
 

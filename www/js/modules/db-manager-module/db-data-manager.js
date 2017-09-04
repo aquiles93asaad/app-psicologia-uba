@@ -1,3 +1,5 @@
+"user strict";
+
 angular.module('dbManager')
 
 .provider('dbDataManager', function () {
@@ -7,57 +9,73 @@ angular.module('dbManager')
         /****************/
         /* PRIVATE METHODS
         /****************/
+
         /**
         * Inserts an item into the table passed as argument.
         * @param tableName The name of the table
-        * @param lissFields The array of columns of the table. Example: ["name", "email", "sex"]
-        * @param listValues The array of values. Example: ["Aquiles", "aquiles@gmail.com", "Macho"]
+        * @param item The item object. Eg. : item: {name: "Aquiles", email: "aquiles@gmail.com", sex: "All the time"}
         * @returns {*} Returns the insertedId in a promise object
         */
-        function insertData(tableName, listFields, listValues) {
+        function insertData(tableName, item) {
             var deferred = $q.defer();
 
             var questionMarks = [];
             var fields = [];
             var values = [];
 
-            var query = "INSERT INTO " + tableName + " (";
-            for (var field in listFields) {
-                if (listFields.hasOwnProperty(field)) {
-                    questionMarks.push("?");
-                }
-            }
+            angular.forEach(item, function(value, key) {
+                fields.push(key);
+                values.push(value);
+                questionMarks.push("?");
+            });
 
-            query = query.slice(0, -1) + ") VALUES (";
+            fields = fields.join();
+            questionMarks = questionMarks.join();
 
-            for (var val in listValues) {
-                if (listValues.hasOwnProperty(val)) {
-                    if(typeof val === 'string'){
-                        val = "'" + val + "'";
-                    }
-                    query = query + val + ",";
-                }
-            }
+            var query = "INSERT INTO " + tableName + " (" + fields + ") VALUES (" + questionMarks + ")";
 
-            query = query.slice(0, -1) + ")";
+            dbConnectionManager.getConnection()
+            .transaction(function(tx) {
+                tx.executeSql(query, values, function(tx, res) {
+                    deferred.resolve(res.insertId);
+                }, function(tx, error) {
+                    deferred.reject(error);
+                })
+            }, function(error) {
+                deferred.reject(error);
+            })
 
-            return executeTransaction(deferred, query);
+            return deferred.promise;
         }
 
-        function updateData(tableName, listFields, listValues, idValue) {
+        function updateData(tableName, item, id) {
             var deferred = $q.defer();
 
-            var query = "UPDATE " + tableName + " SET ";
-            for (var i = 0; i < listFields.length; i++) {
-                var val = listValues[i];
-                if(typeof val === 'string'){
-                    val = "'" + val + "'";
-                }
-                query = query + listFields[i] + "=" + val + ",";
-            }
-            query = query.slice(0, -1) + " WHERE id=" + idValue;
+            var fieldsQuestionMarks = [];
+            var values = [];
 
-            return executeTransaction(deferred, query);
+            angular.forEach(item, function(value, key) {
+                fieldsQuestionMarks.push(key + " = ? ");
+                values.push(value);
+            });
+
+            fieldsQuestionMarks = fieldsQuestionMarks.join();
+            values.push(id);
+
+            var query = "UPDATE " + tableName + " SET " + fieldsQuestionMarks + "WHERE id = ?";
+
+            dbConnectionManager.getConnection()
+            .transaction(function(tx) {
+                tx.executeSql(query, values, function(tx, res) {
+                    deferred.resolve(res.rowsAffected);
+                }, function(tx, error) {
+                    deferred.reject(error);
+                })
+            }, function(error) {
+                deferred.reject(error);
+            })
+
+            return deferred.promise;
         }
 
         function deleteData(tableName, idValue) {
@@ -68,24 +86,76 @@ angular.module('dbManager')
             return executeTransaction(deferred, query);
         }
 
-        function searchData(query) {
+        function findData(query) {
             var deferred = $q.defer();
-            return executeTransaction(deferred, query);
+
+            dbConnectionManager.getConnection()
+            .executeSql(query, [], function(rs) {
+                var results = [];
+                for (var x = 0; x < rs.rows.length; x++) {
+                    results.push(rs.rows.item(x));
+                }
+                deferred.resolve(results);
+            }, function(error) {
+                console.log(error);
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
         }
 
-        function searchDataAll(tableName) {
+        /**
+        * Finds all elements of the given table name.
+        * @param tableName The name of the table.
+        * @returns {*}
+        */
+        function findAll(tableName) {
             var deferred = $q.defer();
+
             var query = "SELECT * FROM " + tableName;
-            return executeTransaction(deferred, query);
+
+            dbConnectionManager.getConnection()
+            .executeSql(query, [], function(rs) {
+                var results = [];
+                for (var x = 0; x < rs.rows.length; x++) {
+                    results.push(rs.rows.item(x));
+                }
+                deferred.resolve(results);
+            }, function(error) {
+                console.log(error);
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
         }
 
-        function searchById(tableName, id) {
+        /**
+        * Finds an element of a given table by its id.
+        * @param id of the element.
+        * @param tableName The name of the table.
+        * @returns {*}
+        */
+        function findById(tableName, id) {
             var deferred = $q.defer();
-            var query = "SELECT * FROM " + tableName + " WHERE id=" + id;
-            return executeTransaction(deferred, query);
+
+            var query = "SELECT * FROM " + tableName + " WHERE id = ?";
+
+            dbConnectionManager.getConnection()
+            .executeSql(query, [id], function(rs) {
+                if (rs.rows.length == 1) {
+                    deferred.resolve(rs.rows.item(0));
+                } else {
+                    deferred.reject("The id does not exist in the database");
+                }
+            }, function(error) {
+                console.log(error);
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
         }
 
-        function searchDataCondition(tableName, listField, listValue) {
+        function findDataCondition(tableName, listField, listValue) {
             var deferred = $q.defer();
 
             var query = "SELECT * FROM " + tableName + "WHERE ";
@@ -109,10 +179,10 @@ angular.module('dbManager')
             insertData: insertData,
             updateData: updateData,
             deleteData: deleteData,
-            searchData: searchData,
-            searchById: searchById,
-            searchDataAll: searchDataAll,
-            searchDataCondition: searchDataCondition
+            findData: findData,
+            findById: findById,
+            findAll: findAll,
+            findDataCondition: findDataCondition
         }
     }];
 });

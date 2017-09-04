@@ -1,12 +1,11 @@
-angular.module('UbaPsicologiaApp')
+"user strict";
+
+angular.module('PsiPlannerApp')
 
 .controller('MySubjectsController', MySubjectsController);
 
-MySubjectsController.$inject = ['$scope'];
+MySubjectsController.$inject = ['$scope', 'mySubjects'];
 
-function MySubjectsController($scope) {
-    $scope.subjects = [
-        {id: 1, name: 'Psicología General'},
-        {id: 2, name: 'Psicología Social'}
-    ];
+function MySubjectsController($scope, mySubjects) {
+    $scope.mySubjects = mySubjects;
 }

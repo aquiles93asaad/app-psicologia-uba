@@ -29,11 +29,11 @@ angular.module('dbManager')
 
         "CREATE TABLE SUBJECTS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, state TEXT, current_class_id INTEGER, date_course TEXT, type TEXT, area TEXT, duration TEXT, formation TEXT);",
         "CREATE TABLE CLASSES (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, subject_id INTEGER, name TEXT, num_cat TEXT, FOREIGN KEY (subject_id) REFERENCES SUBJECTS(id));",
-        "CREATE TABLE PRED_SUC_CORRELATIVES (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, id_pred INTEGER NOT NULL, id_suc INTEGER, PRIMARY KEY(id), FOREIGN KEY (id_suc) REFERENCES SUBJECTS(id), FOREIGN KEY (id_pred) REFERENCES SUBJECTS(id));",
+        "CREATE TABLE PRED_SUC_CORRELATIVES (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, id_pred INTEGER, id_suc INTEGER, FOREIGN KEY (id_suc) REFERENCES SUBJECTS(id), FOREIGN KEY (id_pred) REFERENCES SUBJECTS(id));",
         "CREATE TABLE EVENTS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, subject_id INTEGER, color TEXT, title TEXT, description TEXT, date_start TEXT, date_end TEXT, alert_date TEXT, FOREIGN KEY (subject_id) REFERENCES SUBJECTS(id));",
         "CREATE TABLE NOTES (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, subject_id INTEGER, name TEXT, type TEXT, value TEXT, FOREIGN KEY (subject_id) REFERENCES SUBJECTS(id));",
         "CREATE TABLE CONFIGS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, key TEXT, value TEXT);",
-        'CREATE TABLE database_version_updates ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, version INTEGER, date TEXT NOT NULL);',
+        'CREATE TABLE DATABASE_VERSION_UPDATES ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, version INTEGER, date TEXT NOT NULL);',
 
         /* First version */
         "INSERT INTO DATABASE_VERSION_UPDATES (version, date) values (1 , date('now'));"
@@ -219,7 +219,7 @@ angular.module('dbManager')
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (44, 'Prof. Asoc. Reg. S. Vazquez', '115', 24);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (45, 'Prof. Adj. Reg. C. Ghiso', '768', 25);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (46, 'Prof. Tit. Reg. O. Varela', '769', 25);",
-        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (47,'Adj. Reg. a cargo M. Etchevers', '070', 26);",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (47, 'Adj. Reg. a cargo M. Etchevers', '070', 26);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (48, 'Prof. Tit. Reg. E. G. Keegan', '634', 26);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (49, 'A designar', '051', 27);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (50, 'Prof. Asoc. Reg.  A. M. Luzzi', '052', 27);",
@@ -284,7 +284,7 @@ angular.module('dbManager')
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (109, 'Prof. Adj. Int. como coordinadora N. B. Fantini', '162', 85);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (110, 'Prof. Asoc. Reg.  a cargo  A. M. Luzzi', '639', 86);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (111, 'Prof. Adj. Int. como coordinador  G. Rossi', '687', 87);",
-        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (112, 'Prof. Adj. Int. como coordinadora  S. Di Biasi', '689', 88');",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (112, 'Prof. Adj. Int. como coordinadora  S. Di Biasi', '689', 88);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (113, 'Prof. Adj. Int. como coordinadora  M. Besada', '690', 89);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (114, 'Prof. Adj. Reg. como coordinadora  G. Aksman', '701', 90);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (115, 'Prof. Adj. Int. como coordinadora  I. Celotto', '703', 91);",
@@ -299,7 +299,7 @@ angular.module('dbManager')
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (124, 'Prof. Adj. Int. como coordinadora S. Szmuszkowiez', '817', 100);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (125, 'Prof. Adj. Int.  a cargo  M. L. Iuale', '822', 101);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (126, 'Prof. Adj. Reg.  a cargo  E. Ormart', '824', 102);",
-        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (127, 'Prof. Adj. Reg. como coordinadora G. Aisenson', 103);",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (127, 'Prof. Adj. Reg. como coordinadora G. Aisenson', '100', 103);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (128, 'Prof. Adj. Int. como coordinador A. Febbraio', '107', 104);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (129, 'Prof. Adj. Int. como coordinador M. Sandoval', '657', 105);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (130, 'Prof. Adj. Int. como coordinadora S. Asam', '714', 106);",
@@ -327,7 +327,7 @@ angular.module('dbManager')
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (152, 'Prof. Adj. Int. como coordinadora L. Szapiro', '804', 128);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (153, 'Prof. Tit. Reg.  como coordinadora A. Stolkiner', '818', 129);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (154, 'Prof. Tit. Reg.  como coordinadora I. M. Mikulic', '819', 130);",
-        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (155, 'Prof. Tit. Reg. como coordinador J.J. Michel Fariña', '823', 131);";
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (155, 'Prof. Tit. Reg. como coordinador J.J. Michel Fariña', '823', 131);",
 
         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (NULL,1);",
         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (NULL,2);",
@@ -366,18 +366,18 @@ angular.module('dbManager')
         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (10,21);",
         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (15,22);",
         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (15,23);",
-        "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (15,24);";
+        "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (15,24);"
     ];
 
     // Ejemplos para próximas versiones
 
     // /** Queries for schema update from version 1 going to 2 */
-    // deltas[1] = [
+    // queries[2] = [
     //   "query 1",
     //   "query 2"
     //   ];
     // /** Queries for schema update from version 2 going to 3 */
-    // deltas[2] = [
+    // queries[3] = [
     //   "query 1",
     //   "query 2"
     //   ];
@@ -429,10 +429,10 @@ angular.module('dbManager')
         function generateSchemaCreate(targetVersion) {
             var query = queries["base-database"];
 
-            query = query.concat(generateQuery(0, targetVersion));
+            query = query.concat(generateQuery(1, targetVersion));
             query = query.concat( ["insert into database_version_updates (version, date) values (" + targetVersion + " , date('now'));"] );
 
-            return delta;
+            return query;
         };
 
         return {
@@ -441,6 +441,6 @@ angular.module('dbManager')
             getQueryFor: getQueryFor,
             generateSchemaCreate: generateSchemaCreate
         }
-    }]
+    };
 
 });

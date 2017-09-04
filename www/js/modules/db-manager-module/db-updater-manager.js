@@ -18,7 +18,7 @@ angular.module('dbManager')
 
             var queryStr = "SELECT COUNT(*) cnt FROM sqlite_master WHERE type = ? AND name = ? ";
             dbConnectionManager.getConnection()
-            .executeSql(queryStr, ['table', 'database_version_updates'], function(rs) {
+            .executeSql(queryStr, ['table', 'DATABASE_VERSION_UPDATES'], function(rs) {
                 var row = rs.rows.item(0);
                 if (row.cnt === 1) {
                     deferred.resolve(true);
@@ -127,7 +127,6 @@ angular.module('dbManager')
         return {
             databaseExist: databaseExist,
             updateSchema: updateSchema
-
         }
     }];
 });

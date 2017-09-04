@@ -1,5 +1,39 @@
-<ion-view view-title="Materia">
-    <ion-content>
+<ion-view view-title="Agregar Materia">
+    <ion-content class="content-container">
+        <form>
+            <div class="list">
+                <div class="subject-name-container">
+                    <h4>{{subject.name}}</h4>
+                </div>
+                <label class="item item-input item-info">
+                    <span class="input-label">Tipo</span>
+                    <input type="text" ng-model="subject.type" disabled>
+                </label>
+                <label class="item item-input item-info">
+                    <span class="input-label">Situación</span>
+                    <input type="text" ng-model="subject.duration" disabled>
+                </label>
+                <label class="item item-input item-info">
+                    <span class="input-label">Formación</span>
+                    <input type="text" ng-model="subject.formation" disabled>
+                </label>
+                <label class="item item-input item-info" ng-if="subject.area">
+                    <span class="input-label">Área</span>
+                    <input type="text" ng-model="subject.area" disabled>
+                </label>
 
+                <label class="item item-input item-select item-info">
+                    <div class="input-label">
+                        Cátedra
+                    </div>
+                    <select ng-model="subject.current_class_id">
+                        <option ng-repeat="catedra in catedras" value="{{catedra.id}}">{{catedra.num_cat}} {{catedra.name}}</option>
+                    </select>
+                </label>
+                <div class="button-container">
+                    <button ng-click="addSubject()">Agregar a Mis Materias</button>
+                </div>
+            </div>
+        </form>
     </ion-content>
 </ion-view>
