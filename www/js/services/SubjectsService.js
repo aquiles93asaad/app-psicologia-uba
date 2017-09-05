@@ -12,17 +12,17 @@ angular.module('PsiPlannerApp')
 		/* PRIVATE METHODS
 		/****************/
 
-		//Devuelve todas las materias
+		// Devuelve todas las materias que no se estan cursando
 		function getAll() {
 			var deferred = $q.defer();
 
-	        dbDataManager.findAll(subjectsTableName)
+			dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Sin Cursar', 'Recursada')")
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        });
+	        })
 
 			return deferred.promise;
 		}
@@ -83,9 +83,9 @@ angular.module('PsiPlannerApp')
 			return deferred.promise;
 		}
 
-		
+
 		//Devuelve las materias que son anteriores en el plan a la materia con el id de input
-		function getPredCorrelatives() {
+		function getPreCorrelatives(id) {
 			var deferred = $q.defer();
 	        dbDataManager.findData("SELECT s.* FROM " + subjectsTableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_pred WHERE c.id_suc=" + id)
 	        .then(function(success) {
@@ -100,119 +100,68 @@ angular.module('PsiPlannerApp')
 		//Devuelve las materias que no tienen materias correlativas anteriores
 		function getNoneCorrelativesSubjects(id) {
 			var deferred = $q.defer();
+
 	        dbDataManager.findData("SELECT s.* FROM " + subjectsTableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_suc WHERE c.id_pred IS NULL")
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
+
 			return deferred.promise;
 		}
 
 		//Devuelve las materias que son posteriores en el plan a la materia con el id de input
-		function getSucCorrelatives(id) {
+		function getPostCorrelatives(id) {
 			var deferred = $q.defer();
+
 	        dbDataManager.findData("SELECT s.* FROM " + subjectsTableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_suc WHERE c.id_pred=" + id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
-			return deferred.promise;
-		}
+	        });
 
-		//Devuelve todas las notas de la materia con el id de input
-		function getNotes(id) {
-			var deferred = $q.defer();
-	        dbDataManager.findData("SELECT n.* FROM " + subjectsTableName + " s JOIN " + notesTablesName + " n ON s.id=n.subject_id WHERE s.id=" + id)
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        })
 			return deferred.promise;
 		}
 
 		function getMySubjects() {
 			var deferred = $q.defer();
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state = 'Cursando'")
+
+	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Cursando', 'Aprobada', 'Debe final')")
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
+
 			return deferred.promise;
 		}
 
 		function addSubject(id, subject) {
 			var deferred = $q.defer();
+
 	        dbDataManager.updateData(subjectsTableName, subject, id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
+
 			return deferred.promise;
 		}
-
-		//Crea una nota para la materia del id del input.
-			//subject_id es el id de la materia
-			//name es el combobox de "parcial-tp-final-etc..."
-			//type es si la nota es numerica ('num') o aprobado/desaprobado ('string')
-			//value es el valor de la nota. En num se guarda del 0 al 10, y en string se guarda 0 para desaprobado y 1 para aprobado
-		function createNote(subject_id, name, type, value) {
-			var deferred = $q.defer();
-
-			var item = {
-			            'subject_id': subject_id,
-			           'name': name,
-			            'type': type,
-			            'value': value
-			        };
-
-	        dbDataManager.insertData(notesTablesName, item)
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        })
-			return deferred.promise;
-		}
-
-		//Modifica la nota con el id de input
-		function updateNote(id, name, type, value) {
-			var deferred = $q.defer();
-
-			var item = {
-			            'name': name,
-			            'type': type,
-			            'value': value
-			        };
-
-	        dbDataManager.updateData(notesTablesName, item, id)
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        })
-			return deferred.promise;
-		}
-
 
 		//Establece el estado en el que se encuentra la materia ("sin cursar", "cursando", ...)
 		function setState(state, id) {
 			var deferred = $q.defer();
 
 			var item = {
-			            'state': state
-			        };
+	            'state': state
+	        };
 
 	        dbDataManager.updateData(subjectsTableName, item, id)
 	        .then(function(success) {
@@ -220,7 +169,8 @@ angular.module('PsiPlannerApp')
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
+
 			return deferred.promise;
 		}
 
@@ -230,8 +180,8 @@ angular.module('PsiPlannerApp')
 			var deferred = $q.defer();
 
 			var item = {
-			            'current_class_id': class_id
-			        };
+	            'current_class_id': class_id
+	        };
 
 	        dbDataManager.updateData(subjectsTableName, item, subject_id)
 	        .then(function(success) {
@@ -239,7 +189,8 @@ angular.module('PsiPlannerApp')
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
+
 			return deferred.promise;
 		}
 
@@ -249,8 +200,8 @@ angular.module('PsiPlannerApp')
 			var deferred = $q.defer();
 
 			var item = {
-			            'date_course': date_course
-			        };
+	            'date_course': date_course
+	        };
 
 	        dbDataManager.updateData(subjectsTableName, item, id)
 	        .then(function(success) {
@@ -258,20 +209,8 @@ angular.module('PsiPlannerApp')
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
-			return deferred.promise;
-		}
+	        });
 
-		//Elimina la nota con el id de input
-		function deleteNote(id) {
-			var deferred = $q.defer();
-	        dbDataManager.deleteData(notesTablesName, id)
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        })
 			return deferred.promise;
 		}
 
@@ -280,10 +219,10 @@ angular.module('PsiPlannerApp')
 			var deferred = $q.defer();
 
 			var item = {
-			            'state': 'Sin Cursar',
-			            'current_class_id': NULL,
-			            'date_course': NULL
-			        };
+	            'state': 'Sin Cursar',
+	            'current_class_id': NULL,
+	            'date_course': NULL
+	        };
 
 	        dbDataManager.updateData(subjectsTableName, item, id)
 	        .then(function(success) {
@@ -291,7 +230,8 @@ angular.module('PsiPlannerApp')
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
+
 			return deferred.promise;
 		}
 
@@ -305,18 +245,14 @@ angular.module('PsiPlannerApp')
 			getClasses: getClasses,
 			getActualClass: getActualClass,
 			getNoneCorrelativesSubjects: getNoneCorrelativesSubjects,
-			getPredCorrelatives: getPredCorrelatives,
-			getSucCorrelatives: getSucCorrelatives,
-			getNotes: getNotes,
+			getPreCorrelatives: getPreCorrelatives,
+			getPostCorrelatives: getPostCorrelatives,
 			getMySubjects: getMySubjects,
 			addSubject: addSubject,
 			setState: setState,
 			setCurrentClass: setCurrentClass,
 			setDateCourse: setDateCourse,
 			resetSubject: resetSubject,
-			createNote: createNote,
-			updateNote: updateNote,
-			deleteNote: deleteNote
         }
 	}];
 });

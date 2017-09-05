@@ -79,7 +79,7 @@ angular.module('dbManager')
         }
 
         function deleteData(tableName, idValue) {
-             var deferred = $q.defer();
+            var deferred = $q.defer();
 
             var values = [];
 

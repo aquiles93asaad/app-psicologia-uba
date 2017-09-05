@@ -22,6 +22,36 @@
                     <input type="text" ng-model="subject.area" disabled>
                 </label>
 
+                <div class="item item-info" accordion>
+                    <div class="ac-hader">
+                        Correlativas Anteriores
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="ac-body">
+                        <div class="ac-body-item" ng-if="preCorrelatives.length != 0">
+                            La materia no tiene correlativas anterioes
+                        </div>
+                        <div class="ac-body-item" ng-repeat="pre in preCorrelatives">
+                            {{pre.name}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item item-info" accordion>
+                    <div class="ac-hader">
+                        Correlativas Posteriores
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="ac-body">
+                        <div class="ac-body-item" ng-if="postCorrelatives.length != 0">
+                            La materia no tiene correlativas anterioes
+                        </div>
+                        <div class="ac-body-item" ng-repeat="post in postCorrelatives">
+                            {{post.name}}
+                        </div>
+                    </div>
+                </div>
+
                 <label class="item item-input item-select item-info">
                     <div class="input-label">
                         Cátedra
@@ -31,7 +61,7 @@
                     </select>
                 </label>
                 <div class="button-container">
-                    <button ng-click="addSubject()">Agregar a Mis Materias</button>
+                    <button ng-click="addSubject()">Agregar a Mi Carrera</button>
                 </div>
             </div>
         </form>

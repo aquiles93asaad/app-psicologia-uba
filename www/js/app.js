@@ -86,7 +86,8 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
         subjectsService: 'SubjectsService',
         resolve: {
             subjectData: ['SubjectsService', '$stateParams', '$ionicLoading', function(SubjectsService, $stateParams, $ionicLoading) {
-                var result = {subject: null, classes: null};
+                var result = {subject: null, classes: null, preCorrelatives: null, sucCorrelatives: null};
+                var subjectId = null;
                 $ionicLoading.show({
                     content: 'Loading',
                     showBackdrop: true,
@@ -95,12 +96,22 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
                 });
                 return SubjectsService.getById($stateParams.subjectId)
                 .then(function(subject) {
+                    subjectId = subject.id;
                     result.subject = subject;
-                    return SubjectsService.getClasses(subject.id);
+                    return SubjectsService.getClasses(subjectId);
                 })
                 .then(function(classes) {
                     result.classes = classes;
-                    return result ;
+                    return SubjectsService.getPreCorrelatives(subjectId);
+                    return result;
+                })
+                .then(function(preCorrelatives) {
+                    result.preCorrelatives = preCorrelatives;
+                    return SubjectsService.getPostCorrelatives(subjectId);
+                })
+                .then(function(sucCorrelatives) {
+                    result.sucCorrelatives = sucCorrelatives;
+                    return result;
                 })
                 .catch(function(error) {
                     console.error(error);

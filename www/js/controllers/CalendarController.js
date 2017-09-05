@@ -19,12 +19,12 @@ function CalendarController($scope, $ionicSideMenuDelegate, dbFixturesManager) {
             {title: 'All Day Event',start: new Date(y, m, d - 5)}
         ]
     }];
-    
+
     document.addEventListener("deviceready", function () {
 
         dbFixturesManager.initialize()
-        .then(function(data) {
-            console.log(data);
+        .then(function() {
+            console.log("success");
         });
 
         $ionicSideMenuDelegate.canDragContent(false);

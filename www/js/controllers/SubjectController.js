@@ -24,8 +24,13 @@ function SubjectController(
     $state
 ) {
     $scope.subject = subjectData.subject;
-
     $scope.catedras = subjectData.classes;
+    $scope.preCorrelatives = subjectData.preCorrelatives;
+    $scope.sucCorrelatives = subjectData.postCorrelatives;
+
+    if(!$scope.subject.current_class_id) {
+        $scope.subject.current_class_id = $scope.catedras[0].id;
+    }
 
     $scope.addSubject = function() {
         var subjectToAdd = {
