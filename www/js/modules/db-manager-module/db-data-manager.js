@@ -79,11 +79,26 @@ angular.module('dbManager')
         }
 
         function deleteData(tableName, idValue) {
-            var deferred = $q.defer();
+             var deferred = $q.defer();
 
-            var query = "DELETE FROM " + tableName + " WHERE id=" + idValue;
+            var values = [];
 
-            return executeTransaction(deferred, query);
+            values.push(id);
+
+            var query = "DELETE FROM " + tableName  + " WHERE id = ?";
+
+            dbConnectionManager.getConnection()
+            .transaction(function(tx) {
+                tx.executeSql(query, values, function(tx, res) {
+                    deferred.resolve(res.rowsAffected);
+                }, function(tx, error) {
+                    deferred.reject(error);
+                })
+            }, function(error) {
+                deferred.reject(error);
+            })
+
+            return deferred.promise;
         }
 
         function findData(query) {
@@ -155,21 +170,36 @@ angular.module('dbManager')
             return deferred.promise;
         }
 
-        function findDataCondition(tableName, listField, listValue) {
+        function findDataCondition(tableName, item) {
             var deferred = $q.defer();
 
-            var query = "SELECT * FROM " + tableName + "WHERE ";
-            for (var i = 0; i < listFields.length; i++) {
-                var val = listValues[i];
-                if(typeof val === 'string'){
-                    val = "'" + val + "'";
+            var fieldsQuestionMarks = [];
+            var values = [];
+
+            angular.forEach(item, function(value, key) {
+                fieldsQuestionMarks.push(key + " = ? ");
+                values.push(value);
+            });
+
+            fieldsQuestionMarks = fieldsQuestionMarks.join(' AND ');
+
+            var query = "SELECT * FROM " + tableName + " WHERE " + fieldsQuestionMarks;
+
+            dbConnectionManager.getConnection()
+            .executeSql(query, values, function(rs) {
+                var results = [];
+                for (var x = 0; x < rs.rows.length; x++) {
+                    results.push(rs.rows.item(x));
                 }
-                query = query + listFields[i] + "=" + val + " AND ";
-            }
-            query = query.slice(0, -5);
+                deferred.resolve(results);
+            }, function(error) {
+                console.log(error);
+                deferred.reject(error);
+            });
 
             return deferred.promise;
         }
+
 
         /****************/
         /* PUBLIC METHODS

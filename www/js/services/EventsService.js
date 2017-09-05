@@ -66,7 +66,18 @@ function EventsService($q, dbDataManager) {
 	//Crea un evento
 	function createEvent(subject_id, color, title, description, date_start, date_end, alert_date) {
 		var deferred = $q.defer();
-        dbDataManager.insertData(tableName, ["subject_id", "color", "title", "description", "date_start", "date_end", "alert_date"], [subject_id, color, title, description, date_start, date_end, alert_date])
+
+		var item = {
+			            'subject_id': subject_id,
+			            'color': color,
+			            'title': title,
+			            'description': description,
+			            'date_start': date_start,
+			            'date_end': date_end,
+			            'alert_date': alert_date
+			        };
+
+        dbDataManager.insertData(tableName, item)
         .then(function(success) {
             deferred.resolve(success);
         })
@@ -79,7 +90,18 @@ function EventsService($q, dbDataManager) {
 	//Modifica el evento con el id de input
 	function updateEvent(id, subject_id, color, title, description, date_start, date_end, alert_date) {
 		var deferred = $q.defer();
-        dbDataManager.updateData(tableName, ["subject_id", "color", "title", "description", "date_start", "date_end", "alert_date"], [subject_id, color, title, description, date_start, date_end, alert_date], id)
+
+		var item = {
+			            'subject_id': subject_id,
+			            'color': color,
+			            'title': title,
+			            'description': description,
+			            'date_start': date_start,
+			            'date_end': date_end,
+			            'alert_date': alert_date
+			        };
+
+        dbDataManager.updateData(tableName, item, id)
         .then(function(success) {
             deferred.resolve(success);
         })

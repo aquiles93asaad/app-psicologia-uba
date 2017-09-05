@@ -83,7 +83,8 @@ angular.module('PsiPlannerApp')
 			return deferred.promise;
 		}
 
-		//Devuelve las materias que no tienen materias correlativas anteriores
+		
+		//Devuelve las materias que son anteriores en el plan a la materia con el id de input
 		function getPredCorrelatives() {
 			var deferred = $q.defer();
 	        dbDataManager.findData("SELECT s.* FROM " + subjectsTableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_pred WHERE c.id_suc=" + id)
@@ -96,7 +97,7 @@ angular.module('PsiPlannerApp')
 			return deferred.promise;
 		}
 
-		//Devuelve las materias que son anteriores en el plan a la materia con el id de input
+		//Devuelve las materias que no tienen materias correlativas anteriores
 		function getNoneCorrelativesSubjects(id) {
 			var deferred = $q.defer();
 	        dbDataManager.findData("SELECT s.* FROM " + subjectsTableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_suc WHERE c.id_pred IS NULL")
@@ -137,7 +138,7 @@ angular.module('PsiPlannerApp')
 
 		function getMySubjects() {
 			var deferred = $q.defer();
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state != 'Sin Cursar'")
+	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state = 'Cursando'")
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
@@ -158,6 +159,7 @@ angular.module('PsiPlannerApp')
 	        })
 			return deferred.promise;
 		}
+
 		//Crea una nota para la materia del id del input.
 			//subject_id es el id de la materia
 			//name es el combobox de "parcial-tp-final-etc..."
@@ -165,7 +167,15 @@ angular.module('PsiPlannerApp')
 			//value es el valor de la nota. En num se guarda del 0 al 10, y en string se guarda 0 para desaprobado y 1 para aprobado
 		function createNote(subject_id, name, type, value) {
 			var deferred = $q.defer();
-	        dbDataManager.insertData(notesTablesName, ["subject_id", "name", "type", "value"], [subject_id, name, type, value])
+
+			var item = {
+			            'subject_id': subject_id,
+			           'name': name,
+			            'type': type,
+			            'value': value
+			        };
+
+	        dbDataManager.insertData(notesTablesName, item)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
@@ -178,7 +188,14 @@ angular.module('PsiPlannerApp')
 		//Modifica la nota con el id de input
 		function updateNote(id, name, type, value) {
 			var deferred = $q.defer();
-	        dbDataManager.updateData(notesTablesName, ["name", "type", "value"], [name, type, value], id)
+
+			var item = {
+			            'name': name,
+			            'type': type,
+			            'value': value
+			        };
+
+	        dbDataManager.updateData(notesTablesName, item, id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
@@ -192,7 +209,12 @@ angular.module('PsiPlannerApp')
 		//Establece el estado en el que se encuentra la materia ("sin cursar", "cursando", ...)
 		function setState(state, id) {
 			var deferred = $q.defer();
-	        dbDataManager.updateData(subjectsTableName, ["state"], [state], id)
+
+			var item = {
+			            'state': state
+			        };
+
+	        dbDataManager.updateData(subjectsTableName, item, id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
@@ -206,7 +228,12 @@ angular.module('PsiPlannerApp')
 		//Establece el id de la catedra que se esta cursando actualmente
 		function setCurrentClass(class_id, subject_id) {
 			var deferred = $q.defer();
-	        dbDataManager.updateData(subjectsTableName, ["current_class_id"], [class_id], subject_id)
+
+			var item = {
+			            'current_class_id': class_id
+			        };
+
+	        dbDataManager.updateData(subjectsTableName, item, subject_id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
@@ -220,7 +247,12 @@ angular.module('PsiPlannerApp')
 		//Modifica el dia en que se "inicio" esta cursada. Osea, el momento en que se paso a "Cursando" en la app
 		function setDateCourse(date_course, id) {
 			var deferred = $q.defer();
-	        dbDataManager.updateData(subjectsTableName, ["date_course"], [date_course], id)
+
+			var item = {
+			            'date_course': date_course
+			        };
+
+	        dbDataManager.updateData(subjectsTableName, item, id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
@@ -246,7 +278,14 @@ angular.module('PsiPlannerApp')
 		//Vuelve a la materia al estado original, como si nunca hubiera sido cursada.
 		function resetSubject(id) {
 			var deferred = $q.defer();
-	        dbDataManager.updateData(subjectsTableName, ["state", "current_class_id", "date_course"], ["Sin Cursar", NULL, NULL], id)
+
+			var item = {
+			            'state': 'Sin Cursar',
+			            'current_class_id': NULL,
+			            'date_course': NULL
+			        };
+
+	        dbDataManager.updateData(subjectsTableName, item, id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
