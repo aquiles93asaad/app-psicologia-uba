@@ -6,7 +6,6 @@ angular.module('PsiPlannerApp')
 
 SubjectController.$inject = [
     '$scope',
-    //'subjectData',
     '$state',
     '$cordovaToast',
     '$ionicHistory',
@@ -17,7 +16,6 @@ SubjectController.$inject = [
 
 function SubjectController(
     $scope,
-    //subjectData,
     $state,
     $cordovaToast,
     $ionicHistory,

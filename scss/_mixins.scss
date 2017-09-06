@@ -1,9 +1,9 @@
-@mixin custom-transition($property, $time) {
-    -webkit-transition: $property $time ease;
-       -moz-transition: $property $time ease;
-        -ms-transition: $property $time ease;
-         -o-transition: $property $time ease;
-            transition: $property $time ease;
+@mixin custom-transition($property, $time, $timingFunction) {
+    -webkit-transition: $property $time $timingFunction;
+       -moz-transition: $property $time $timingFunction;
+        -ms-transition: $property $time $timingFunction;
+         -o-transition: $property $time $timingFunction;
+            transition: $property $time $timingFunction;
 }
 
 @mixin vertical-translate($value) {

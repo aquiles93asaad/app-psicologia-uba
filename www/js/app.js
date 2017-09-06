@@ -62,27 +62,6 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
                 controller: 'SubjectsController'
             }
         }
-        // subjectsService: 'SubjectsService',
-        // resolve: {
-        //     subjects: ['SubjectsService', '$ionicLoading', function(SubjectsService, $ionicLoading) {
-        //         $ionicLoading.show({
-        //             content: 'Loading',
-        //             showBackdrop: true,
-        //             maxWidth: 200,
-        //             showDelay: 0
-        //         });
-        //         return SubjectsService.getAll()
-        //         .then(function(subjects) {
-        //             return subjects;
-        //         })
-        //         .catch(function(error) {
-        //             console.error(error);
-        //         })
-        //         .finally(function() {
-        //             $ionicLoading.hide();
-        //         })
-        //     }]
-        // }
     })
 
     .state('app.mySubject', {
@@ -103,27 +82,6 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
                 controller: 'MySubjectsController'
             }
         }
-        // subjectsService: 'SubjectsService',
-        // resolve: {
-        //     mySubjects: ['SubjectsService', '$ionicLoading', function(SubjectsService, $ionicLoading) {
-        //         $ionicLoading.show({
-        //             content: 'Loading',
-        //             showBackdrop: true,
-        //             maxWidth: 200,
-        //             showDelay: 0
-        //         });
-        //         return SubjectsService.getMySubjects()
-        //         .then(function(mySubjects) {
-        //             return mySubjects;
-        //         })
-        //         .catch(function(error) {
-        //             console.error(error);
-        //         })
-        //         .finally(function() {
-        //             $ionicLoading.hide();
-        //         })
-        //     }]
-        // }
     })
 
     .state('app.correlatives', {

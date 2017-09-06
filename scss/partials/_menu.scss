@@ -1,6 +1,6 @@
 .menu {
     top: 50px;
-    @include custom-transition(transform, 400ms);
+    @include custom-transition(transform, 400ms, ease);
     @include translate3d(-320px, 0, 0);
     z-index: 100 !important;
     min-height: 1px;

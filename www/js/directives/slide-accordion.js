@@ -4,9 +4,9 @@ angular.module('PsiPlannerApp')
 
 .directive('slideAccordion', slideAccordion);
 
-slideAccordion.$inject = ['$scope'];
+slideAccordion.$inject = [];
 
-function slideAccordion($scope) {
+function slideAccordion() {
     var directive = {
         link: link,
         scope: true,

@@ -1,6 +1,13 @@
-<ion-view view-title="Materias">
+<ion-view view-title="Materias" cache-view="false">
     <ion-content>
+        <div class="search-container" ng-show="showSearch">
+            <label class="item item-input search-input">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input type="text" placeholder="Buscar por Nombre" ng-model="seacrh-input" ng-change="searchSubjects">
+            </label>
+        </div>
         <ion-list>
+            <ion-spinner icon="spiral" ng-show="showSpinner"></ion-spinner>
             <ion-item class="subject-item" ng-repeat="subject in subjects" ui-sref="app.subject({subjectId: subject.id})">
                 {{subject.name}}
                 <i class="fa fa-chevron-right" aria-hidden="true"></i>

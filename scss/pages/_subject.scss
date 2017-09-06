@@ -4,5 +4,81 @@
     h4 {
         font-weight: 400;
         margin: $distance-s $no-distance;
+        font-size: $font-size-2x-l;
+    }
+}
+
+.content-container {
+    .item-info {
+        padding: $distance-x-s;
+        margin-bottom: $distance-s;
+        box-shadow: 1px 1px 5px 0px grey;
+        border-radius: 4px;
+        max-height: $distance-3x-l;
+
+        .input-label {
+            padding: $no-distance;
+            padding-left: $distance-x-s;
+            font-size: $font-size-m;
+            font-family: $opb;
+        }
+
+        input {
+            background-color: transparent;
+            height: auto;
+            text-align: center;
+            font-size: $font-size-m;
+        }
+
+        &.item-accordion {
+            padding: $no-distance;
+            @include custom-transition(max-height, 600ms, ease-in-out);
+
+            .ac-header {
+                @extend .relative-parent;
+                padding: $distance-x-s $distance-m;
+                font-family: $opb;
+                font-size: $font-size-m;
+                line-height: $distance-m;
+
+                .icon-container {
+                    @extend .vertical-centered;
+                    right: 20px;
+
+                    i {
+                        @include custom-transition(transform, 400ms, ease);
+                        @include rotate(0deg);
+                    }
+                }
+            }
+
+            .ac-body {
+                width: 100%;
+                margin: $distance-x-s $no-distance;
+
+                .ac-body-item {
+                    padding: $distance-2x-s $distance-m;
+                    font-size: $font-size-m;
+                    font-family: $opr;
+                    white-space: normal;
+                }
+            }
+
+            &.open {
+                max-height: 300px;
+
+                .ac-header {
+                    .icon-container {
+                        i {
+                            @include rotate(-180deg);
+                        }
+                    }
+                }
+
+                .ac-body {
+                    height: auto;
+                }
+            }
+        }
     }
 }

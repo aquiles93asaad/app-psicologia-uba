@@ -12,8 +12,11 @@ angular.module('PsiPlannerApp')
 		/* PRIVATE METHODS
 		/****************/
 
-		// Devuelve todas las materias que no se estan cursando
-		function getAll() {
+		/**
+        * Devuelve todas las materias que no se estan cursando
+        * @returns Array of Objects
+        */
+		function getSubjects() {
 			var deferred = $q.defer();
 
 			dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Sin Cursar', 'Recursada')")
@@ -27,7 +30,28 @@ angular.module('PsiPlannerApp')
 			return deferred.promise;
 		}
 
-		//Devuelve la materia con el id de input
+		/**
+        * Devuelve todas las materias que se estan cursando, las aprobadas y las que se debe el final
+        * @returns Array of Objects
+        */
+		function getMySubjects() {
+			var deferred = $q.defer();
+
+	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Cursando', 'Aprobada', 'Debe final')")
+	        .then(function(success) {
+	            deferred.resolve(success);
+	        })
+	        .catch(function(error) {
+	            deferred.reject(error);
+	        });
+
+			return deferred.promise;
+		}
+
+		/**
+        * Devuelve la materia con el id pasado cómo párametro
+        * @returns Objeto o Null
+        */
 		function getById(id) {
 			var deferred = $q.defer();
 
@@ -44,9 +68,9 @@ angular.module('PsiPlannerApp')
 
 		//Devuelve todas las materias con parte del nombre especificado
 		//Puede devolver más de un valor, ya que utiliza la sentencia LIKE
-		function getByName(name) {
+		function getSubjectsByName(name) {
 			var deferred = $q.defer();
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%'")
+	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%' AND state IN ('Sin Cursar', 'Recursada')")
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
@@ -117,20 +141,6 @@ angular.module('PsiPlannerApp')
 			var deferred = $q.defer();
 
 	        dbDataManager.findData("SELECT s.* FROM " + subjectsTableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_suc WHERE c.id_pred=" + id)
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        });
-
-			return deferred.promise;
-		}
-
-		function getMySubjects() {
-			var deferred = $q.defer();
-
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state = 'Cursando' ")
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })

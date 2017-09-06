@@ -11,7 +11,7 @@ angular.module('dbManager')
         /****************/
 
         /**
-        * Inserts an item into the table passed as argument.
+        * Inserts an item into a table.
         * @param tableName The name of the table
         * @param item The item object. Eg. : item: {name: "Aquiles", email: "aquiles@gmail.com", sex: "All the time"}
         * @returns {*} Returns the insertedId in a promise object
@@ -48,6 +48,13 @@ angular.module('dbManager')
             return deferred.promise;
         }
 
+        /**
+        * Updates an item from the table given using its id.
+        * @param tableName The name of the table
+        * @param item The item object. Eg. : item: {name: "Aquiles", email: "aquiles@gmail.com", sex: "All the time"}
+        * @param id  id of the item to update object. Eg. : item: {name: "Aquiles", email: "aquiles@gmail.com", sex: "All the time"}
+        * @returns {*} Returns id of teh affected row in a promise object
+        */
         function updateData(tableName, item, id) {
             var deferred = $q.defer();
 
@@ -78,7 +85,13 @@ angular.module('dbManager')
             return deferred.promise;
         }
 
-        function deleteData(tableName, idValue) {
+        /**
+        * Deltes an item from the table given using its id.
+        * @param tableName The name of the table
+        * @param id  id of the item to update object. Eg. : item: {name: "Aquiles", email: "aquiles@gmail.com", sex: "All the time"}
+        * @returns {*} Returns id of teh affected row in a promise object
+        */
+        function deleteData(tableName, id) {
             var deferred = $q.defer();
 
             var values = [];
@@ -101,6 +114,11 @@ angular.module('dbManager')
             return deferred.promise;
         }
 
+        /**
+        * Find items with a specific query given.
+        * @param query A specific query
+        * @returns {*} Returns none or more than one object.
+        */
         function findData(query) {
             var deferred = $q.defer();
 
@@ -170,6 +188,12 @@ angular.module('dbManager')
             return deferred.promise;
         }
 
+        /**
+        * Finds items of a given table using one or more equal WHERE conditions.
+        * @param id of the element.
+        * @param tableName The name of the table.
+        * @returns {*}
+        */
         function findDataCondition(tableName, item) {
             var deferred = $q.defer();
 
