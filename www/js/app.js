@@ -44,37 +44,6 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
         }
     })
 
-    .state('app.subjects', {
-        url: '/subjects',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/pages/subjects.html',
-                controller: 'SubjectsController'
-            }
-        },
-        subjectsService: 'SubjectsService',
-        resolve: {
-            subjects: ['SubjectsService', '$ionicLoading', function(SubjectsService, $ionicLoading) {
-                $ionicLoading.show({
-                    content: 'Loading',
-                    showBackdrop: true,
-                    maxWidth: 200,
-                    showDelay: 0
-                });
-                return SubjectsService.getAll()
-                .then(function(subjects) {
-                    return subjects;
-                })
-                .catch(function(error) {
-                    console.error(error);
-                })
-                .finally(function() {
-                    $ionicLoading.hide();
-                })
-            }]
-        }
-    })
-
     .state('app.subject', {
         url: '/subjects/:subjectId',
         views: {
@@ -82,76 +51,38 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
                 templateUrl: 'templates/pages/subject.html',
                 controller: 'SubjectController'
             }
-        },
-        subjectsService: 'SubjectsService',
-        resolve: {
-            subjectData: ['SubjectsService', '$stateParams', '$ionicLoading', function(SubjectsService, $stateParams, $ionicLoading) {
-                var result = {subject: null, classes: null, preCorrelatives: null, sucCorrelatives: null};
-                var subjectId = null;
-                $ionicLoading.show({
-                    content: 'Loading',
-                    showBackdrop: true,
-                    maxWidth: 200,
-                    showDelay: 0
-                });
-                return SubjectsService.getById($stateParams.subjectId)
-                .then(function(subject) {
-                    subjectId = subject.id;
-                    result.subject = subject;
-                    return SubjectsService.getClasses(subjectId);
-                })
-                .then(function(classes) {
-                    result.classes = classes;
-                    return SubjectsService.getPreCorrelatives(subjectId);
-                    return result;
-                })
-                .then(function(preCorrelatives) {
-                    result.preCorrelatives = preCorrelatives;
-                    return SubjectsService.getPostCorrelatives(subjectId);
-                })
-                .then(function(sucCorrelatives) {
-                    result.sucCorrelatives = sucCorrelatives;
-                    return result;
-                })
-                .catch(function(error) {
-                    console.error(error);
-                })
-                .finally(function() {
-                    $ionicLoading.hide();
-                })
-            }]
         }
     })
 
-    .state('app.mySubjects', {
-        url: '/my-subjects',
+    .state('app.subjects', {
+        url: '/subjects',
         views: {
             'menuContent': {
-                templateUrl: 'templates/pages/my-subjects.html',
-                controller: 'MySubjectsController'
+                templateUrl: 'templates/pages/subjects.html',
+                controller: 'SubjectsController'
             }
-        },
-        subjectsService: 'SubjectsService',
-        resolve: {
-            mySubjects: ['SubjectsService', '$ionicLoading', function(SubjectsService, $ionicLoading) {
-                $ionicLoading.show({
-                    content: 'Loading',
-                    showBackdrop: true,
-                    maxWidth: 200,
-                    showDelay: 0
-                });
-                return SubjectsService.getMySubjects()
-                .then(function(mySubjects) {
-                    return mySubjects;
-                })
-                .catch(function(error) {
-                    console.error(error);
-                })
-                .finally(function() {
-                    $ionicLoading.hide();
-                })
-            }]
         }
+        // subjectsService: 'SubjectsService',
+        // resolve: {
+        //     subjects: ['SubjectsService', '$ionicLoading', function(SubjectsService, $ionicLoading) {
+        //         $ionicLoading.show({
+        //             content: 'Loading',
+        //             showBackdrop: true,
+        //             maxWidth: 200,
+        //             showDelay: 0
+        //         });
+        //         return SubjectsService.getAll()
+        //         .then(function(subjects) {
+        //             return subjects;
+        //         })
+        //         .catch(function(error) {
+        //             console.error(error);
+        //         })
+        //         .finally(function() {
+        //             $ionicLoading.hide();
+        //         })
+        //     }]
+        // }
     })
 
     .state('app.mySubject', {
@@ -162,6 +93,37 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
                 controller: 'MySubjectController'
             }
         }
+    })
+
+    .state('app.mySubjects', {
+        url: '/my-subjects',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/pages/my-subjects.html',
+                controller: 'MySubjectsController'
+            }
+        }
+        // subjectsService: 'SubjectsService',
+        // resolve: {
+        //     mySubjects: ['SubjectsService', '$ionicLoading', function(SubjectsService, $ionicLoading) {
+        //         $ionicLoading.show({
+        //             content: 'Loading',
+        //             showBackdrop: true,
+        //             maxWidth: 200,
+        //             showDelay: 0
+        //         });
+        //         return SubjectsService.getMySubjects()
+        //         .then(function(mySubjects) {
+        //             return mySubjects;
+        //         })
+        //         .catch(function(error) {
+        //             console.error(error);
+        //         })
+        //         .finally(function() {
+        //             $ionicLoading.hide();
+        //         })
+        //     }]
+        // }
     })
 
     .state('app.correlatives', {
@@ -188,7 +150,7 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
     $urlRouterProvider.otherwise('/app/calendar');
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, dbFixturesManager) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -201,5 +163,14 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+    });
+
+    document.addEventListener("deviceready", function () {
+
+        dbFixturesManager.initialize()
+        .then(function() {
+            console.log("Data Base initialized and up to date");
+        });
+
     });
 });

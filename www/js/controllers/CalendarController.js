@@ -4,9 +4,9 @@ angular.module('PsiPlannerApp')
 
 .controller('CalendarController', CalendarController);
 
-CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate', 'dbFixturesManager'];
+CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate'];
 
-function CalendarController($scope, $ionicSideMenuDelegate, dbFixturesManager) {
+    function CalendarController($scope, $ionicSideMenuDelegate) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -21,11 +21,6 @@ function CalendarController($scope, $ionicSideMenuDelegate, dbFixturesManager) {
     }];
 
     document.addEventListener("deviceready", function () {
-
-        dbFixturesManager.initialize()
-        .then(function() {
-            console.log("success");
-        });
 
         $ionicSideMenuDelegate.canDragContent(false);
 

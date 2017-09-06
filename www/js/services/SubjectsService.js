@@ -130,7 +130,7 @@ angular.module('PsiPlannerApp')
 		function getMySubjects() {
 			var deferred = $q.defer();
 
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Cursando', 'Aprobada', 'Debe final')")
+	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state = 'Cursando' ")
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
