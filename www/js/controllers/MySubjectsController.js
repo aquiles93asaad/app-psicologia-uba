@@ -35,4 +35,27 @@ function MySubjectsController(
             $ionicLoading.hide();
         })
     });
+
+    $scope.search = {
+        value: null,
+        showSpinner: false,
+        showList: true
+    };
+
+    $scope.searchSubjects = function() {
+        $scope.search.showSpinner = true;
+        $scope.search.showList = false;
+
+        SubjectsService.getMySubjectsByName($scope.search.value)
+        .then(function(result) {
+            $scope.subjects = result;
+        })
+        .catch(function(error) {
+            console.error(error);
+        })
+        .finally(function() {
+            $scope.search.showSpinner = false;
+            $scope.search.showList = true;
+        })
+    };
 }

@@ -2380,7 +2380,8 @@ body .menu-content .view-container.menu-animated {
   position: relative; }
 
 .vertical-centered, .menu .scroll-content .item .fa, .calendar-container .fc-toolbar .fc-left,
-.calendar-container .fc-toolbar .fc-right, .list .subject-item a i, .content-container .item-info.item-accordion .ac-header .icon-container {
+.calendar-container .fc-toolbar .fc-right, .list .subject-item.no-results i,
+.list .subject-item a i, .content-container .item-info.item-accordion .ac-header .icon-container {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -12468,17 +12469,43 @@ a.button {
       display: block;
       margin: 0 auto; }
 
+.search-container .search-input i {
+  font-size: 20px;
+  color: #a1864c;
+  margin-right: 10px; }
+
+.search-container .search-input input {
+  font-size: 18px;
+  padding: 0;
+  height: 45px;
+  font-family: "Open Sans Regular"; }
+
+.spinner-container {
+  width: 100%;
+  height: 100%;
+  text-align: center; }
+  .spinner-container .spinner {
+    stroke: #4D2B56;
+    fill: #4D2B56;
+    color: #4D2B56; }
+    .spinner-container .spinner svg {
+      width: 40px;
+      height: 40px;
+      margin-top: 50px; }
+
 .list .subject-item {
   font-size: 18px;
   color: #000;
   border: none;
   margin: 0; }
+  .list .subject-item.no-results,
   .list .subject-item a {
     background-color: #e4e8ea;
     font-family: "Open Sans Regular";
     white-space: normal;
     padding-top: 20px;
     padding-bottom: 20px; }
+    .list .subject-item.no-results i,
     .list .subject-item a i {
       right: 30px;
       color: #a1864c; }

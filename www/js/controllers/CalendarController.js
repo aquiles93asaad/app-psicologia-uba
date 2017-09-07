@@ -4,9 +4,9 @@ angular.module('PsiPlannerApp')
 
 .controller('CalendarController', CalendarController);
 
-CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate'];
+CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate', '$ionicGesture', '$timeout'];
 
-    function CalendarController($scope, $ionicSideMenuDelegate) {
+    function CalendarController($scope, $ionicSideMenuDelegate, $ionicGesture, $timeout) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -20,9 +20,18 @@ CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate'];
         ]
     }];
 
+    $scope.goToPrevMonth = function() {
+        angular.element('.calendar-container').fullCalendar('prev');
+    };
+
+    $scope.goToNextMonth = function() {
+        angular.element('.calendar-container').fullCalendar('next');
+    };
+
     document.addEventListener("deviceready", function () {
 
         $ionicSideMenuDelegate.canDragContent(false);
+        //console.log(angular.element('.calendar-container'));
 
         $scope.uiConfig = {
             calendar:{

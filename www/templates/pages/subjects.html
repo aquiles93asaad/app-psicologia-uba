@@ -1,13 +1,18 @@
 <ion-view view-title="Materias" cache-view="false">
     <ion-content>
-        <div class="search-container" ng-show="showSearch">
+        <div class="search-container">
             <label class="item item-input search-input">
                 <i class="fa fa-search" aria-hidden="true"></i>
-                <input type="text" placeholder="Buscar por Nombre" ng-model="seacrh-input" ng-change="searchSubjects">
+                <input type="text" placeholder="Buscar materias por nombre" ng-model="search.value" ng-change="searchSubjects()">
             </label>
         </div>
-        <ion-list>
-            <ion-spinner icon="spiral" ng-show="showSpinner"></ion-spinner>
+        <div class="spinner-container" ng-show="search.showSpinner">
+            <ion-spinner icon="spiral"></ion-spinner>
+        </div>
+        <ion-list ng-show="search.showList">
+            <ion-item class="subject-item no-results" ng-show="subjects.length == 0">
+                <span ng-show="search.value != null">No se se encontraron materias con ese nombre.</span>
+            </ion-item>
             <ion-item class="subject-item" ng-repeat="subject in subjects" ui-sref="app.subject({subjectId: subject.id})">
                 {{subject.name}}
                 <i class="fa fa-chevron-right" aria-hidden="true"></i>

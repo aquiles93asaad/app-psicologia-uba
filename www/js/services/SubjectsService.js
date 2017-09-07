@@ -13,7 +13,7 @@ angular.module('PsiPlannerApp')
 		/****************/
 
 		/**
-        * Devuelve todas las materias que no se estan cursando
+        * Devuelve todas las materias que no se estan cursando.
         * @returns Array of Objects
         */
 		function getSubjects() {
@@ -31,7 +31,7 @@ angular.module('PsiPlannerApp')
 		}
 
 		/**
-        * Devuelve todas las materias que se estan cursando, las aprobadas y las que se debe el final
+        * Devuelve todas las materias que se estan cursando, las aprobadas y las que se debe el final.
         * @returns Array of Objects
         */
 		function getMySubjects() {
@@ -49,7 +49,39 @@ angular.module('PsiPlannerApp')
 		}
 
 		/**
-        * Devuelve la materia con el id pasado cómo párametro
+        * Busca las materias por el nombre pasado como párametros entre las materias que no se estan cursando.
+        * @returns Array of Objects
+        */
+		function getSubjectsByName(name) {
+			var deferred = $q.defer();
+	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%' AND state IN ('Sin Cursar', 'Recursada')")
+	        .then(function(success) {
+	            deferred.resolve(success);
+	        })
+	        .catch(function(error) {
+	            deferred.reject(error);
+	        })
+			return deferred.promise;
+		}
+
+		/**
+        * Busca las materias por el nombre pasado como párametros entre las materias que se estan cursando, las aprobadas y las que se debe el final.
+        * @returns Array of Objects
+        */
+		function getMySubjectsByName(name) {
+			var deferred = $q.defer();
+	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%' AND state IN ('Cursando', 'Aprobada', 'Debe final')")
+	        .then(function(success) {
+	            deferred.resolve(success);
+	        })
+	        .catch(function(error) {
+	            deferred.reject(error);
+	        })
+			return deferred.promise;
+		}
+
+		/**
+        * Devuelve la materia con el id pasado cómo párametro.
         * @returns Objeto o Null
         */
 		function getById(id) {
@@ -63,20 +95,6 @@ angular.module('PsiPlannerApp')
 	            deferred.reject(error);
 	        });
 
-			return deferred.promise;
-		}
-
-		//Devuelve todas las materias con parte del nombre especificado
-		//Puede devolver más de un valor, ya que utiliza la sentencia LIKE
-		function getSubjectsByName(name) {
-			var deferred = $q.defer();
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%' AND state IN ('Sin Cursar', 'Recursada')")
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        })
 			return deferred.promise;
 		}
 
@@ -249,9 +267,11 @@ angular.module('PsiPlannerApp')
         /* PUBLIC METHODS
         /****************/
 		return {
-			getAll: getAll,
+			getSubjects: getSubjects,
+			getMySubjects: getMySubjects,
+			getSubjectsByName: getSubjectsByName,
+			getMySubjectsByName: getMySubjectsByName,
 			getById: getById,
-			getByName: getByName,
 			getClasses: getClasses,
 			getActualClass: getActualClass,
 			getNoneCorrelativesSubjects: getNoneCorrelativesSubjects,
