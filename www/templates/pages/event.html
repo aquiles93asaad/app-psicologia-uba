@@ -1,10 +1,10 @@
-<ion-view view-title="Evento">
+<ion-view view-title="Evento" cache-view="false">
     <ion-content class="content-container">
         <form>
             <div class="list">
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Título</span>
-                    <input type="text" ng-model="event.title" placeholder="Titulo">
+                    <input type="text" ng-model="event.title" placeholder="Título">
                     <div></div>
                 </label>
                 <label class="item item-input">
@@ -19,8 +19,10 @@
                     <div class="input-label">
                         Materia
                     </div>
-                    <select ng-model="event.subject_id">
-                        <option ng-repeat="subject in mySubjects" value="subject.id">{{subject.name}}</option>
+                    <select
+                        ng-init="event.subject_id = mySubjects[0].id"
+                        ng-model="event.subject_id"
+                        ng-options="subject.id as subject.name for subject in mySubjects">
                     </select>
                 </label>
                 <label class="item item-input">
@@ -29,17 +31,17 @@
                 </label>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Descripción</span>
-                    <input type="text" ng-model="event.description" placeholder="Descipción">
+                    <input type="text" ng-model="event.description" placeholder="Descripción">
                     <div></div>
                 </label>
                 <label class="item item-input item-select">
                     <div class="input-label">
                         Color
                     </div>
-                    <select ng-model="event.color">
-                        <option ng-repeat="color in colors" value="color.id">
-                            <span class="color.id">{{color.name}}</span>
-                        </option>
+                    <select
+                        ng-init="event.color = colors[0].id"
+                        ng-model="event.color"
+                        ng-options="color.id as color.name for color in colors">
                     </select>
                 </label>
                 <div class="button-container">
