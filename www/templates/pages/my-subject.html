@@ -1,5 +1,78 @@
-<ion-view view-title="Materia" cache-view="false">
-    <ion-content>
+<ion-view view-title="Mi Carrera" cache-view="false">
+    <ion-content class="content-container">
+        <div class="list">
+            <div class="subject-name-container">
+                <h4>{{subject.name}}</h4>
+            </div>
+            <label class="item item-input item-info">
+                <span class="input-label">Tipo</span>
+                <input type="text" ng-model="subject.type" disabled>
+            </label>
+            <label class="item item-input item-info">
+                <span class="input-label">Situación</span>
+                <input type="text" ng-model="subject.duration" disabled>
+            </label>
+            <label class="item item-input item-info">
+                <span class="input-label">Formación</span>
+                <input type="text" ng-model="subject.formation" disabled>
+            </label>
+            <label class="item item-input item-info" ng-if="subject.area">
+                <span class="input-label">Área</span>
+                <input type="text" ng-model="subject.area" disabled>
+            </label>
 
+            <div class="item item-info item-accordion" slide-accordion close-others="false">
+                <div class="ac-header">
+                    Correlativas Anteriores
+                    <div class="icon-container">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="ac-body">
+                    <div class="ac-body-item" ng-if="preCorrelatives.length == 0">
+                        La materia no tiene correlativas anterioes
+                    </div>
+                    <div class="ac-body-item" ng-repeat="pre in preCorrelatives">
+                        {{pre.name}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="item item-info item-accordion" slide-accordion close-others="false">
+                <div class="ac-header">
+                    Correlativas Posteriores
+                    <div class="icon-container">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="ac-body">
+                    <div class="ac-body-item" ng-if="postCorrelatives.length == 0">
+                        La materia no tiene correlativas anterioes
+                    </div>
+                    <div class="ac-body-item" ng-repeat="post in postCorrelatives">
+                        {{post.name}}
+                    </div>
+                </div>
+            </div>
+
+            <label class="item item-input item-select item-info">
+                <div class="input-label">
+                    Estado
+                </div>
+                <select ng-model="subject.state" ng-options="stateOption.id as stateOption.id for stateOption in stateOptions">
+                </select>
+            </label>
+
+            <label class="item item-input item-select item-info">
+                <div class="input-label">
+                    Cátedra
+                </div>
+                <select ng-model="subject.current_class_id" ng-options='class as (class.num_cat + " " + class.name) for class in classes track by class.id'></select>
+            </label>
+            <div class="button-container">
+                <button ng-click="updateSubject()">Guardar</button>
+            </div>
+        </div>
+    </form>
     </ion-content>
 </ion-view>

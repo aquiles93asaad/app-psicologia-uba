@@ -14,7 +14,7 @@
                 <span ng-show="search.value == null">No se agregó ninguna materia a Mi Carrera.</span>
                 <span ng-show="search.value != null">No se se encontraron materias con ese nombre.</span>
             </ion-item>
-            <ion-item class="subject-item" ng-repeat="mySubject in mySubjects" href="app.mySubject({subjectId: mySubject.id})">
+            <ion-item class="subject-item" ng-repeat="mySubject in mySubjects" ui-sref="app.mySubject({subjectId: mySubject.id})">
                 {{mySubject.name}}
                 <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </ion-item>

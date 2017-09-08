@@ -2502,7 +2502,8 @@ form {
 
 .info-paragrapgh {
   font-size: 16px;
-  font-family: "Open Sans Regular"; }
+  font-family: "Open Sans Regular";
+  text-align: justify; }
 
 /*!
   Ionicons, v2.0.1
