@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar'])
+angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar', 'ui.bootstrap.datetimepicker'])
 
 .config(['dbConnectionManagerProvider', function(dbConnectionManagerProvider) {
     dbConnectionManagerProvider.setDatabaseName('PsiPlanner');
@@ -35,7 +35,7 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
     })
 
     .state('app.event', {
-        url: '/add-event',
+        url: '/add-event/:eventId/:chosenDate',
         views: {
             'menuContent': {
                 templateUrl: 'templates/pages/event.html',
@@ -100,6 +100,16 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
             'menuContent': {
                 templateUrl: 'templates/pages/links.html',
                 controller: 'LinksController'
+            }
+        }
+    })
+
+    .state('app.information', {
+        url: '/information',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/pages/information.html',
+                controller: 'InformationController'
             }
         }
     });

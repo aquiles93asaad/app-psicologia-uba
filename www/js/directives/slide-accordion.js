@@ -19,6 +19,10 @@ function slideAccordion() {
         var header = element.find('.ac-header');
 
         header.on('click', function() {
+            if(attrs.closeOthers == "true") {
+                angular.element('.item-accordion.open').not(element).removeClass('open')
+            }
+
             element.toggleClass('open');
         })
     }

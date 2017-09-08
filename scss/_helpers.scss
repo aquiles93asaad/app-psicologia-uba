@@ -34,6 +34,16 @@ body {
 
     .list {
         margin-top: $distance-2x-s;
+
+        .item-content {
+            &:focus,
+            &:active,
+            &:hover {
+                text-decoration: none;
+                color: $dark;
+                outline: none;
+            }
+        }
     }
 }
 
@@ -138,7 +148,7 @@ form {
                 + div {
                     width: 0;
                     height: 0;
-                    background-color: $secondary-color;
+                    background-color: $main-color;
                     @include custom-transition(width, 400ms, ease);
                     @include custom-transition(height, 400ms, ease);
                 }
@@ -158,4 +168,9 @@ form {
     .button-container {
         padding: $distance-s $no-distance;
     }
+}
+
+.info-paragrapgh {
+    font-size: $font-size-l;
+    font-family: $opr;
 }

@@ -1,0 +1,10 @@
+.item-accordion {
+    .datetimepicker {
+        margin: 0 auto;
+    }
+
+    .date-text {
+        @extend .vertical-centered;
+        right: $distance-5x-l;
+    }
+}

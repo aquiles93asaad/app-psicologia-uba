@@ -1,7 +1,15 @@
 {
-    "name": "PsiPlanner",
-    "version": "0.0.1",
-    "description": "An Ionic project",
+    "name": "uba-psiplanner",
+    "version": "1.0.0",
+    "description": "UBA PsiPlanner es una herramienta mobile desarrollada por el CEP",
+    "contributors": {
+        "person": "Marcos Suárez <marcos.suarez.siriuslabs@gmail.com>"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aquiles93asaad/app-psicologia-uba"
+    },
+    "license": "UNLICENSED",
     "devDependencies": {
         "@ionic/cli-plugin-cordova": "1.6.2",
         "@ionic/cli-plugin-gulp": "1.1.1",
@@ -13,6 +21,8 @@
         "ionic": "3.7.0"
     },
     "dependencies": {
+        "angular-bootstrap-datetimepicker": "^1.1.4",
+        "bootstrap": "^3.3.7",
         "cordova-android": "^6.2.3",
         "cordova-plugin-calendar": "^4.6.0",
         "cordova-plugin-compat": "^1.0.0",

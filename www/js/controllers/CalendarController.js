@@ -4,21 +4,25 @@ angular.module('PsiPlannerApp')
 
 .controller('CalendarController', CalendarController);
 
-CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate', '$ionicGesture', '$timeout'];
+CalendarController.$inject = [
+    '$scope',
+    '$state',
+    '$ionicSideMenuDelegate',
+    '$ionicGesture',
+    'EventsService',
+    'DateTransformerService'
+];
 
-    function CalendarController($scope, $ionicSideMenuDelegate, $ionicGesture, $timeout) {
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
+function CalendarController(
+    $scope,
+    $state,
+    $ionicSideMenuDelegate,
+    $ionicGesture,
+    EventsService,
+    DateTransformerService
+) {
 
-    $scope.eventSources =[{
-        events: [
-            {title: 'All Day Event',start: new Date(y, m, 1)},
-            {title: 'All Day Event',start: new Date(y, m, 1)},
-            {title: 'All Day Event',start: new Date(y, m, d - 5)}
-        ]
-    }];
+    $scope.eventSources = [];
 
     $scope.goToPrevMonth = function() {
         angular.element('.calendar-container').fullCalendar('prev');
@@ -32,11 +36,28 @@ CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate', '$ionicGesture
 
         $ionicSideMenuDelegate.canDragContent(false);
         //console.log(angular.element('.calendar-container'));
+        var doubleClick = null;
+        var clickTimer = null;
 
         $scope.uiConfig = {
             calendar:{
                 aspectRatio: 0.72,
                 editable: true,
+                dayClick: function(date, jsEvent, view) {
+                    var singleClick = date.format();
+
+                    if(doubleClick == singleClick) {
+                        $state.go('app.event', { chosenDate: date.format() });
+                    } else {
+                        doubleClick = date.format();
+                        clearInterval(clickTimer);
+                        clickTimer = setInterval(function(){
+                            doubleClick = null;
+                            clearInterval(clickTimer);
+                        }, 500);
+                    }
+                    ;
+                },
                 customButtons: {
                     prevIcon: {
                        icon: ' fa fa-chevron-left',
@@ -62,8 +83,27 @@ CalendarController.$inject = ['$scope', '$ionicSideMenuDelegate', '$ionicGesture
                         columnFormat: 'ddd'
                     }
                 },
-                dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
+                dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                displayEventTime: false
             }
         };
+
+        EventsService.getAll()
+        .then(function(results) {
+            var events = []
+            var i = 0;
+            for(i; i<results.length; i++) {
+                events.push({
+                    title: results[i].title,
+                    start: DateTransformerService.getStringAsDate(results[i].date_start),
+                    end: DateTransformerService.getStringAsDate(results[i].date_end),
+                    color: results[i].color
+                });
+            }
+            $scope.eventSources.push({events: events});
+        })
+        .catch(function(error) {
+            console.error(error);
+        })
     }, false);
 }

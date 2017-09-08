@@ -47,8 +47,8 @@ function MySubjectsController(
         $scope.search.showList = false;
 
         SubjectsService.getMySubjectsByName($scope.search.value)
-        .then(function(result) {
-            $scope.subjects = result;
+        .then(function(mySubjects) {
+            $scope.mySubjects = mySubjects;
         })
         .catch(function(error) {
             console.error(error);

@@ -3,38 +3,61 @@
         <form>
             <div class="list">
                 <label class="item item-input item-floating-label">
-                    <span class="input-label">Título</span>
-                    <input type="text" ng-model="event.title" placeholder="Título">
+                    <span class="input-label">Título *</span>
+                    <input type="text" ng-model="event.title" placeholder="Título *">
                     <div></div>
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Desde</span>
-                    <input type="date" ng-model="event.date_start">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Hasta</span>
-                    <input type="date" ng-model="event.date_end">
-                </label>
-                <label class="item item-input item-select">
-                    <div class="input-label">
-                        Materia
-                    </div>
-                    <select
-                        ng-init="event.subject_id = mySubjects[0].id"
-                        ng-model="event.subject_id"
-                        ng-options="subject.id as subject.name for subject in mySubjects">
-                    </select>
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Notificación</span>
-                    <input type="date" ng-model="event.alert_date">
                 </label>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Descripción</span>
                     <input type="text" ng-model="event.description" placeholder="Descripción">
                     <div></div>
                 </label>
-                <label class="item item-input item-select">
+                <label class="item item-input item-select item-info">
+                    <div class="input-label">
+                        Materia
+                    </div>
+                    <select
+                        ng-model="event.subject_id"
+                        ng-options="subject.id as subject.name for subject in mySubjects">
+                    </select>
+                </label>
+                <div class="item item-info item-accordion" slide-accordion close-others="true">
+                    <div class="ac-header">
+                         Desde <span class="date-text">{{ event.date_start | date: "dd/MM/yyyy, HH:mm" }}</span>
+                        <div class="icon-container">
+                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="ac-body">
+                        <datetimepicker
+                            data-ng-model="event.date_start"
+                            data-datetimepicker-config="{ renderOn: 'end-date-changed' }"
+                            data-on-set-time="startDateOnSetTime()"
+                            data-before-render="startDateBeforeRender($dates)">
+                        </datetimepicker>
+                    </div>
+                </div>
+                <div class="item item-info item-accordion" slide-accordion close-others="true">
+                    <div class="ac-header">
+                        Hasta <span class="date-text">{{ event.date_end | date: "dd/MM/yyyy, HH:mm" }}</span>
+                        <div class="icon-container">
+                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="ac-body">
+                        <datetimepicker
+                            data-ng-model="event.date_end"
+                            data-datetimepicker-config="{ renderOn: 'start-date-changed' }"
+                            data-on-set-time="endDateOnSetTime()"
+                            data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)">
+                        </datetimepicker>
+                    </div>
+                </div>
+                <!-- <label class="item item-input item-info">
+                    <span class="input-label">Notificación</span>
+                    <input type="date" ng-model="event.alert_date">
+                </label> -->
+                <label class="item item-input item-select item-info">
                     <div class="input-label">
                         Color
                     </div>
@@ -47,15 +70,6 @@
                 <div class="button-container">
                     <button ng-click="addEvent()">Guardar</button>
                 </div>
-                <!-- <div class="item item-toggle">
-                    Todo el día
-                    <label class="toggle toggle-royal">
-                        <input type="checkbox">
-                        <div class="track">
-                            <div class="handle"></div>
-                        </div>
-                    </label>
-                </div> -->
             </div>
         </form>
     </ion-content>
