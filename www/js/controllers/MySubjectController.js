@@ -82,7 +82,7 @@ function MySubjectController(
 
         SubjectsService.addSubject(parseInt($scope.subject.id), subjectToAdd)
         .then(function(success) {
-            switch(subjectToAdd.state){
+            switch(subjectToAdd.state) {
               case('Recursada'):
                   $cordovaToast.showShortBottom("La materia se eliminó de Mi Carrera");
                   break;

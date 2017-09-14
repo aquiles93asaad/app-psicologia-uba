@@ -13,13 +13,41 @@ angular.module('PsiPlannerApp')
 		/****************/
 
 		/**
-        * Devuelve todas las materias que no se estan cursando.
+        * Devuelve las materias según los filtros pasados.
+        * @param Object filters: donde los keys son los siguientes parametros
+        * 	@param Object states: Estados de las materias a buscar ("Sin cursar" - "Cursando" - "Debe final" - "Aprobada" - "Recursada")
+        * 	@param Object types: Tipos de las materias a buscar  ("Obligatoria" - "Optativa" - "Práctica Profesional" - "Práctica Investigación")
+        * 	@param Object areas: Areas de las materias a buscar ("Área Clínica" - "Área Educacional" - "Área Justicia" - "Área Social - Comunitaria" - "Área Trabajo" - "Formación General" - "Formación Profesional" - "Requisito Idioma")
+        * 	@param String duration: duración de las materias a buscar ("Cuatrimestral" - "Anual")
+        * 	@param String formation: Formación de las materias a buscar ("Formación General" - "Formación Profesional")
+        * 	@param String name: Nombre o parte del nombre de la/s materia/s a buscar
         * @returns Array of Objects
         */
-		function getSubjects() {
+		function getSubjects(filters) {
 			var deferred = $q.defer();
+			var query = "SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%'";
 
-			dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Sin Cursar', 'Recursada')")
+			if(filters.states) {
+				query += " AND state IN (" + filters.states.join() + ")";
+			}
+
+			if(filters.types) {
+				query += " AND type IN (" + filters.types.join() + ")";
+			}
+
+			if(filters.areas) {
+				query += " AND area IN (" + filters.areas.join() + ")";
+			}
+
+			if(filters.duration) {
+				query += " AND duration = " + filters.duration;
+			}
+
+			if(filters.formation) {
+				query += " AND formation = " + filters.formation;
+			}
+
+			dbDataManager.findData(query)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
@@ -27,74 +55,6 @@ angular.module('PsiPlannerApp')
 	            deferred.reject(error);
 	        })
 
-			return deferred.promise;
-		}
-
-		/**
-        * Devuelve todas las materias que se estan cursando, las aprobadas y las que se debe el final.
-        * @returns Array of Objects
-        */
-		function getMySubjects() {
-			var deferred = $q.defer();
-
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Cursando', 'Aprobada', 'Debe final')")
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        });
-
-			return deferred.promise;
-		}
-
-		/**
-        * Devuelve todas las materias que se estan cursando, las aprobadas y las que se debe el final.
-        * @returns Array of Objects
-        */
-		function getMyActualSubjects() {
-			var deferred = $q.defer();
-
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Cursando', 'Debe final')")
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        });
-
-			return deferred.promise;
-		}
-
-		/**
-        * Busca las materias por el nombre pasado como párametros entre las materias que no se estan cursando.
-        * @returns Array of Objects
-        */
-		function getSubjectsByName(name) {
-			var deferred = $q.defer();
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%' AND state IN ('Sin Cursar', 'Recursada')")
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        })
-			return deferred.promise;
-		}
-
-		/**
-        * Busca las materias por el nombre pasado como párametros entre las materias que se estan cursando, las aprobadas y las que se debe el final.
-        * @returns Array of Objects
-        */
-		function getMySubjectsByName(name) {
-			var deferred = $q.defer();
-	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%' AND state IN ('Cursando', 'Aprobada', 'Debe final')")
-	        .then(function(success) {
-	            deferred.resolve(success);
-	        })
-	        .catch(function(error) {
-	            deferred.reject(error);
-	        })
 			return deferred.promise;
 		}
 
@@ -286,17 +246,12 @@ angular.module('PsiPlannerApp')
         /****************/
 		return {
 			getSubjects: getSubjects,
-			getMySubjects: getMySubjects,
-			getSubjectsByName: getSubjectsByName,
-			getMySubjectsByName: getMySubjectsByName,
 			getById: getById,
 			getClasses: getClasses,
 			getActualClass: getActualClass,
 			getNoneCorrelativesSubjects: getNoneCorrelativesSubjects,
 			getPreCorrelatives: getPreCorrelatives,
 			getPostCorrelatives: getPostCorrelatives,
-			getMySubjects: getMySubjects,
-			getMyActualSubjects: getMyActualSubjects,
 			addSubject: addSubject,
 			setState: setState,
 			setCurrentClass: setCurrentClass,

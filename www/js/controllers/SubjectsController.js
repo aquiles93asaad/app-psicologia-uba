@@ -7,14 +7,20 @@ angular.module('PsiPlannerApp')
 SubjectsController.$inject = [
     '$scope',
     '$ionicLoading',
+    '$ionicModal',
     'SubjectsService'
 ];
 
 function SubjectsController(
     $scope,
     $ionicLoading,
+    $ionicModal,
     SubjectsService
 ) {
+
+    var filters = {
+        states: ["'Sin Cursar'", "'Recursada'"]
+    }
 
     document.addEventListener("deviceready", function () {
         $ionicLoading.show({
@@ -24,7 +30,7 @@ function SubjectsController(
             showDelay: 0
         });
 
-        SubjectsService.getSubjects()
+        SubjectsService.getSubjects(filters)
         .then(function(subjects) {
             $scope.subjects = subjects;
         })
@@ -33,7 +39,14 @@ function SubjectsController(
         })
         .finally(function() {
             $ionicLoading.hide();
-        })
+        });
+
+        $ionicModal.fromTemplateUrl('templates/partials/filters.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.subjectsFiltersModal = modal;
+        });
     });
 
     $scope.search = {
@@ -46,7 +59,9 @@ function SubjectsController(
         $scope.search.showSpinner = true;
         $scope.search.showList = false;
 
-        SubjectsService.getSubjectsByName($scope.search.value)
+        filters.name = $scope.search.value;
+
+        SubjectsService.getSubjects(filters)
         .then(function(result) {
             $scope.subjects = result;
         })
@@ -57,5 +72,21 @@ function SubjectsController(
             $scope.search.showSpinner = false;
             $scope.search.showList = true;
         })
+    };
+
+    $scope.openSubjectsFilterModal = function() {
+        $scope.subjectsFiltersModal.show();
+    };
+
+    $scope.closeSubjectsFilterModal = function() {
+        $scope.subjectsFiltersModal.hide();
+    };
+
+    $scope.$on('$destroy', function() {
+        $scope.subjectsFiltersModal.remove();
+    });
+
+    $scope.changeFilters = function() {
+        console.log("hola");
     };
 }
