@@ -49,6 +49,24 @@ angular.module('PsiPlannerApp')
 		}
 
 		/**
+        * Devuelve todas las materias que se estan cursando, las aprobadas y las que se debe el final.
+        * @returns Array of Objects
+        */
+		function getMyActualSubjects() {
+			var deferred = $q.defer();
+
+	        dbDataManager.findData("SELECT * FROM " + subjectsTableName + " WHERE state IN ('Cursando', 'Debe final')")
+	        .then(function(success) {
+	            deferred.resolve(success);
+	        })
+	        .catch(function(error) {
+	            deferred.reject(error);
+	        });
+
+			return deferred.promise;
+		}
+
+		/**
         * Busca las materias por el nombre pasado como párametros entre las materias que no se estan cursando.
         * @returns Array of Objects
         */
@@ -278,6 +296,7 @@ angular.module('PsiPlannerApp')
 			getPreCorrelatives: getPreCorrelatives,
 			getPostCorrelatives: getPostCorrelatives,
 			getMySubjects: getMySubjects,
+			getMyActualSubjects: getMyActualSubjects,
 			addSubject: addSubject,
 			setState: setState,
 			setCurrentClass: setCurrentClass,
