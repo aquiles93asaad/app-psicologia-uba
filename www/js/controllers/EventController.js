@@ -124,27 +124,32 @@ function EventController(
     }
 
     $scope.addEvent = function() {
-        $ionicLoading.show({
-            content: 'Loading',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
-
-        EventsService.createEvent($scope.event)
-        .then(function(success){
-            $cordovaToast.showShortBottom("El evento se agregó al Calendario!");
-
-            $ionicHistory.nextViewOptions({
-                disableBack: true
+        if($scope.event.title) {
+           $ionicLoading.show({
+                content: 'Loading',
+                showBackdrop: true,
+                maxWidth: 200,
+                showDelay: 0
             });
-            $state.go('app.calendar');
-        })
-        .catch(function(error) {
-            console.error(error);
-        })
-        .finally(function() {
-            $ionicLoading.hide();
-        })
+
+            EventsService.createEvent($scope.event)
+            .then(function(success){
+                $cordovaToast.showShortBottom("El evento se agregó al Calendario!");
+
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $state.go('app.calendar');
+            })
+            .catch(function(error) {
+                console.error(error);
+            })
+            .finally(function() {
+                $ionicLoading.hide();
+            }) 
+        } else {
+            $cordovaToast.showShortBottom("No se puede guardar un evento sin título!");
+        }
+        
     };
 }
