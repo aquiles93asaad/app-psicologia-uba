@@ -82,7 +82,15 @@ function MySubjectController(
 
         SubjectsService.addSubject(parseInt($scope.subject.id), subjectToAdd)
         .then(function(success) {
-            $cordovaToast.showShortBottom("La materia se agregó a Mi Carrera!");
+            switch(subjectToAdd.state) {
+              case('Recursada'):
+                  $cordovaToast.showShortBottom("La materia se eliminó de Mi Carrera");
+                  break;
+              case('Cursando'):
+                  $cordovaToast.showShortBottom("¡La materia se agregó a Mi Carrera!");
+                  break;
+            }
+
 
             $ionicHistory.nextViewOptions({
                 disableBack: true

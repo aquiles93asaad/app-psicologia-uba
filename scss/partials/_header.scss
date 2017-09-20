@@ -1,4 +1,5 @@
-.nav-bar-container {
+.nav-bar-container,
+.modal {
     .bar {
         &.bar-header {
             height: 50px;
@@ -16,7 +17,10 @@
             }
 
             .title {
+                width: 100%;
                 left: 0 !important;
+                right: 0 !important;
+                margin: 0;
                 text-align: center;
                 height: $distance-5x-l;
                 line-height: $distance-5x-l;

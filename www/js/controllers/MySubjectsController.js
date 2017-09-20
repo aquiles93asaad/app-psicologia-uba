@@ -16,6 +16,10 @@ function MySubjectsController(
     SubjectsService
 ) {
 
+    var filters = {
+        states: ["'Cursando'", "'Debe final'", "'Aprobada'", "'Recursada'"]
+    }
+
     document.addEventListener("deviceready", function () {
         $ionicLoading.show({
             content: 'Loading',
@@ -24,7 +28,7 @@ function MySubjectsController(
             showDelay: 0
         });
 
-        SubjectsService.getMySubjects()
+        SubjectsService.getSubjects(filters)
         .then(function(mySubjects) {
             $scope.mySubjects = mySubjects;
         })
@@ -46,7 +50,7 @@ function MySubjectsController(
         $scope.search.showSpinner = true;
         $scope.search.showList = false;
 
-        SubjectsService.getMySubjectsByName($scope.search.value)
+        SubjectsService.getSubjects($scope.search.value)
         .then(function(mySubjects) {
             $scope.mySubjects = mySubjects;
         })

@@ -60,7 +60,7 @@ function EventController(
             showDelay: 0
         });
 
-        SubjectsService.getMySubjects()
+        SubjectsService.getMyActualSubjects()
         .then(function(mySubjects) {
             $scope.mySubjects = mySubjects;
             setDefaultSubject();
