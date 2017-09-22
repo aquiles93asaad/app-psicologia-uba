@@ -2,4 +2,15 @@ body {
     .modal-backdrop {
         background-color: transparent;
     }
+
+    .toggle{
+    	input {
+    		&:checked {
+    			+  .track {
+    				border-color: $secondary-color-alternate;
+    				background-color: $secondary-color-alternate;
+    			}
+    		}
+    	}
+    }
 }

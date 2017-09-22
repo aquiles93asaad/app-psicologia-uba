@@ -12374,7 +12374,10 @@ a.button {
       font-size: 40px; }
   .nav-bar-container .bar.bar-header .title,
   .modal .bar.bar-header .title {
+    width: 100%;
     left: 0 !important;
+    right: 0 !important;
+    margin: 0;
     text-align: center;
     height: 50px;
     line-height: 50px;
@@ -12384,6 +12387,10 @@ a.button {
 
 body .modal-backdrop {
   background-color: transparent; }
+
+body .toggle input:checked + .track {
+  border-color: #a1864c;
+  background-color: #a1864c; }
 
 .floating-button-container {
   position: absolute;
