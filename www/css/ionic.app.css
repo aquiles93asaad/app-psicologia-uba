@@ -12368,10 +12368,21 @@ a.button {
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.37); }
   .nav-bar-container .bar.bar-header .button,
   .modal .bar.bar-header .button {
-    color: #a1864c; }
+    color: #a1864c;
+    -webkit-transition: transform 400ms ease;
+    -moz-transition: transform 400ms ease;
+    -ms-transition: transform 400ms ease;
+    -o-transition: transform 400ms ease;
+    transition: transform 400ms ease;
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg); }
+    .nav-bar-container .bar.bar-header .button.open,
+    .modal .bar.bar-header .button.open {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg); }
     .nav-bar-container .bar.bar-header .button:before,
     .modal .bar.bar-header .button:before {
-      font-size: 40px; }
+      font-size: 30px; }
   .nav-bar-container .bar.bar-header .title,
   .modal .bar.bar-header .title {
     width: 100%;

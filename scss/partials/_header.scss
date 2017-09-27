@@ -10,9 +10,15 @@
 
             .button {
                 color: $secondary-color-alternate;
+                @include custom-transition(transform, 400ms, ease);
+                @include rotate(-180deg);
+                
+                &.open {
+                    @include rotate(0deg);
+                }
 
                 &:before {
-                    font-size: $font-size-12x-l;
+                    font-size: $font-size-7x-l;
                 }
             }
 

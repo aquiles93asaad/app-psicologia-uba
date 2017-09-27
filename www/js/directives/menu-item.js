@@ -23,6 +23,7 @@ function menuItem($state, $ionicSideMenuDelegate) {
             angular.element('.menu .menu-item').removeClass('chosen');
             angular.element(this).addClass('chosen');
             $ionicSideMenuDelegate.toggleLeft();
+            
             angular.element('.menu.menu-left').css({
                 'transform' : 'translate3d(-320px, 0, 0)'
             });
