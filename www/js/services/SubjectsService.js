@@ -18,8 +18,8 @@ angular.module('PsiPlannerApp')
         * 	@param Object states: Estados de las materias a buscar ("Sin cursar" - "Cursando" - "Debe final" - "Aprobada" - "Recursada")
         * 	@param Object types: Tipos de las materias a buscar  ("Obligatoria" - "Optativa" - "Práctica Profesional" - "Práctica Investigación")
         * 	@param Object areas: Areas de las materias a buscar ("Área Clínica" - "Área Educacional" - "Área Justicia" - "Área Social - Comunitaria" - "Área Trabajo" - "Formación General" - "Formación Profesional" - "Requisito Idioma")
-        * 	@param String duration: duración de las materias a buscar ("Cuatrimestral" - "Anual")
-        * 	@param String formation: Formación de las materias a buscar ("Formación General" - "Formación Profesional")
+        * 	@param Object durations: Duraciones de las materias a buscar ("Cuatrimestral" - "Anual")
+        * 	@param Object formations: Formaciones de las materias a buscar ("Formación General" - "Formación Profesional")
         * 	@param String name: Nombre o parte del nombre de la/s materia/s a buscar
         * @returns Array of Objects
         */
@@ -39,12 +39,12 @@ angular.module('PsiPlannerApp')
 				query += " AND area IN (" + filters.areas.join() + ")";
 			}
 
-			if(filters.duration) {
-				query += " AND duration = " + filters.duration;
+			if(filters.durations) {
+				query += " AND duration IN (" + filters.durations.join() + ")";
 			}
 
-			if(filters.formation) {
-				query += " AND formation = " + filters.formation;
+			if(filters.formations) {
+				query += " AND formation IN (" + filters.formations.join() + ")" ;
 			}
 
 			dbDataManager.findData(query)

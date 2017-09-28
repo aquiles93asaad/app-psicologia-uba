@@ -18,9 +18,13 @@ function SubjectsController(
     SubjectsService
 ) {
 
+    $scope.filter = {
+        
+    };
+
     var filters = {
         states: ["'Sin Cursar'", "'Recursada'"]
-    }
+    };
 
     document.addEventListener("deviceready", function () {
         $ionicLoading.show({
@@ -34,9 +38,11 @@ function SubjectsController(
         .then(function(subjects) {
             $scope.subjects = subjects;
         })
+
         .catch(function(error) {
             console.error(error);
         })
+
         .finally(function() {
             $ionicLoading.hide();
         });

@@ -12373,9 +12373,11 @@ a.button {
     -moz-transition: transform 400ms ease;
     -ms-transition: transform 400ms ease;
     -o-transition: transform 400ms ease;
-    transition: transform 400ms ease;
-    -webkit-transform: rotate(-180deg);
-    transform: rotate(-180deg); }
+    transition: transform 400ms ease; }
+    .nav-bar-container .bar.bar-header .button.ion-navicon-round,
+    .modal .bar.bar-header .button.ion-navicon-round {
+      -webkit-transform: rotate(-180deg);
+      transform: rotate(-180deg); }
     .nav-bar-container .bar.bar-header .button.open,
     .modal .bar.bar-header .button.open {
       -webkit-transform: rotate(0deg);

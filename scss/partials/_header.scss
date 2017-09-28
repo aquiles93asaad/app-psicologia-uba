@@ -11,7 +11,10 @@
             .button {
                 color: $secondary-color-alternate;
                 @include custom-transition(transform, 400ms, ease);
-                @include rotate(-180deg);
+
+                &.ion-navicon-round {
+                    @include rotate(-180deg);
+                }
                 
                 &.open {
                     @include rotate(0deg);
