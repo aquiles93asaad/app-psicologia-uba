@@ -41,7 +41,7 @@ function CalendarController(
 
         $scope.uiConfig = {
             calendar:{
-                aspectRatio: 0.72,
+                aspectRatio: 1.425,
                 editable: true,
                 dayClick: function(date, jsEvent, view) {
                     var singleClick = date.format();

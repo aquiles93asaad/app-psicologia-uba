@@ -8,7 +8,7 @@
     @include linear-gradient(top, to bottom, $secondary-color, 0%, $secondary-color-alternate, 100%);
     background: -webkit-gradient(left top, left bottom, color-stop(0%, $secondary-color), color-stop(100%, $secondary-color-alternate));
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-    z-index: 1;
+    z-index: 100;
 
     .floating-button {
         border: none;
@@ -27,7 +27,7 @@
 
 .calendar-container {
     width: 100%;
-    height: 100%;
+    //height: 100%;
     color: white;
 
     .fc-toolbar {

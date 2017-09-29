@@ -18,8 +18,29 @@ function SubjectsController(
     SubjectsService
 ) {
 
-    $scope.filter = {
-        
+    $scope.filters = {
+        formations: {
+            general: null,
+            professional: null
+        },
+        durations: {
+            anual: null,
+            cuatrimestral: null
+        },
+        areas: {
+            clinical: null,
+            educational: null,
+            judicial: null,
+            social: null,
+            work: null,
+            language: null
+        },
+        types: {
+            required: null,
+            optional: null,
+            professional: null,
+            investigation: null
+        }
     };
 
     var filters = {
