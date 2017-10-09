@@ -14,44 +14,157 @@
         </div>
     </ion-header-bar>
     <ion-content>
-        <ul class="list">
-            <li class="item item-toggle">
-                Formación profecional
-                <label class="toggle">
-                    <input type="checkbox">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">
-                Formación profecional
-                <label class="toggle">
-                    <input type="checkbox">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">
-                Anual
-                <label class="toggle">
-                    <input type="checkbox">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
+        <div class="list">
+            <div class="filters-group">
+                <div class="filters-header"><span>Formacions</span></div>
+                <div class="item item-toggle">
+                    General
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.formations.general">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+                <div class="item item-toggle">
+                    Profesional
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.formations.professional">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
 
-            <li class="item item-toggle">
-                Cuatrimestral
-                <label class="toggle">
-                    <input type="checkbox">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-        </ul>
+            <div class="filters-group">
+                <div class="filters-header"><span>Duraciones</span></div>
+                <div class="item item-toggle">
+                    Anual
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.durations.anual">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Cuatrimestral
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.durations.cuatrimestral">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filters-group">
+                <div class="filters-header"><span>Áreas</span></div>
+                <div class="item item-toggle">
+                    Clínica
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.areas.clinical">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Educacional
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.areas.educational">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Justicia
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.areas.judicial">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Social - Comunitaria
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.areas.social">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Trabajo
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.areas.work">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Requisito Idioma
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.areas.language">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filters-group">
+                <div class="filters-header"><span>Tipos</span></div>
+                <div class="item item-toggle">
+                    Obligatoria
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.types.required">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Optativa
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.types.optional">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Práctica Profesional
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.types.professional">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="item item-toggle">
+                    Práctica Investigación
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.types.investigation">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
     </ion-content>
 </ion-modal-view>

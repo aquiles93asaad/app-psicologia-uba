@@ -5,8 +5,8 @@
     z-index: 100 !important;
     min-height: 1px;
     background: $menu-color;
-    @include linear-gradient(top, to bottom, $menu-color, 0%, $menu-color-2, 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, $menu-color), color-stop(100%, $menu-color-2));
+    @include linear-gradient(top, to bottom, $main-color-alternate, 0%, $main-color, 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, $main-color-alternate), color-stop(100%, $main-color));
 
     .scroll-content {
         .item {

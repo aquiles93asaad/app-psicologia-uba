@@ -18,9 +18,34 @@ function SubjectsController(
     SubjectsService
 ) {
 
+    $scope.filters = {
+        formations: {
+            general: null,
+            professional: null
+        },
+        durations: {
+            anual: null,
+            cuatrimestral: null
+        },
+        areas: {
+            clinical: null,
+            educational: null,
+            judicial: null,
+            social: null,
+            work: null,
+            language: null
+        },
+        types: {
+            required: null,
+            optional: null,
+            professional: null,
+            investigation: null
+        }
+    };
+
     var filters = {
         states: ["'Sin Cursar'", "'Recursada'"]
-    }
+    };
 
     document.addEventListener("deviceready", function () {
         $ionicLoading.show({
@@ -34,9 +59,11 @@ function SubjectsController(
         .then(function(subjects) {
             $scope.subjects = subjects;
         })
+
         .catch(function(error) {
             console.error(error);
         })
+
         .finally(function() {
             $ionicLoading.hide();
         });

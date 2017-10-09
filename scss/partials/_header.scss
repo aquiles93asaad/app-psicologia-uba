@@ -7,11 +7,15 @@
             @include linear-gradient(top, to bottom, $main-color, 0%, $main-color-alternate, 100%);
             background: -webkit-gradient(left top, left bottom, color-stop(0%, $main-color), color-stop(100%, $main-color-alternate));
             box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.37);
+            border: none;
 
             .button {
                 color: $secondary-color-alternate;
                 @include custom-transition(transform, 400ms, ease);
-                @include rotate(-180deg);
+
+                &.ion-navicon-round {
+                    @include rotate(-180deg);
+                }
                 
                 &.open {
                     @include rotate(0deg);
@@ -19,6 +23,10 @@
 
                 &:before {
                     font-size: $font-size-7x-l;
+                }
+
+                .fa {
+                    font-size: $font-size-2x-l;
                 }
             }
 

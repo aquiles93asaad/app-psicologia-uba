@@ -40,11 +40,12 @@ body {
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.4);
-        @include custom-transition(width, 100ms, linear);
+        @include custom-transition(width, 100ms, ease);
     }
 
     .list {
         margin-top: $distance-2x-s;
+        border: none;
 
         .item-content {
             &:focus,

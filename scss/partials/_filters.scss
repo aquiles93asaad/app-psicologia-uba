@@ -13,4 +13,14 @@ body {
     		}
     	}
     }
+
+    .filters-group {
+        margin-bottom: $distance-s;
+
+        .filters-header {
+            font-size: $font-size-x-l;
+            font-family: $opb;
+            
+        }
+    }
 }
