@@ -6,6 +6,7 @@ angular.module('PsiPlannerApp')
 
 SubjectsController.$inject = [
     '$scope',
+    '$rootScope',
     '$ionicLoading',
     '$ionicModal',
     'SubjectsService'
@@ -13,12 +14,13 @@ SubjectsController.$inject = [
 
 function SubjectsController(
     $scope,
+    $rootScope,
     $ionicLoading,
     $ionicModal,
     SubjectsService
 ) {
 
-    $scope.filters = {
+    $rootScope.filters = {
         formations: {
             general: null,
             professional: null
@@ -77,16 +79,24 @@ function SubjectsController(
     });
 
     $scope.search = {
-        value: null,
+        value: "",
         showSpinner: false,
         showList: true
     };
 
-    $scope.searchSubjects = function() {
-        $scope.search.showSpinner = true;
-        $scope.search.showList = false;
-
-        filters.name = $scope.search.value;
+    $scope.searchSubjects = function(filtersChanged) {
+        if(filtersChanged) {
+            $ionicLoading.show({
+                content: 'Loading',
+                showBackdrop: true,
+                maxWidth: 200,
+                showDelay: 0
+            });
+        } else {
+            $scope.search.showSpinner = true;
+            $scope.search.showList = false;
+            filters.name = $scope.search.value;
+        }
 
         SubjectsService.getSubjects(filters)
         .then(function(result) {
@@ -96,8 +106,13 @@ function SubjectsController(
             console.error(error);
         })
         .finally(function() {
-            $scope.search.showSpinner = false;
-            $scope.search.showList = true;
+            if(filtersChanged) {
+                $ionicLoading.hide();
+                $scope.closeSubjectsFilterModal();
+            } else {
+                $scope.search.showSpinner = false;
+                $scope.search.showList = true;
+            }
         })
     };
 
@@ -114,6 +129,24 @@ function SubjectsController(
     });
 
     $scope.changeFilters = function() {
-        console.log("hola");
+        filters = {
+            states: ["'Sin Cursar'", "'Recursada'"]
+        };
+
+        angular.forEach($rootScope.filters, function(value, key) {
+            var arrayToAdd = [];
+
+            angular.forEach(value, function(subValue, subKey){
+                if(subValue != null) {
+                    arrayToAdd.push("'" + subValue + "'");
+                }
+            });
+
+            if(arrayToAdd.length != 0) {
+                filters[key] = arrayToAdd;
+            }
+        });
+
+        $scope.searchSubjects(true);
     };
 }

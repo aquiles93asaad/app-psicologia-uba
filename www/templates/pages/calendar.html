@@ -1,12 +1,12 @@
 <ion-view view-title="Calendario" cache-view="false">
     <ion-content class="calendar-ion-content">
-        <div class="calendar-container relative-parent">
+        <div class="relative-parent">
             <div class="floating-button-container">
                 <button class="floating-button" ui-sref="app.event">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
             </div>
-            <div
+            <div class="calendar-container"
                 ui-calendar="uiConfig.calendar"
                 ng-model="eventSources"
                 on-swipe-right="goToPrevMonth()"

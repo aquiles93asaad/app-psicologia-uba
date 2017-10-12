@@ -2388,7 +2388,8 @@ body.menu-open .menu-content.menu-animated {
   transition: width 100ms ease; }
 
 .scroll-content .list {
-  margin-top: 5px; }
+  margin-top: 5px;
+  border: none; }
   .scroll-content .list .item-content:focus, .scroll-content .list .item-content:active, .scroll-content .list .item-content:hover {
     text-decoration: none;
     color: #000;
@@ -12402,7 +12403,7 @@ a.button {
       font-size: 30px; }
     .nav-bar-container .bar.bar-header .button .fa,
     .modal .bar.bar-header .button .fa {
-      font-size: 16px; }
+      font-size: 20px; }
   .nav-bar-container .bar.bar-header .title,
   .modal .bar.bar-header .title {
     width: 100%;
@@ -12422,6 +12423,23 @@ body .modal-backdrop {
 body .toggle input:checked + .track {
   border-color: #a1864c;
   background-color: #a1864c; }
+
+body .filters-group {
+  margin-bottom: 10px; }
+  body .filters-group .filters-header {
+    font-size: 18px;
+    font-family: "Open Sans Bold";
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px; }
+  body .filters-group .item.item-toggle {
+    border: none;
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-family: "Open Sans Regular";
+    font-size: 18px;
+    margin: 0; }
 
 .floating-button-container {
   position: absolute;

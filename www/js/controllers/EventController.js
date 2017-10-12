@@ -60,7 +60,11 @@ function EventController(
             showDelay: 0
         });
 
-        SubjectsService.getMyActualSubjects()
+        var filters = {
+            states: ["'Cursando'", "'Debe final'"]
+        };
+
+        SubjectsService.getSubjects(filters)
         .then(function(mySubjects) {
             $scope.mySubjects = mySubjects;
             setDefaultSubject();
