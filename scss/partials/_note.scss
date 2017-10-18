@@ -1,0 +1,42 @@
+body {
+    .modal {
+        .item-info {
+            &.note-range {
+                display: block;
+                max-height: 150px;
+
+                div {
+                    max-width: none;
+                    width: 100%;
+                    display: block;
+
+                    &.input-label {
+                        margin-bottom: $distance-s;
+                    }
+
+                    &.range-container {
+                        .irs {
+                            .irs-min,
+                            .irs-max {
+                                font-size: $font-size-m;
+                            }
+
+                            .irs-from,
+                            .irs-to,
+                            .irs-single {
+                                background: $secondary-color-alternate;
+                            }
+
+                            .irs-bar,
+                            .irs-bar-edge {
+                                @include linear-gradient(top, to bottom, $secondary-color, 0%, $secondary-color-alternate, 100%);
+                                background: -webkit-gradient(left top, left bottom, color-stop(0%, $secondary-color), color-stop(100%, $secondary-color-alternate));
+                                border-color: $secondary-color-alternate;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

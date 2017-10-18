@@ -18,7 +18,7 @@ function MySubjectsController(
 
     var filters = {
         states: ["'Cursando'", "'Debe final'", "'Aprobada'", "'Recursada'"]
-    }
+    };
 
     document.addEventListener("deviceready", function () {
         $ionicLoading.show({

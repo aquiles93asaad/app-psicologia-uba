@@ -6,6 +6,7 @@ angular.module('PsiPlannerApp')
 
 CalendarController.$inject = [
     '$scope',
+    '$rootScope',
     '$state',
     '$ionicSideMenuDelegate',
     '$ionicGesture',
@@ -15,6 +16,7 @@ CalendarController.$inject = [
 
 function CalendarController(
     $scope,
+    $rootScope,
     $state,
     $ionicSideMenuDelegate,
     $ionicGesture,
@@ -88,22 +90,24 @@ function CalendarController(
             }
         };
 
-        EventsService.getAll()
-        .then(function(results) {
-            var events = []
-            var i = 0;
-            for(i; i<results.length; i++) {
-                events.push({
-                    title: results[i].title,
-                    start: DateTransformerService.getStringAsDate(results[i].date_start),
-                    end: DateTransformerService.getStringAsDate(results[i].date_end),
-                    color: results[i].color
-                });
-            }
-            $scope.eventSources.push({events: events});
-        })
-        .catch(function(error) {
-            console.error(error);
-        })
+        $rootScope.$on('database-ready' ,function() {
+            EventsService.getAll()
+            .then(function(results) {
+                var events = []
+                var i = 0;
+                for(i; i<results.length; i++) {
+                    events.push({
+                        title: results[i].title,
+                        start: DateTransformerService.getStringAsDate(results[i].date_start),
+                        end: DateTransformerService.getStringAsDate(results[i].date_end),
+                        color: results[i].color
+                    });
+                }
+                $scope.eventSources.push({events: events});
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+        });
     }, false);
 }

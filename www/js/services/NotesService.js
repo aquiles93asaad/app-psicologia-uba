@@ -35,17 +35,10 @@ angular.module('PsiPlannerApp')
         * @param value es el valor de la nota. En num se guarda del 0 al 10, y en string se guarda 0 para desaprobado y 1 para aprobado
         * @returns {*} Retorna el id de la nota insertada
         */
-		function createNote(subject_id, name, type, value) {
+		function createNote(note) {
 			var deferred = $q.defer();
 
-			var item = {
-                'subject_id': subject_id,
-                'name': name,
-                'type': type,
-                'value': value
-	        };
-
-	        dbDataManager.insertData(notesTablesName, item)
+	        dbDataManager.insertData(notesTablesName, note)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })

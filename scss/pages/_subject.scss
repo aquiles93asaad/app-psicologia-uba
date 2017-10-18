@@ -63,6 +63,18 @@
                     font-family: $opr;
                     white-space: normal;
                 }
+
+                .button-container {
+                    margin: $distance-2x-s $distance-m;
+
+                    button {
+                        height: $distance-2x-l;
+                        padding: $no-distance;
+                        width: 60%;
+                        margin: $no-distance auto;
+                        display: block;
+                    }
+                }
             }
 
             &.open {

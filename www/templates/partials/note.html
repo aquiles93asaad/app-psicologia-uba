@@ -1,0 +1,49 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-stable">
+        <h1 class="title">Notas</h1>
+        <div side="left" class="buttons">
+            <button class="button button-clear" ng-click="closeNoteModal()">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="content-container">
+        <div class="list">
+            <label class="item item-input item-select item-info">
+                <div class="input-label">
+                    Concepto
+                </div>
+                <select ng-model="note.name" ng-options="noteName.id as noteName.id for noteName in noteNames"></select>
+            </label>
+            <label class="item item-input item-select item-info">
+                <div class="input-label">
+                    Tipo Nota
+                </div>
+                <select ng-model="note.type" ng-change="note.value = null">
+                    <option value="Num">Númerico</option>
+                    <option value="String">Texto</option>
+                </select>
+            </label>
+            <label class="item item-input item-select item-info" ng-show="note.type == 'String'">
+                <div class="input-label">
+                    Nota
+                </div>
+                <select ng-model="note.value">
+                    <option value="1">Aprobado</option>
+                    <option value="0">Desaprobado</option>
+                </select>
+            </label>
+            <label class="item item-input note-range item-info" ng-show="note.type == 'Num'">
+                <div class="input-label">
+                    Nota
+                </div>
+                <div class="range-container">
+                    <input type="text" id="note-range" ng-model="note.value">
+                </div>
+            </label>
+            <div class="button-container">
+                <button ng-click="addNote()">Guardar</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

@@ -10,7 +10,9 @@ MySubjectController.$inject = [
     '$cordovaToast',
     '$ionicHistory',
     '$ionicLoading',
+    '$ionicModal',
     'SubjectsService',
+    'NotesService',
     'DateTransformerService'
 ];
 
@@ -20,7 +22,9 @@ function MySubjectController(
     $cordovaToast,
     $ionicHistory,
     $ionicLoading,
+    $ionicModal,
     SubjectsService,
+    NotesService,
     DateTransformerService
 ) {
 
@@ -29,6 +33,16 @@ function MySubjectController(
         {id: 'Aprobada'},
         {id: 'Debe final'},
         {id: 'Recursada'}
+    ];
+
+    $scope.noteNames = [
+        {id: 'Parcial'},
+        {id: 'Parcial Domiciliario'},
+        {id: 'Trabajo Práctico'},
+        {id: 'Trabajo de Campo'},
+        {id: 'Recuperatorio'},
+        {id: 'Final'},
+        {id: 'Otro'}
     ];
 
     document.addEventListener("deviceready", function () {
@@ -42,6 +56,12 @@ function MySubjectController(
         SubjectsService.getById($state.params.subjectId)
         .then(function(subject) {
             $scope.subject = subject;
+            $scope.note = {
+                name: null,
+                type: null,
+                value: null,
+                subject_id: $scope.subject.id
+            };
             return SubjectsService.getClasses($scope.subject.id);
         })
         .then(function(classes) {
@@ -65,12 +85,42 @@ function MySubjectController(
         })
         .then(function(postCorrelatives) {
             $scope.postCorrelatives = postCorrelatives;
+            return NotesService.getSubjectNotes($scope.subject.id);
+        })
+        .then(function(notes) {
+            $scope.notes = notes;
         })
         .catch(function(error) {
             console.error(error);
         })
         .finally(function() {
             $ionicLoading.hide();
+        });
+
+        $ionicModal.fromTemplateUrl('templates/partials/note.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.noteModal = modal;
+        });
+    }, false);
+
+    $scope.openNoteModal = function() {
+        $scope.noteModal.show();
+    };
+
+    $scope.closeNoteModal = function() {
+        $scope.noteModal.hide();
+    };
+
+    $scope.$on('$destroy', function() {
+        $scope.noteModal.remove();
+    });
+
+    $scope.$on('modal.shown', function() {
+        angular.element('#note-range').ionRangeSlider({
+            min: 0,
+            max: 10
         });
     });
 
@@ -91,7 +141,6 @@ function MySubjectController(
                   break;
             }
 
-
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });
@@ -101,4 +150,40 @@ function MySubjectController(
             console.error(error);
         })
     };
+
+    $scope.addNote = function() {
+        if($scope.note.name) {
+            if($scope.note.type) {
+                if($scope.note.value) {
+                    $ionicLoading.show({
+                        content: 'Loading',
+                        showBackdrop: true,
+                        maxWidth: 200,
+                        showDelay: 0
+                    });
+
+                    NotesService.createNote($scope.note)
+                    .then(function(success) {
+                        $cordovaToast.showShortBottom("¡La nota se agregó correctamente!")
+                        return NotesService.getSubjectNotes($scope.subject.id);
+                    })
+                    .then(function(notes) {
+                        $scope.notes = notes;
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    })
+                    .finally(function() {
+                        $ionicLoading.hide();
+                    });
+                } else {
+                    $cordovaToast.showShortBottom("¡Elige una nota por favor!");
+                }
+            } else {
+                $cordovaToast.showShortBottom("¡Elige un tipo por favor!");
+            }
+        } else {
+            $cordovaToast.showShortBottom("¡Elige un concepto por favor!");
+        }
+    }
 }

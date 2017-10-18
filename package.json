@@ -15,7 +15,7 @@
         "gulp-clean-css": "^3.7.0",
         "gulp-rename": "^1.2.0",
         "gulp-sass": "^3.1.0",
-        "ionic": "3.12.0"
+        "ionic": "3.13.1"
     },
     "dependencies": {
         "angular-bootstrap-datetimepicker": "^1.1.4",

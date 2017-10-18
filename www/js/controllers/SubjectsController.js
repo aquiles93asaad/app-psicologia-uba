@@ -74,7 +74,7 @@ function SubjectsController(
         }).then(function(modal) {
             $scope.subjectsFiltersModal = modal;
         });
-    });
+    }, false);
 
     $scope.search = {
         value: null,

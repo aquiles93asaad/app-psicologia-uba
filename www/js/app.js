@@ -118,7 +118,7 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
     $urlRouterProvider.otherwise('/app/calendar');
 })
 
-.run(function($ionicPlatform, dbFixturesManager) {
+.run(function($ionicPlatform, dbFixturesManager, $rootScope) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -138,7 +138,8 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
         dbFixturesManager.initialize()
         .then(function() {
             console.log("Data Base initialized and up to date");
+            $rootScope.$broadcast('database-ready');
         });
 
-    });
+    }, false);
 });
