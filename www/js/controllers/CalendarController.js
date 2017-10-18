@@ -37,13 +37,14 @@ function CalendarController(
     document.addEventListener("deviceready", function () {
 
         $ionicSideMenuDelegate.canDragContent(false);
-        //console.log(angular.element('.calendar-container'));
         var doubleClick = null;
         var clickTimer = null;
+        var height = window.outerHeight - angular.element('.bar.bar-header').outerHeight() - 60; // 60px of the calendar bar-header
+        var width = window.outerWidth;
 
         $scope.uiConfig = {
             calendar:{
-                aspectRatio: 1.425,
+                aspectRatio: width/height,
                 editable: true,
                 dayClick: function(date, jsEvent, view) {
                     var singleClick = date.format();

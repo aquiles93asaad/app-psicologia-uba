@@ -61,7 +61,7 @@ function EventController(
         });
 
         var filters = {
-            states: ["'Cursando'", "'Debe final'", "'Aprobada'"]
+            states: ["'Cursando'", "'Debe final'"]
         };
 
         SubjectsService.getSubjects(filters)
@@ -150,10 +150,10 @@ function EventController(
             })
             .finally(function() {
                 $ionicLoading.hide();
-            }) 
+            })
         } else {
             $cordovaToast.showShortBottom("No se puede guardar un evento sin título!");
         }
-        
+
     };
 }

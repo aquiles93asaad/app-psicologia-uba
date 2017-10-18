@@ -12425,10 +12425,21 @@ body .toggle input:checked + .track {
   background-color: #a1864c; }
 
 body .filters-group {
-  margin-bottom: 15px; }
+  margin-bottom: 10px; }
   body .filters-group .filters-header {
     font-size: 18px;
-    font-family: "Open Sans Bold"; }
+    font-family: "Open Sans Bold";
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px; }
+  body .filters-group .item.item-toggle {
+    border: none;
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-family: "Open Sans Regular";
+    font-size: 18px;
+    margin: 0; }
 
 body .modal .item-info.note-range {
   display: block;

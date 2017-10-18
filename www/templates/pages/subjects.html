@@ -9,7 +9,7 @@
         <div class="search-container">
             <label class="item item-input search-input">
                 <i class="fa fa-search" aria-hidden="true"></i>
-                <input type="text" placeholder="Buscar materias por nombre" ng-model="search.value" ng-change="searchSubjects()">
+                <input type="text" placeholder="Buscar materias por nombre" ng-model="search.value" ng-change="searchSubjects(false)">
             </label>
         </div>
         <div class="spinner-container" ng-show="search.showSpinner">

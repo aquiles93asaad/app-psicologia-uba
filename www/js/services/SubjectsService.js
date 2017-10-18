@@ -25,10 +25,14 @@ angular.module('PsiPlannerApp')
         */
 		function getSubjects(filters) {
 			var deferred = $q.defer();
-			var query = "SELECT * FROM " + subjectsTableName + " WHERE name LIKE '%" + name + "%'";
+			var query = "SELECT * FROM " + subjectsTableName;
 
 			if(filters.states) {
-				query += " AND state IN (" + filters.states.join() + ")";
+				query += " WHERE state IN (" + filters.states.join() + ")";
+			}
+
+			if(filters.name) {
+				query += " AND name LIKE '%" + filters.name + "%'";
 			}
 
 			if(filters.types) {
