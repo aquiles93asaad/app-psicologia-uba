@@ -1,10 +1,65 @@
-.item-accordion {
-    .datetimepicker {
-        margin: 0 auto;
+body {
+    .content-container {
+        .item-info {
+            &.first-in-event {
+                margin-top: $distance-l;
+            }
+
+            &.notif {
+                max-height: none;
+                display: block;
+
+                input {
+                    width: 100%;
+                    text-align: left;
+                    padding: $no-distance;
+                    flex: none;
+                    line-height: $distance-m;
+                    margin-bottom: $distance-s;
+                    padding-left: $distance-m;
+                    padding-bottom: $distance-2x-s;
+                    border-bottom: 2px solid $secondary-color;
+
+                    &:focus {
+                        border-bottom-color: $main-color;
+                    }
+                }
+
+                label.item-radio {
+                    width: 100%;
+                    border: none;
+
+                    input:checked {
+                        & + .radio-content {
+                            .item-content {
+                                background-color: transparent;
+                                font-weight: 700;
+                            }
+                        }
+                    }
+
+                    .radio-content {
+                        .item-content {
+                            padding-top: $distance-x-s;
+                            padding-bottom: $distance-x-s;
+                            font-size: $font-size-l;
+                        }
+
+                        .radio-icon {
+                            font-size: $font-size-2x-l;
+                            padding: $no-distance;
+                            height: $distance-l;
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    .date-text {
-        @extend .vertical-centered;
-        right: $distance-5x-l;
+    .item.item-toggle {
+        background: transparent;
+        font-size: $font-size-m;
+        font-family: $opb;
+        color: $dark;
     }
 }

@@ -6,7 +6,6 @@ angular.module('PsiPlannerApp')
 
 SubjectsController.$inject = [
     '$scope',
-    '$rootScope',
     '$ionicLoading',
     '$ionicModal',
     'SubjectsService'
@@ -14,13 +13,12 @@ SubjectsController.$inject = [
 
 function SubjectsController(
     $scope,
-    $rootScope,
     $ionicLoading,
     $ionicModal,
     SubjectsService
 ) {
 
-    $rootScope.filters = {
+    $scope.filters = {
         formations: {
             general: null,
             professional: null
@@ -44,9 +42,10 @@ function SubjectsController(
             investigation: null
         }
     };
+    $scope.showStatesFilters = false;
 
     var filters = {
-        states: ["'Sin Cursar'", "'Recursada'"]
+        states: ["'Sin Cursar'"]
     };
 
     document.addEventListener("deviceready", function () {
@@ -61,11 +60,9 @@ function SubjectsController(
         .then(function(subjects) {
             $scope.subjects = subjects;
         })
-
         .catch(function(error) {
             console.error(error);
         })
-
         .finally(function() {
             $ionicLoading.hide();
         });
@@ -79,9 +76,10 @@ function SubjectsController(
     }, false);
 
     $scope.search = {
-        value: "",
+        value: null,
         showSpinner: false,
-        showList: true
+        showList: true,
+        filtersChanged: false
     };
 
     $scope.searchSubjects = function(filtersChanged) {
@@ -113,7 +111,7 @@ function SubjectsController(
                 $scope.search.showSpinner = false;
                 $scope.search.showList = true;
             }
-        })
+        });
     };
 
     $scope.openSubjectsFilterModal = function() {
@@ -130,10 +128,10 @@ function SubjectsController(
 
     $scope.changeFilters = function() {
         filters = {
-            states: ["'Sin Cursar'", "'Recursada'"]
+            states: ["'Sin Cursar'"]
         };
 
-        angular.forEach($rootScope.filters, function(value, key) {
+        angular.forEach($scope.filters, function(value, key) {
             var arrayToAdd = [];
 
             angular.forEach(value, function(subValue, subKey){
@@ -146,6 +144,12 @@ function SubjectsController(
                 filters[key] = arrayToAdd;
             }
         });
+
+        if(Object.keys(filters).length != 1) {
+            $scope.search.filtersChanged = true;
+        } else {
+            $scope.search.filtersChanged = false;
+        }
 
         $scope.searchSubjects(true);
     };

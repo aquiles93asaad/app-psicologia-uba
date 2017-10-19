@@ -11,7 +11,8 @@ CalendarController.$inject = [
     '$ionicSideMenuDelegate',
     '$ionicGesture',
     'EventsService',
-    'DateTransformerService'
+    'DateTransformerService',
+    'uiCalendarConfig'
 ];
 
 function CalendarController(
@@ -21,10 +22,11 @@ function CalendarController(
     $ionicSideMenuDelegate,
     $ionicGesture,
     EventsService,
-    DateTransformerService
+    DateTransformerService,
+    uiCalendarConfig
 ) {
-
-    $scope.eventSources = [];
+    $scope.events = [];
+    $scope.eventSources = [$scope.events];
 
     $scope.goToPrevMonth = function() {
         angular.element('.calendar-container').fullCalendar('prev');
@@ -59,7 +61,9 @@ function CalendarController(
                             clearInterval(clickTimer);
                         }, 500);
                     }
-                    ;
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+                    $state.go('app.event', { eventId: calEvent.id });
                 },
                 customButtons: {
                     prevIcon: {
@@ -90,25 +94,36 @@ function CalendarController(
                 displayEventTime: false
             }
         };
-
-        $rootScope.$on('database-ready' ,function() {
-            EventsService.getAll()
-            .then(function(results) {
-                var events = []
-                var i = 0;
-                for(i; i<results.length; i++) {
-                    events.push({
-                        title: results[i].title,
-                        start: DateTransformerService.getStringAsDate(results[i].date_start),
-                        end: DateTransformerService.getStringAsDate(results[i].date_end),
-                        color: results[i].color
-                    });
-                }
-                $scope.eventSources.push({events: events});
-            })
-            .catch(function(error) {
-                console.error(error);
-            });
-        });
     }, false);
+
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        if(toState.name == 'app.calendar') {
+            getEvents();
+        }
+    });
+
+    $rootScope.$on('database-ready' ,function() {
+        getEvents();
+    });
+
+    function getEvents() {
+        EventsService.getAll()
+        .then(function(results) {
+            $scope.events.length = 0;
+            var i = 0;
+            for(i; i<results.length; i++) {
+                $scope.events.push({
+                    title: results[i].title,
+                    start: DateTransformerService.getStringAsDate(results[i].date_start),
+                    end: DateTransformerService.getStringAsDate(results[i].date_end),
+                    color: results[i].color,
+                    id: results[i].id,
+                    stick: true
+                });
+            }
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+    }
 }

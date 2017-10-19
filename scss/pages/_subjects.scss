@@ -49,9 +49,11 @@
             padding-bottom: $distance-m;
 
             i {
-                @extend .vertical-centered;
-                right: $distance-x-l;
-                color: $secondary-color-alternate;
+                &.fa-chevron-right{
+                    @extend .vertical-centered;
+                    right: $distance-x-l;
+                    color: $secondary-color-alternate;
+                }
             }
         }
     }

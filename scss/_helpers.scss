@@ -138,7 +138,8 @@ form {
     label {
         .input-label,
         input,
-        select {
+        select,
+        label {
             font-family: $opr;
         }
 
@@ -146,7 +147,7 @@ form {
             border: none;
             margin: 0;
             padding: 0;
-            margin-bottom: $distance-s;
+            margin-bottom: $distance-x-s;
             display: block;
 
             input {
@@ -161,8 +162,7 @@ form {
                     width: 0;
                     height: 0;
                     background-color: $main-color;
-                    @include custom-transition(width, 400ms, ease);
-                    @include custom-transition(height, 400ms, ease);
+                    @include custom-transition(all, 400ms, ease);
                 }
 
                 &:focus {

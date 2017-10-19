@@ -15,8 +15,48 @@
     </ion-header-bar>
     <ion-content>
         <div class="list">
+            <div class="filters-group" ng-if="showStatesFilters">
+                <div class="filters-header"><span>Estado</span></div>
+                <div class="item item-toggle">
+                    Cursando
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.states.studying" data-ng-true-value="'Cursando'" data-ng-false-value="null">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+                <div class="item item-toggle">
+                    Aproabada
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.states.approved" data-ng-true-value="'Aprobada'" data-ng-false-value="null">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+                <div class="item item-toggle">
+                    Debe final
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.states.withFinal" data-ng-true-value="'Debe final'" data-ng-false-value="null">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+                <div class="item item-toggle">
+                    Recursada
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="filters.states.failed" data-ng-true-value="'Recursada'" data-ng-false-value="null">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
             <div class="filters-group">
-                <div class="filters-header"><span>Formaciones</span></div>
+                <div class="filters-header"><span>Formación</span></div>
                 <div class="item item-toggle">
                     General
                     <label class="toggle">
@@ -38,7 +78,7 @@
             </div>
 
             <div class="filters-group">
-                <div class="filters-header"><span>Duraciones</span></div>
+                <div class="filters-header"><span>Duración</span></div>
                 <div class="item item-toggle">
                     Anual
                     <label class="toggle">
@@ -61,7 +101,7 @@
             </div>
 
             <div class="filters-group">
-                <div class="filters-header"><span>Áreas</span></div>
+                <div class="filters-header"><span>Área</span></div>
                 <div class="item item-toggle">
                     Clínica
                     <label class="toggle">
@@ -124,7 +164,7 @@
             </div>
 
             <div class="filters-group">
-                <div class="filters-header"><span>Tipos</span></div>
+                <div class="filters-header"><span>Tipo</span></div>
                 <div class="item item-toggle">
                     Obligatoria
                     <label class="toggle">

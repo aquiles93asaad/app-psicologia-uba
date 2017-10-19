@@ -3,7 +3,7 @@
     <name>UBA PsiPlanner</name>
     <description>UBA PsiPlanner es una herramienta mobile desarrollada por el CEP</description>
     <author email="siriuslabsarg@gmail.com" href="http://ionicframework.com/">Sirius Labs</author>
-    <content original-src="index.html" src="http://192.168.42.41:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://192.168.0.3:8100" />
@@ -94,4 +94,5 @@
     <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <allow-navigation href="http://192.168.0.4:8100" />
 </widget>

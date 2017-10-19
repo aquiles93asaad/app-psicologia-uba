@@ -11,7 +11,7 @@
 .content-container {
     .item-info {
         padding: $distance-x-s;
-        margin-bottom: $distance-s;
+        margin: $distance-s $no-distance;
         box-shadow: 1px 1px 5px 0px grey;
         border-radius: 4px;
         max-height: $distance-3x-l;
@@ -28,6 +28,11 @@
             height: auto;
             text-align: right;
             font-size: $font-size-m;
+
+            &[type="date"],
+            &[type="datetime-local"] {
+                padding: $no-distance;
+            }
         }
 
         &.item-accordion {

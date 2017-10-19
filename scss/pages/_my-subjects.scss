@@ -1,0 +1,38 @@
+.list {
+    .subject-item {
+
+        a {
+            .state-icon {
+                @extend .vertical-centered;
+                left: $distance-x-s;
+
+                i {
+                    font-size: $font-size-3x-l;
+                }
+            }
+
+            .name {
+                width: 93%;
+                float: right;
+            }
+
+            i {
+                &.fa-play-circle {
+                    color: $state-cursando;
+                }
+
+                &.fa-exclamation-circle {
+                    color: $state-final;
+                }
+
+                &.fa-check-circle {
+                    color: $state-aprobada;
+                }
+
+                &.fa-times-circle {
+                    color: $state-recursada;
+                }
+            }
+        }
+    }
+}

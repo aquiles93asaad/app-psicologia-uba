@@ -12,7 +12,7 @@
                     <input type="text" ng-model="event.description" placeholder="Descripción">
                     <div></div>
                 </label>
-                <label class="item item-input item-select item-info">
+                <label class="item item-input item-select item-info first-in-event">
                     <div class="input-label">
                         Materia
                     </div>
@@ -21,42 +21,47 @@
                         ng-options="subject.id as subject.name for subject in mySubjects">
                     </select>
                 </label>
-                <div class="item item-info item-accordion" slide-accordion close-others="true">
-                    <div class="ac-header">
-                        Desde <span class="date-text">{{ event.date_start | date: "dd/MM/yyyy, HH:mm" }}</span>
-                        <div class="icon-container">
-                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+
+                <div class="item item-toggle in-event">
+                    Todo el día
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="options.allDay">
+                        <div class="track">
+                            <div class="handle"></div>
                         </div>
-                    </div>
-                    <div class="ac-body">
-                        <datetimepicker
-                            data-ng-model="event.date_start"
-                            data-datetimepicker-config="{ renderOn: 'end-date-changed' }"
-                            data-on-set-time="startDateOnSetTime()"
-                            data-before-render="startDateBeforeRender($dates)">
-                        </datetimepicker>
-                    </div>
+                    </label>
                 </div>
-                <div class="item item-info item-accordion" slide-accordion close-others="true">
-                    <div class="ac-header">
-                        Hasta <span class="date-text">{{ event.date_end | date: "dd/MM/yyyy, HH:mm" }}</span>
-                        <div class="icon-container">
-                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                <label class="item item-input item-info">
+                    <span class="input-label">Desde</span>
+                    <input type="datetime-local" ng-show="options.allDay == false" ng-model="event.date_start" ng-value="event.date_start | date: 'dd/MM/yyyy hh:mm'">
+                    <input type="date" ng-show="options.allDay == true" ng-model="event.date_start" ng-value="event.date_start | date: 'dd/MM/yyyy'">
+                </label>
+                <label class="item item-input item-info">
+                    <span class="input-label">Hasta</span>
+                    <input type="datetime-local" ng-show="options.allDay == false" ng-model="event.date_end" ng-value="event.date_end | date: 'dd/MM/yyyy hh:mm'">
+                    <input type="date" ng-show="options.allDay == true" ng-model="event.date_end" ng-value="event.date_end | date: 'dd/MM/yyyy'">
+                </label>
+
+                <div class="item item-toggle in-event">
+                    Notificar
+                    <label class="toggle">
+                        <input type="checkbox" ng-model="options.withNotif">
+                        <div class="track">
+                            <div class="handle"></div>
                         </div>
-                    </div>
-                    <div class="ac-body">
-                        <datetimepicker
-                            data-ng-model="event.date_end"
-                            data-datetimepicker-config="{ renderOn: 'start-date-changed' }"
-                            data-on-set-time="endDateOnSetTime()"
-                            data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)">
-                        </datetimepicker>
-                    </div>
+                    </label>
                 </div>
-                <!-- <label class="item item-input item-info">
-                    <span class="input-label">Notificación</span>
-                    <input type="date" ng-model="event.alert_date">
-                </label> -->
+                <label class="item item-input item-info notif" ng-show="options.withNotif">
+                    <input type="number" ng-model="notification.number" min="1" ng-keypress="showNumber($event)" ng-keydown="showNumber($event)">
+                    <!-- <select ng-model="notification.type" ng-focus="changeNotifSelectOptions(true)" ng-blur="changeNotifSelectOptions(false)">
+                        <option value="m">Minuto</option>
+                        <option value="h" selected>Hora antes</option>
+                        <option value="d">Día</option>
+                    </select> -->
+                    <ion-radio ng-model="notification.type" ng-value="'m'">Minuto</ion-radio>
+                    <ion-radio ng-model="notification.type" ng-value="'h'">Hora antes</ion-radio>
+                    <ion-radio ng-model="notification.type" ng-value="'d'">Día</ion-radio>
+                </label>
                 <label class="item item-input item-select item-info">
                     <div class="input-label">
                         Color

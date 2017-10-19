@@ -14,6 +14,16 @@ body {
     	}
     }
 
+    .item.item-toggle {
+        border: none;
+        padding-left: $distance-m;
+        padding-top: $distance-s;
+        padding-bottom: $distance-s;
+        font-family: $opr;
+        font-size: $font-size-x-l;
+        margin: $no-distance;
+    }
+
     .filters-group {
         margin-bottom: $distance-x-s;
 
@@ -23,16 +33,6 @@ body {
             height: $distance-3x-l;
             line-height: $distance-3x-l;
             padding-left: $distance-x-s;
-        }
-
-        .item.item-toggle {
-            border: none;
-            padding-left: $distance-m;
-            padding-top: $distance-s;
-            padding-bottom: $distance-s;
-            font-family: $opr;
-            font-size: $font-size-x-l;
-            margin: $no-distance;
         }
     }
 }

@@ -34,12 +34,25 @@ function EventController(
         {id: '#444444', name: 'Oscuro'}
     ];
 
+    $scope.options = {
+        allDay: false,
+        withNotif: false
+    }
+
+    $scope.notification = {
+        type: 'h',
+        number: 1
+    }
+
+    var start = null;
+    var end =  null;
+
     if($state.params.chosenDate) {
-        var start = moment($state.params.chosenDate).format();
-        var end =  moment($state.params.chosenDate).add(1, 'hour').format('YYYY-MM-DDTHH:mm:ssZ');
-    } else {
-        var start = moment().format('YYYY-MM-DDTHH:mm:ssZ');
-        var end = moment().add(1, 'hour').format('YYYY-MM-DDTHH:mm:ssZ');
+        start = new Date(moment($state.params.chosenDate));
+        end =  new Date(moment($state.params.chosenDate).add(1, 'hour'));
+    } else if(!$state.params.eventId) {
+        start = new Date(moment().format('YYYY-MM-DDTHH:mm'));
+        end = new Date(moment().add(1, 'hour').format('YYYY-MM-DDTHH:mm'));
     }
 
     $scope.event = {
@@ -67,7 +80,19 @@ function EventController(
         SubjectsService.getSubjects(filters)
         .then(function(mySubjects) {
             $scope.mySubjects = mySubjects;
-            setDefaultSubject();
+            if(!$state.params.eventId) {
+                setDefaultSubject();
+            } else {
+                EventsService.getById($state.params.eventId)
+                .then(function(event) {
+                    $scope.event = event;
+                    $scope.event.date_start = moment(event.date_start).format('YYYY-MM-DDTHH:mm:ssZ');
+                    $scope.event.date_end = moment(event.date_end).format('YYYY-MM-DDTHH:mm:ssZ');
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
+            }
         })
         .catch(function(error) {
             console.error(error);
@@ -75,7 +100,7 @@ function EventController(
         .finally(function() {
             $ionicLoading.hide();
         })
-    });
+    }, false);
 
     function setDefaultSubject() {
         if ($scope.mySubjects) {
@@ -85,75 +110,66 @@ function EventController(
         }
     };
 
-    $scope.endDateBeforeRender = endDateBeforeRender;
-    $scope.endDateOnSetTime = endDateOnSetTime;
-    $scope.startDateBeforeRender = startDateBeforeRender;
-    $scope.startDateOnSetTime = startDateOnSetTime;
-
-    function startDateOnSetTime () {
-        $scope.$broadcast('start-date-changed');
-        angular.element('.item-accordion.open').removeClass('open');
-        if (moment($scope.event.date_start).isSameOrAfter($scope.event.date_end)) {
-            $scope.event.date_end = moment($scope.event.date_start).add(1, 'hour').format('YYYY-MM-DDTHH:mm:ssZ');
-        }
-    }
-
-    function endDateOnSetTime () {
-        $scope.$broadcast('end-date-changed');
-        angular.element('.item-accordion.open').removeClass('open');
-    }
-
-    function startDateBeforeRender ($dates) {
-        if ($scope.event.date_start) {
-            var activeDate = moment(new Date());
-
-            $dates.filter(function (date) {
-                return date.localDateValue() <= activeDate.valueOf()
-            }).forEach(function (date) {
-                date.selectable = false;
-            })
-        }
-    }
-
-    function endDateBeforeRender ($view, $dates) {
-        if ($scope.event.date_start) {
-            var activeDate = moment($scope.event.date_start).subtract(1, $view).add(1, 'minute');
-
-            $dates.filter(function (date) {
-                return date.localDateValue() <= activeDate.valueOf()
-            }).forEach(function (date) {
-                date.selectable = false;
-            })
-        }
-    }
-
     $scope.addEvent = function() {
-        if($scope.event.title) {
-           $ionicLoading.show({
-                content: 'Loading',
-                showBackdrop: true,
-                maxWidth: 200,
-                showDelay: 0
-            });
-
-            EventsService.createEvent($scope.event)
-            .then(function(success){
-                $cordovaToast.showShortBottom("El evento se agregó al Calendario!");
-
-                $ionicHistory.nextViewOptions({
-                    disableBack: true
+        if(!moment($scope.event.date_end).isBefore($scope.event.date_start, 'day'))
+            if($scope.event.title) {
+               $ionicLoading.show({
+                    content: 'Loading',
+                    showBackdrop: true,
+                    maxWidth: 200,
+                    showDelay: 0
                 });
-                $state.go('app.calendar');
-            })
-            .catch(function(error) {
-                console.error(error);
-            })
-            .finally(function() {
-                $ionicLoading.hide();
-            })
-        } else {
-            $cordovaToast.showShortBottom("No se puede guardar un evento sin título!");
-        }
 
+                EventsService.createEvent($scope.event)
+                .then(function(success){
+                    $cordovaToast.showShortBottom("El evento se agregó al Calendario!");
+
+                    $ionicHistory.nextViewOptions({
+                        disableBack: true
+                    });
+                    $state.go('app.calendar');
+                })
+                .catch(function(error) {
+                    console.error(error);
+                })
+                .finally(function() {
+                    $ionicLoading.hide();
+                })
+            } else {
+                $cordovaToast.showShortBottom("No se puede guardar un evento sin título!");
+            }
+        else {
+            $cordovaToast.showLongBottom("Cambia la fecha y/o hora de inicio para que sea anterior a la fecha de finalización.");
+        }
     };
+
+    $scope.$watch('notification.number', function(newVal, oldVal) {
+        var options = angular.element('.notif select option');
+        var i = 0;
+        for(i; i<options.length; i++) {
+            var option = angular.element(options[i]);
+            var text = option.text();
+            if(option.attr('selected')) {
+                if(oldVal != 1 && newVal == 1) {
+                    option.text(text.slice(0, text.indexOf('s')) + ' antes');
+                } else if(oldVal == 1 && newVal != 1) {
+                    option.text(text.slice(0, text.indexOf(' ')) + 's antes');
+                }
+            } else {
+                if(oldVal != 1 && newVal == 1) {
+                    option.text(text.slice(0, text.length - 1));
+                } else if(oldVal == 1 && newVal != 1) {
+                    option.text(text + 's');
+                }
+            }
+        }
+    });
+
+    $scope.showNumber = function(event) {
+        event.preventDefault();
+
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.close();
+        }
+    }
 }
