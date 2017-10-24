@@ -372,10 +372,10 @@ angular.module('dbManager')
     // Ejemplos para próximas versiones
 
     // /** Queries for schema update from version 1 going to 2 */
-    // queries[2] = [
-    //   "query 1",
-    //   "query 2"
-    //   ];
+    queries[2] = [
+        "ALTER TABLE EVENTS ADD COLUMN type TEXT",
+        "ALTER TABLE EVENTS ADD COLUMN quantity INTEGER"
+    ];
     // /** Queries for schema update from version 2 going to 3 */
     // queries[3] = [
     //   "query 1",

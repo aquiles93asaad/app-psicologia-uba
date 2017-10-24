@@ -62,6 +62,7 @@ function SubjectController(
     });
 
     $scope.addSubject = function() {
+        console.log(moment(new Date()).format('YYYY-MM-DD'));
         var subjectToAdd = {
             state: 'Cursando',
             current_class_id: $scope.subject.current_class_id.id,

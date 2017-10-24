@@ -10,7 +10,7 @@ angular.module('PsiPlannerApp')
         /* PRIVATE METHODS
         /****************/
 
-		//Devuelve el evento con el id de input
+        //Devuelve el evento con el id de input
         function getAll() {
             var deferred = $q.defer();
 
@@ -80,20 +80,10 @@ angular.module('PsiPlannerApp')
         }
 
         //Modifica el evento con el id de input
-        function updateEvent(id, subject_id, color, title, description, date_start, date_end, alert_date) {
+        function updateEvent(id, event) {
             var deferred = $q.defer();
 
-            var item = {
-                'subject_id': subject_id,
-                'color': color,
-                'title': title,
-                'description': description,
-                'date_start': date_start,
-                'date_end': date_end,
-                'alert_date': alert_date
-            };
-
-            dbDataManager.updateData(tableName, item, id)
+            dbDataManager.updateData(tableName, event, id)
             .then(function(success) {
                 deferred.resolve(success);
             })
@@ -120,7 +110,7 @@ angular.module('PsiPlannerApp')
         /* PUBLIC METHODS
         /****************/
         return {
-			getAll: getAll,
+            getAll: getAll,
             getById: getById,
             getByMonth: getByMonth,
             getByAlertDate: getByAlertDate,

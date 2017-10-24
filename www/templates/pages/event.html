@@ -4,12 +4,12 @@
             <div class="list">
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Título *</span>
-                    <input type="text" ng-model="event.title" placeholder="Título *">
+                    <input type="text" ng-model="event.title" placeholder="Título *" ng-keypress="closeKeyboard($event)" ng-keydown="closeKeyboard($event)">
                     <div></div>
                 </label>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Descripción</span>
-                    <input type="text" ng-model="event.description" placeholder="Descripción">
+                    <input type="text" ng-model="event.description" placeholder="Descripción" ng-keypress="closeKeyboard($event)" ng-keydown="closeKeyboard($event)">
                     <div></div>
                 </label>
                 <label class="item item-input item-select item-info first-in-event">
@@ -33,13 +33,13 @@
                 </div>
                 <label class="item item-input item-info">
                     <span class="input-label">Desde</span>
-                    <input type="datetime-local" ng-show="options.allDay == false" ng-model="event.date_start" ng-value="event.date_start | date: 'dd/MM/yyyy hh:mm'">
-                    <input type="date" ng-show="options.allDay == true" ng-model="event.date_start" ng-value="event.date_start | date: 'dd/MM/yyyy'">
+                    <input type="datetime-local" ng-show="options.allDay == false" ng-model="dates.start" ng-value="dates.start | date: 'dd/MM/yyyy hh:mm'">
+                    <input type="date" ng-show="options.allDay == true" ng-model="dates.start" ng-value="dates.start | date: 'dd/MM/yyyy'">
                 </label>
                 <label class="item item-input item-info">
                     <span class="input-label">Hasta</span>
-                    <input type="datetime-local" ng-show="options.allDay == false" ng-model="event.date_end" ng-value="event.date_end | date: 'dd/MM/yyyy hh:mm'">
-                    <input type="date" ng-show="options.allDay == true" ng-model="event.date_end" ng-value="event.date_end | date: 'dd/MM/yyyy'">
+                    <input type="datetime-local" ng-show="options.allDay == false" ng-model="dates.end" ng-value="dates.end | date: 'dd/MM/yyyy hh:mm'">
+                    <input type="date" ng-show="options.allDay == true" ng-model="dates.end" ng-value="dates.end | date: 'dd/MM/yyyy'">
                 </label>
 
                 <div class="item item-toggle in-event">
@@ -52,15 +52,10 @@
                     </label>
                 </div>
                 <label class="item item-input item-info notif" ng-show="options.withNotif">
-                    <input type="number" ng-model="notification.number" min="1" ng-keypress="showNumber($event)" ng-keydown="showNumber($event)">
-                    <!-- <select ng-model="notification.type" ng-focus="changeNotifSelectOptions(true)" ng-blur="changeNotifSelectOptions(false)">
-                        <option value="m">Minuto</option>
-                        <option value="h" selected>Hora antes</option>
-                        <option value="d">Día</option>
-                    </select> -->
-                    <ion-radio ng-model="notification.type" ng-value="'m'">Minuto</ion-radio>
-                    <ion-radio ng-model="notification.type" ng-value="'h'">Hora antes</ion-radio>
-                    <ion-radio ng-model="notification.type" ng-value="'d'">Día</ion-radio>
+                    <input type="number" ng-model="event.quantity" min="1" ng-keypress="closeKeyboard($event)" ng-keydown="closeKeyboard($event)">
+                    <ion-radio ng-model="event.type" ng-value="'minutes'">Minuto</ion-radio>
+                    <ion-radio ng-model="event.type" ng-value="'hours'">Hora</ion-radio>
+                    <ion-radio ng-model="event.type" ng-value="'days'">Día</ion-radio>
                 </label>
                 <label class="item item-input item-select item-info">
                     <div class="input-label">
@@ -74,6 +69,9 @@
                 </label>
                 <div class="button-container">
                     <button ng-click="addEvent()">Guardar</button>
+                </div>
+                <div class="button-container" ng-show="options.showDeleteButton">
+                    <button ng-click="deleteEvent()">Eliminar</button>
                 </div>
             </div>
         </form>

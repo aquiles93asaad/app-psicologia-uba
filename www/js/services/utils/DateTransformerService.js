@@ -16,7 +16,7 @@ angular.module('PsiPlannerApp')
     }
 
     function getStringAsDate(dateString) {
-        return new Date(dateString);
+        return new Date(moment(dateString));
     }
     /****************/
     /* PUBLIC METHODS

@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar', 'ui.bootstrap.datetimepicker'])
+angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar'])
 
 .config(['dbConnectionManagerProvider', function(dbConnectionManagerProvider) {
     dbConnectionManagerProvider.setDatabaseName('PsiPlanner');
@@ -9,7 +9,7 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
 
 .config(['dbFixturesManagerProvider', function(dbFixturesManagerProvider) {
     /* Sets the version of the database */
-    dbFixturesManagerProvider.setDatabaseVersion(1);
+    dbFixturesManagerProvider.setDatabaseVersion(2);
 
     /* Set to true to run fixtures and override existing database */
     dbFixturesManagerProvider.enableFixturesRun(false);
