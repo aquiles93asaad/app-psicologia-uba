@@ -377,10 +377,20 @@ angular.module('dbManager')
         "ALTER TABLE EVENTS ADD COLUMN quantity INTEGER"
     ];
     // /** Queries for schema update from version 2 going to 3 */
-    // queries[3] = [
-    //   "query 1",
-    //   "query 2"
-    //   ];
+    queries[3] = [
+        "INSERT INTO SUBJECTS (id, name, state, type, formation, duration, area) VALUES (132, 'CBC Matemática', 'Sin Cursar', 'Obligatoria', 'Formación General', 'Cuatrimestral', NULL);",
+        "INSERT INTO SUBJECTS (id, name, state, type, formation, duration, area) VALUES (133, 'CBC Introducción al pensamiento científico', 'Sin Cursar', 'Obligatoria', 'Formación General', 'Cuatrimestral', NULL);",
+        "INSERT INTO SUBJECTS (id, name, state, type, formation, duration, area) VALUES (134, 'CBC Biología', 'Sin Cursar', 'Obligatoria', 'Formación General', 'Cuatrimestral', NULL);",
+        "INSERT INTO SUBJECTS (id, name, state, type, formation, duration, area) VALUES (135, 'CBC Semiología', 'Sin Cursar', 'Obligatoria', 'Formación General', 'Cuatrimestral', NULL);",
+        "INSERT INTO SUBJECTS (id, name, state, type, formation, duration, area) VALUES (136, 'CBC Psicología', 'Sin Cursar', 'Obligatoria', 'Formación General', 'Cuatrimestral', NULL);",
+        "INSERT INTO SUBJECTS (id, name, state, type, formation, duration, area) VALUES (137, 'CBC Introducción al conocimiento de la Sociedad y Estado', 'Sin Cursar', 'Obligatoria', 'Formación General', 'Cuatrimestral', NULL);",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (156, 'A designar', '000', 132);",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (157, 'A designar', '000', 133);",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (158, 'A designar', '000', 134);",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (159, 'A designar', '000', 135);",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (160, 'A designar', '000', 136);",
+        "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (161, 'A designar', '000', 137);"
+    ];
 
     this.$get = function() {
 
@@ -394,10 +404,11 @@ angular.module('dbManager')
         * @return {*}
         */
         function getQueryFor(version) {
-            if (version in queries)
-            return queries[version];
-            else
-            return [];
+            if (version in queries) {
+                return queries[version];
+            } else {
+                return [];
+            }
         };
 
         /**
@@ -412,8 +423,9 @@ angular.module('dbManager')
 
             currentVersion++;
             while (currentVersion <= targetVersion) {
-                if ( (currentVersion in queries) )
-                query = query.concat(queries[currentVersion]);
+                if ((currentVersion in queries)) {
+                    query = query.concat(queries[currentVersion]);
+                }
                 currentVersion++;
             }
 

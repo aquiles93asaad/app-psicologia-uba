@@ -56,12 +56,7 @@ function MySubjectController(
         SubjectsService.getById($state.params.subjectId)
         .then(function(subject) {
             $scope.subject = subject;
-            $scope.note = {
-                name: null,
-                type: null,
-                value: null,
-                subject_id: $scope.subject.id
-            };
+            setNote();
             return SubjectsService.getClasses($scope.subject.id);
         })
         .then(function(classes) {
@@ -113,8 +108,9 @@ function MySubjectController(
         $scope.noteModal.hide();
     };
 
-    $scope.$on('$destroy', function() {
-        $scope.noteModal.remove();
+    $scope.$on('modal.hidden', function() {
+        setNote();
+        resetSlider();
     });
 
     $scope.$on('modal.shown', function() {
@@ -124,6 +120,15 @@ function MySubjectController(
         });
     });
 
+    $scope.$on('$destroy', function() {
+        $scope.noteModal.remove();
+    });
+
+    $scope.noteTypeChanged = function() {
+        $scope.note.value = null;
+        resetSlider();
+    };
+
     $scope.updateSubject = function() {
         var subjectToAdd = {
             state: $scope.subject.state,
@@ -132,15 +137,7 @@ function MySubjectController(
 
         SubjectsService.addSubject(parseInt($scope.subject.id), subjectToAdd)
         .then(function(success) {
-            switch(subjectToAdd.state) {
-              case('Recursada'):
-                  $cordovaToast.showShortBottom("La materia se eliminó de Mi Carrera");
-                  break;
-              case('Cursando'):
-                  $cordovaToast.showShortBottom("¡La materia se agregó a Mi Carrera!");
-                  break;
-            }
-
+            $cordovaToast.showShortBottom("¡La materia se modificó correctamente!");
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });
@@ -162,20 +159,20 @@ function MySubjectController(
                         showDelay: 0
                     });
 
-                    NotesService.createNote($scope.note)
-                    .then(function(success) {
-                        $cordovaToast.showShortBottom("¡La nota se agregó correctamente!")
-                        return NotesService.getSubjectNotes($scope.subject.id);
-                    })
-                    .then(function(notes) {
-                        $scope.notes = notes;
-                    })
-                    .catch(function(error) {
-                        console.error(error);
-                    })
-                    .finally(function() {
-                        $ionicLoading.hide();
-                    });
+                    if($scope.note.id) {
+                        var noteId = $scope.note.id;
+                        delete $scope.note.id;
+                        delete $scope.note.$$hashKey;
+                        NotesService.updateNote(noteId, $scope.note)
+                        .then(function(success) {
+                            notesChanged("¡La nota se modificó correctamente!");
+                        });
+                    } else {
+                        NotesService.createNote($scope.note)
+                        .then(function(success) {
+                            notesChanged("¡La nota se agregó correctamente!");
+                        });
+                    }
                 } else {
                     $cordovaToast.showShortBottom("¡Elige una nota por favor!");
                 }
@@ -185,5 +182,57 @@ function MySubjectController(
         } else {
             $cordovaToast.showShortBottom("¡Elige un concepto por favor!");
         }
+    };
+
+    $scope.editNote = function(note) {
+        $scope.note = note;
+        $scope.openNoteModal()
+    };
+
+    $scope.deleteNote = function(noteId) {
+        if(confirm('La nota se eliminará definitivamente.\nContinuar?')) {
+            $ionicLoading.show({
+                content: 'Loading',
+                showBackdrop: true,
+                maxWidth: 200,
+                showDelay: 0
+            });
+
+            NotesService.deleteNote(noteId)
+            .then(function(success) {
+                notesChanged("¡La nota se eliminó correctamente!");
+            });
+        }
+    };
+
+    function notesChanged(message) {
+        $cordovaToast.showShortBottom(message);
+        NotesService.getSubjectNotes($scope.subject.id)
+        .then(function(notes) {
+            $scope.notes = notes;
+            $scope.closeNoteModal();
+        })
+        .catch(function(error) {
+            console.error(error);
+        })
+        .finally(function() {
+            $ionicLoading.hide();
+        });
+    }
+
+    function setNote() {
+        $scope.note = {
+            name: null,
+            type: null,
+            value: null,
+            subject_id: $scope.subject.id
+        };
+    }
+
+    function resetSlider() {
+        var slider = angular.element('#note-range').data("ionRangeSlider");
+        slider.update({
+            from: 0
+        });
     }
 }

@@ -9,7 +9,7 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
 
 .config(['dbFixturesManagerProvider', function(dbFixturesManagerProvider) {
     /* Sets the version of the database */
-    dbFixturesManagerProvider.setDatabaseVersion(2);
+    dbFixturesManagerProvider.setDatabaseVersion(3);
 
     /* Set to true to run fixtures and override existing database */
     dbFixturesManagerProvider.enableFixturesRun(false);

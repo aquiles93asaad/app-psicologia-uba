@@ -69,7 +69,7 @@
                 </div>
                 <select ng-model="subject.current_class_id" ng-options='class as (class.num_cat + " " + class.name) for class in classes track by class.id'></select>
             </label>
-            <div class="item item-info item-accordion" slide-accordion close-others="false">
+            <div class="item item-info item-accordion notes-container" slide-accordion close-others="false">
                 <div class="ac-header">
                     Notas
                     <div class="icon-container">
@@ -81,10 +81,14 @@
                         La materia no tiene notas cargadas
                     </div>
                     <div class="ac-body-item" ng-repeat="note in notes">
-                        <span>{{note.name}}</span>
+                        <span class="exam">{{note.name}}:</span>
                         <span ng-if="note.type == 'String' && note.value == '0'">Desaprobado</span>
                         <span ng-if="note.type == 'String' && note.value == '1'">Aprobado</span>
                         <span ng-if="note.type == 'Num'">{{note.value}}</span>
+                        <span class="icons">
+                            <i class="fa fa-pencil" aria-hidden="true" ng-click="editNote(note)"></i>
+                            <i class="fa fa-times" aria-hidden="true" ng-click="deleteNote(note.id)"></i>
+                        </span>
                     </div>
                     <div class="button-container">
                         <button ng-click="openNoteModal()">Agregar Nota</button>

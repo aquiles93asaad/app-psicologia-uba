@@ -22,7 +22,7 @@ angular.module('PsiPlannerApp')
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
 
 			return deferred.promise;
 		}
@@ -44,28 +44,22 @@ angular.module('PsiPlannerApp')
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
 
 			return deferred.promise;
 		}
 
 		//Modifica la nota con el id
-		function updateNote(id, name, type, value) {
+		function updateNote(id, note) {
 			var deferred = $q.defer();
 
-			var item = {
-	            'name': name,
-	            'type': type,
-	            'value': value
-	        };
-
-	        dbDataManager.updateData(notesTablesName, item, id)
+	        dbDataManager.updateData(notesTablesName, note, id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
 
 			return deferred.promise;
 		}
@@ -73,13 +67,15 @@ angular.module('PsiPlannerApp')
 		//Elimina la nota con el id de input
 		function deleteNote(id) {
 			var deferred = $q.defer();
+
 	        dbDataManager.deleteData(notesTablesName, id)
 	        .then(function(success) {
 	            deferred.resolve(success);
 	        })
 	        .catch(function(error) {
 	            deferred.reject(error);
-	        })
+	        });
+
 			return deferred.promise;
 		}
 

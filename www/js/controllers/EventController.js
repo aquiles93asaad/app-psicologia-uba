@@ -128,7 +128,7 @@ function EventController(
     };
 
     $scope.addEvent = function() {
-            if(!moment($scope.dates.end).isBefore($scope.dates.start, 'day'))
+            if(!moment($scope.dates.end).isBefore($scope.dates.start, 'minute'))
                 if($scope.event.title) {
                    $ionicLoading.show({
                         content: 'Loading',
@@ -155,9 +155,10 @@ function EventController(
                             if($scope.options.withNotif) {
                                 $cordovaLocalNotification.schedule({
                                     id: insertedId,
-                                    title: $scope.event.title,
-                                    text: $scope.event.description,
-                                    at: moment($scope.alert_date).millisecond(),
+                                    title: 'PsiPlanner',
+                                    text: $scope.event.title + ' ' + $scope.event.description,
+                                    icon: 'res://icon',
+                                    date: new Date(moment($scope.event.alert_date)),
                                })
                                .then(function(success) {
                                    console.log(success);
@@ -180,13 +181,12 @@ function EventController(
                             if($scope.options.withNotif) {
                                 $cordovaLocalNotification.isScheduled($scope.event.id)
                                 .then(function(success) {
-                                    console.log(success);
                                     if(success){
                                         $cordovaLocalNotification.update({
                                             id: $scope.event.id,
-                                            title: $scope.event.title,
-                                            text: $scope.event.description,
-                                            icon: 'file://res/mipmap-hdpi/icon.png',
+                                            title: 'PsiPlanner',
+                                            text: $scope.event.title + ' ' + $scope.event.description,
+                                            icon: 'res://icon',
                                             date: new Date(moment($scope.event.alert_date)),
                                        })
                                        .then(function(success) {
@@ -198,9 +198,9 @@ function EventController(
                                     } else {
                                         $cordovaLocalNotification.schedule({
                                             id: $scope.event.id,
-                                            title: $scope.event.title,
-                                            text: $scope.event.description,
-                                            icon: 'file://res/mipmap-hdpi/icon.png',
+                                            title: 'PsiPlanner',
+                                            text: $scope.event.title + ' ' + $scope.event.description,
+                                            icon: 'res://icon',
                                             date: new Date(moment($scope.event.alert_date)),
                                        })
                                        .then(function(success) {
@@ -258,19 +258,24 @@ function EventController(
         for(i; i<options.length; i++) {
             var option = angular.element(options[i]);
             var text = option.text();
-            if(option.parent().parent().siblings('input').prop('checked')) {
-                if(oldVal != 1 && newVal == 1) {
-                    option.text(text.slice(0, text.indexOf('s')) + ' antes');
-                } else if(oldVal == 1 && newVal != 1) {
-                    option.text(text.slice(0, text.indexOf(' ')) + 's antes');
+            var textParts = text.split(' ');
+            var before = '';
+
+            if(textParts.length > 1) {
+                before = ' antes';
+            }
+
+            if(newVal == 1) {
+                if(textParts[0].indexOf('s') != -1) {
+                    textParts[0] = textParts[0].slice(0, textParts[0].length -1);
                 }
             } else {
-                if(oldVal != null && oldVal != 1 && newVal == 1) {
-                    option.text(text.slice(0, text.length - 1));
-                } else if(oldVal == 1 && newVal != 1) {
-                    option.text(text + 's');
+                if(textParts[0].indexOf('s') == -1) {
+                    textParts[0] = textParts[0] + 's';
                 }
             }
+
+            option.text(textParts[0] + before);
         }
     });
 
@@ -281,13 +286,14 @@ function EventController(
             for(i; i<options.length; i++) {
                 var option = angular.element(options[i]);
                 var text = option.text();
-                if(text.indexOf(' antes') != -1) {
-                    option.text(text.slice(0, text.indexOf(' antes')));
-                }
+                var textParts = text.split(' ');
+                var before = '';
 
                 if(option.parent().parent().siblings('input').val() == newVal) {
-                    option.text(text + ' antes');
+                    before = ' antes';
                 }
+
+                option.text(textParts[0] + before);
             }
         }
     });

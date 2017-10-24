@@ -1,0 +1,33 @@
+.content-container {
+    .item-info {
+        &.item-accordion {
+            &.notes-container {
+                .ac-body {
+                    .ac-body-item {
+                        margin-bottom: $distance-x-s;
+
+                        span {
+                            font-weight: 600;
+
+                            &.exam {
+                                margin-right: 5%
+                            }
+
+                            &.icons {
+                                float: right;
+                                font-size: $font-size-x-l;
+
+                                i {
+                                    color: $secondary-color-alternate;
+                                    &:first-child {
+                                        margin-right: $distance-s;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

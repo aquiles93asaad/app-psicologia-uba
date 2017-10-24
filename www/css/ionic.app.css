@@ -2344,7 +2344,6 @@
 /* Fonts Variables */
 /* Font Family */
 /* Font Size */
-/* Font Family */
 /* Distance Variables */
 body .menu-content .view-container.menu-animated {
   top: 50px;
@@ -12735,3 +12734,17 @@ body .item.item-toggle {
   font-size: 14px;
   font-family: "Open Sans Bold";
   color: #000; }
+
+.content-container .item-info.item-accordion.notes-container .ac-body .ac-body-item {
+  margin-bottom: 10px; }
+  .content-container .item-info.item-accordion.notes-container .ac-body .ac-body-item span {
+    font-weight: 600; }
+    .content-container .item-info.item-accordion.notes-container .ac-body .ac-body-item span.exam {
+      margin-right: 5%; }
+    .content-container .item-info.item-accordion.notes-container .ac-body .ac-body-item span.icons {
+      float: right;
+      font-size: 18px; }
+      .content-container .item-info.item-accordion.notes-container .ac-body .ac-body-item span.icons i {
+        color: #a1864c; }
+        .content-container .item-info.item-accordion.notes-container .ac-body .ac-body-item span.icons i:first-child {
+          margin-right: 15px; }
