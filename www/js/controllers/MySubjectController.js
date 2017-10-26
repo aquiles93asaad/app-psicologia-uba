@@ -12,8 +12,7 @@ MySubjectController.$inject = [
     '$ionicLoading',
     '$ionicModal',
     'SubjectsService',
-    'NotesService',
-    'DateTransformerService'
+    'NotesService'
 ];
 
 function MySubjectController(
@@ -24,8 +23,7 @@ function MySubjectController(
     $ionicLoading,
     $ionicModal,
     SubjectsService,
-    NotesService,
-    DateTransformerService
+    NotesService
 ) {
 
     $scope.stateOptions = [
@@ -41,6 +39,7 @@ function MySubjectController(
         {id: 'Trabajo Práctico'},
         {id: 'Trabajo de Campo'},
         {id: 'Recuperatorio'},
+        {id: 'Promoción'},
         {id: 'Final'},
         {id: 'Otro'}
     ];
@@ -115,6 +114,7 @@ function MySubjectController(
 
     $scope.$on('modal.shown', function() {
         angular.element('#note-range').ionRangeSlider({
+            from: (($scope.note.type == "Num") ? $scope.note.value : 0),
             min: 0,
             max: 10
         });

@@ -85,7 +85,7 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
     })
 
     .state('app.correlatives', {
-        url: '/correlatives',
+        url: '/correlatives/:id',
         views: {
             'menuContent': {
                 templateUrl: 'templates/pages/correlatives.html',
@@ -110,6 +110,16 @@ angular.module('PsiPlannerApp', ['ionic', 'ngCordova', 'dbManager', 'ui.calendar
             'menuContent': {
                 templateUrl: 'templates/pages/information.html',
                 controller: 'InformationController'
+            }
+        }
+    })
+
+    .state('app.help', {
+        url: '/help',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/pages/help.html',
+                controller: 'HelpController'
             }
         }
     });

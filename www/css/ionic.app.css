@@ -2371,6 +2371,10 @@ body.menu-open .menu-content.menu-animated {
 
 .scroll-content.content-container {
   padding: 20px 15px; }
+  .scroll-content.content-container .list-header {
+    padding: 0;
+    font-size: 16px;
+    font-family: "Open Sans Regular"; }
 
 .scroll-content .custom-backdrop {
   position: fixed;
@@ -12629,7 +12633,8 @@ body .modal .item-info.note-range {
   .subject-name-container h4 {
     font-weight: 400;
     margin: 15px 0;
-    font-size: 20px; }
+    font-size: 20px;
+    font-family: "Open Sans Bold"; }
 
 .content-container .item-info {
   padding: 10px;

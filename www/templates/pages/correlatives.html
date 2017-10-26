@@ -1,0 +1,39 @@
+<ion-view view-title="Correlativas">
+    <ion-content class="content-container">
+        <div class="subject-name-container" ng-show="options.showCorrelatives">
+            <h4>{{actualSubject.name}}</h4>
+        </div>
+        <div class="list-header" ng-show="options.showCorrelatives">
+            Correlativas Anteriores
+        </div>
+        <ion-list ng-show="options.showCorrelatives">
+            <ion-item class="subject-item no-results" ng-show="subjects.previous.length == 0">
+                <span>La materia no tiene correlativas anteriores</span>
+            </ion-item>
+            <ion-item class="subject-item" ng-repeat="preSubject in subjects.previous" ui-sref="app.correlatives({id: preSubject.id})">
+                {{preSubject.name}}
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </ion-item>
+        </ion-list>
+
+        <div class="list-header" ng-show="options.showCorrelatives">
+            Correlativas Posteriores
+        </div>
+        <ion-list ng-show="options.showCorrelatives">
+            <ion-item class="subject-item no-results" ng-show="subjects.posterior.length == 0">
+                <span>La materia no tiene correlativas posteriores</span>
+            </ion-item>
+            <ion-item class="subject-item" ng-repeat="posSubject in subjects.posterior" ui-sref="app.correlatives({id: posSubject.id})">
+                {{posSubject.name}}
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </ion-item>
+        </ion-list>
+
+        <ion-list ng-show="!options.showCorrelatives">
+            <ion-item class="subject-item" ng-repeat="subject in subjects.withoutPrevious" ui-sref="app.correlatives({id: subject.id})">
+                {{subject.name}}
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

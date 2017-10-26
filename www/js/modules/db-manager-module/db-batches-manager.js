@@ -329,7 +329,7 @@ angular.module('dbManager')
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (154, 'Prof. Tit. Reg.  como coordinadora I. M. Mikulic', '819', 130);",
         "INSERT INTO CLASSES (id, name, num_cat, subject_id) VALUES (155, 'Prof. Tit. Reg. como coordinador J.J. Michel Fariña', '823', 131);",
 
-         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (NULL,1);",
+        "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (NULL,1);",
         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (NULL,2);",
         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (NULL,3);",
         "INSERT INTO PRED_SUC_CORRELATIVES (id_pred, id_suc) VALUES (NULL,4);",

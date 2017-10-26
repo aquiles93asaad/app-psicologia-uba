@@ -122,7 +122,7 @@ angular.module('PsiPlannerApp')
 		}
 
 		//Devuelve las materias que no tienen materias correlativas anteriores
-		function getNoneCorrelativesSubjects(id) {
+		function getNoneCorrelativesSubjects() {
 			var deferred = $q.defer();
 
 	        dbDataManager.findData("SELECT s.* FROM " + subjectsTableName + " s JOIN PRED_SUC_CORRELATIVES c ON s.id=c.id_suc WHERE c.id_pred IS NULL")
