@@ -113,11 +113,17 @@ function MySubjectController(
     });
 
     $scope.$on('modal.shown', function() {
-        angular.element('#note-range').ionRangeSlider({
-            from: (($scope.note.type == "Num") ? $scope.note.value : 0),
-            min: 0,
-            max: 10
-        });
+        var slider = angular.element('#note-range').data("ionRangeSlider");
+        if(slider != null) {
+            slider.update({
+                from: (($scope.note.type == "Num") ? $scope.note.value : 0),
+            });
+        } else {
+            angular.element('#note-range').ionRangeSlider({
+                min: 0,
+                max: 10
+            });
+        }
     });
 
     $scope.$on('$destroy', function() {

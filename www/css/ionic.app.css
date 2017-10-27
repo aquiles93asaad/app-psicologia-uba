@@ -12468,7 +12468,7 @@ body .modal .item-info.note-range {
       border-color: #a1864c; }
 
 .floating-button-container {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   width: 50px;

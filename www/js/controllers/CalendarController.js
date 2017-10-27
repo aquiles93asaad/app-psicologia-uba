@@ -114,8 +114,8 @@ function CalendarController(
             for(i; i<results.length; i++) {
                 $scope.events.push({
                     title: results[i].title,
-                    start: DateTransformerService.getStringAsDate(results[i].date_start),
-                    end: DateTransformerService.getStringAsDate(results[i].date_end),
+                    start: new Date(moment(results[i].date_start).format('YYYY-MM-DDTHH:mm')),
+                    end: new Date(moment(results[i].date_end).format('YYYY-MM-DDTHH:mm')),
                     color: results[i].color,
                     id: results[i].id,
                     stick: true

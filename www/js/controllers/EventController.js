@@ -147,19 +147,21 @@ function EventController(
 
                     if($scope.options.withNotif) {
                         $scope.event.alert_date = moment($scope.dates.start).subtract($scope.event.quantity, $scope.event.type).format('YYYY-MM-DDTHH:mm');
+                        var notifParams = {
+                            id: null,
+                            title: 'PsiPlanner',
+                            text: $scope.event.title + (($scope.event.description) ? (' ' + $scope.event.description) : ''),
+                            icon: 'res://icon',
+                            date: new Date(moment($scope.event.alert_date)),
+                        };
                     }
 
                     if(!$state.params.eventId) {
                         EventsService.createEvent($scope.event)
                         .then(function(insertedId){
                             if($scope.options.withNotif) {
-                                $cordovaLocalNotification.schedule({
-                                    id: insertedId,
-                                    title: 'PsiPlanner',
-                                    text: $scope.event.title + ' ' + $scope.event.description,
-                                    icon: 'res://icon',
-                                    date: new Date(moment($scope.event.alert_date)),
-                               })
+                                notifParams.id = insertedId;
+                                $cordovaLocalNotification.schedule(notifParams)
                                .then(function(success) {
                                    console.log(success);
                                })
@@ -179,16 +181,11 @@ function EventController(
                         EventsService.updateEvent($state.params.eventId, $scope.event)
                         .then(function(success) {
                             if($scope.options.withNotif) {
+                                notifParams.id = $scope.event.id;
                                 $cordovaLocalNotification.isScheduled($scope.event.id)
                                 .then(function(success) {
                                     if(success){
-                                        $cordovaLocalNotification.update({
-                                            id: $scope.event.id,
-                                            title: 'PsiPlanner',
-                                            text: $scope.event.title + ' ' + $scope.event.description,
-                                            icon: 'res://icon',
-                                            date: new Date(moment($scope.event.alert_date)),
-                                       })
+                                        $cordovaLocalNotification.update(notifParams)
                                        .then(function(success) {
                                            console.log(success);
                                        })
@@ -196,13 +193,7 @@ function EventController(
                                            console.error(error);
                                        });
                                     } else {
-                                        $cordovaLocalNotification.schedule({
-                                            id: $scope.event.id,
-                                            title: 'PsiPlanner',
-                                            text: $scope.event.title + ' ' + $scope.event.description,
-                                            icon: 'res://icon',
-                                            date: new Date(moment($scope.event.alert_date)),
-                                       })
+                                        $cordovaLocalNotification.schedule(notifParams)
                                        .then(function(success) {
                                            console.log(success);
                                        })
@@ -211,6 +202,9 @@ function EventController(
                                        });
                                     }
                                 })
+                                .catch(function(error) {
+                                    console.error(error);
+                                });
                             }
                             onEventSuccess("El evento se modificó correctamente!");
                         })

@@ -65,7 +65,7 @@ function SubjectController(
         var subjectToAdd = {
             state: 'Cursando',
             current_class_id: $scope.subject.current_class_id.id,
-            date_course: DateTransformerService.getDateAsString(new Date())
+            date_course: moment().format('YYYY-MM-DDTHH:mm')
         };
 
         SubjectsService.addSubject(parseInt($scope.subject.id), subjectToAdd)
