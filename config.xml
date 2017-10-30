@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.SiriusLabs.PsiPlanner" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>UBA PsiPlanner</name>
-    <description>UBA PsiPlanner es una herramienta mobile desarrollada por el CEP</description>
+    <name>PsiPlanner</name>
+    <description>PsiPlanner es una herramienta mobile desarrollada por el CEP</description>
     <author email="siriuslabsarg@gmail.com" href="http://ionicframework.com/">Sirius Labs</author>
     <content src="index.html" />
     <access origin="*" />
