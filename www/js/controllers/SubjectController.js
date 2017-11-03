@@ -10,8 +10,7 @@ SubjectController.$inject = [
     '$cordovaToast',
     '$ionicHistory',
     '$ionicLoading',
-    'SubjectsService',
-    'DateTransformerService'
+    'SubjectsService'
 ];
 
 function SubjectController(
@@ -20,8 +19,7 @@ function SubjectController(
     $cordovaToast,
     $ionicHistory,
     $ionicLoading,
-    SubjectsService,
-    DateTransformerService
+    SubjectsService
 ) {
 
     document.addEventListener("deviceready", function () {

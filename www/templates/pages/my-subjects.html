@@ -19,7 +19,7 @@
             <ion-item class="subject-item no-results" ng-show="mySubjects.length == 0">
                 <span ng-show="(search.value == null || search.value == '') && search.filtersChanged == false">No se agregó ninguna materia a Mi Carrera.</span>
                 <span ng-show="(search.value != null && search.value != '') && search.filtersChanged == false">No se se encontraron materias con ese nombre.</span>
-                <span ng-show="search.filtersChanged == true && (search.value == null || search.value == '')">No se se encontraron materias con estos filtros.</span>
+                <span ng-show="(search.value == null || search.value == '') && search.filtersChanged == true">No se se encontraron materias con estos filtros.</span>
                 <span ng-show="(search.value != null && search.value != '') && search.filtersChanged == true">No se se encontraron materias con ese nombre y estos filtros.</span>
             </ion-item>
             <ion-item class="subject-item" ng-repeat="mySubject in mySubjects" ui-sref="app.mySubject({subjectId: mySubject.id})">

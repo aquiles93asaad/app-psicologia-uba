@@ -87,9 +87,12 @@ function EventController(
         SubjectsService.getSubjects(filters)
         .then(function(mySubjects) {
             $scope.mySubjects = mySubjects;
-            if(!$state.params.eventId) {
-                setDefaultSubject();
-            } else {
+            $scope.mySubjects.unshift({
+                id: null,
+                name: ''
+            });
+
+            if($state.params.eventId) {
                 EventsService.getById($state.params.eventId)
                 .then(function(event) {
                     $scope.event = event;
@@ -119,109 +122,101 @@ function EventController(
         })
     }, false);
 
-    function setDefaultSubject() {
-        if ($scope.mySubjects) {
-            if ($scope.mySubjects.length != 0) {
-                $scope.event.subject_id = $scope.mySubjects[0].id;
-            }
-        }
-    };
-
     $scope.addEvent = function() {
-            if(!moment($scope.dates.end).isBefore($scope.dates.start, 'minute'))
-                if($scope.event.title) {
-                   $ionicLoading.show({
-                        content: 'Loading',
-                        showBackdrop: true,
-                        maxWidth: 200,
-                        showDelay: 0
-                    });
+        if(!moment($scope.dates.end).isBefore($scope.dates.start, 'minute'))
+            if($scope.event.title) {
+               $ionicLoading.show({
+                    content: 'Loading',
+                    showBackdrop: true,
+                    maxWidth: 200,
+                    showDelay: 0
+                });
 
-                    if($scope.options.allDay) {
-                        $scope.event.date_start = moment($scope.dates.start).format('YYYY-MM-DD');
-                        $scope.event.date_end = moment($scope.dates.end).format('YYYY-MM-DD');
-                    } else {
-                        $scope.event.date_start = moment($scope.dates.start).format('YYYY-MM-DDTHH:mm');
-                        $scope.event.date_end = moment($scope.dates.end).format('YYYY-MM-DDTHH:mm');
-                    }
-
-                    if($scope.options.withNotif) {
-                        $scope.event.alert_date = moment($scope.dates.start).subtract($scope.event.quantity, $scope.event.type).format('YYYY-MM-DDTHH:mm');
-                        var notifParams = {
-                            id: null,
-                            title: 'PsiPlanner',
-                            text: $scope.event.title + (($scope.event.description) ? (' ' + $scope.event.description) : ''),
-                            icon: 'res://icon',
-                            date: new Date(moment($scope.event.alert_date)),
-                        };
-                    }
-
-                    if(!$state.params.eventId) {
-                        EventsService.createEvent($scope.event)
-                        .then(function(insertedId){
-                            if($scope.options.withNotif) {
-                                notifParams.id = insertedId;
-                                $cordovaLocalNotification.schedule(notifParams)
-                               .then(function(success) {
-                                   console.log(success);
-                               })
-                               .catch(function(error) {
-                                   console.error(error);
-                               });
-                            }
-                            onEventSuccess("El evento se agregó al calendario!");
-                        })
-                        .catch(function(error) {
-                            console.error(error);
-                        })
-                        .finally(function() {
-                            $ionicLoading.hide();
-                        });
-                    } else {
-                        EventsService.updateEvent($state.params.eventId, $scope.event)
-                        .then(function(success) {
-                            if($scope.options.withNotif) {
-                                notifParams.id = $scope.event.id;
-                                $cordovaLocalNotification.isScheduled($scope.event.id)
-                                .then(function(success) {
-                                    if(success){
-                                        $cordovaLocalNotification.update(notifParams)
-                                       .then(function(success) {
-                                           console.log(success);
-                                       })
-                                       .catch(function(error) {
-                                           console.error(error);
-                                       });
-                                    } else {
-                                        $cordovaLocalNotification.schedule(notifParams)
-                                       .then(function(success) {
-                                           console.log(success);
-                                       })
-                                       .catch(function(error) {
-                                           console.error(error);
-                                       });
-                                    }
-                                })
-                                .catch(function(error) {
-                                    console.error(error);
-                                });
-                            }
-                            onEventSuccess("El evento se modificó correctamente!");
-                        })
-                        .catch(function(error) {
-                            console.error(error);
-                        })
-                        .finally(function() {
-                            $ionicLoading.hide();
-                        });
-                    }
-
+                if($scope.options.allDay) {
+                    $scope.event.date_start = moment($scope.dates.start).format('YYYY-MM-DD');
+                    $scope.event.date_end = moment($scope.dates.end).format('YYYY-MM-DD');
                 } else {
-                    $cordovaToast.showShortBottom("No se puede guardar un evento sin título!");
+                    $scope.event.date_start = moment($scope.dates.start).format('YYYY-MM-DDTHH:mm');
+                    $scope.event.date_end = moment($scope.dates.end).format('YYYY-MM-DDTHH:mm');
                 }
-            else {
-                $cordovaToast.showLongBottom("Cambia la fecha y/o hora de inicio para que sea anterior a la fecha de finalización.");
+
+                if($scope.options.withNotif) {
+                    $scope.event.alert_date = moment($scope.dates.start).subtract($scope.event.quantity, $scope.event.type).format('YYYY-MM-DDTHH:mm');
+                    var notifParams = {
+                        id: null,
+                        title: 'PsiPlanner',
+                        text: $scope.event.title + (($scope.event.description) ? (' ' + $scope.event.description) : ''),
+                        icon: 'res://icon',
+                        date: new Date(moment($scope.event.alert_date)),
+                    };
+                }
+                //$scope.event.subject_id = parseInt($scope.event.subject_id);
+                if(!$state.params.eventId) {
+                    EventsService.createEvent($scope.event)
+                    .then(function(insertedId){
+                        if($scope.options.withNotif) {
+                            notifParams.id = insertedId;
+                            $cordovaLocalNotification.schedule(notifParams)
+                           .then(function(success) {
+                               console.log(success);
+                           })
+                           .catch(function(error) {
+                               console.error(error);
+                           });
+                        }
+                        onEventSuccess("El evento se agregó al calendario!");
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    })
+                    .finally(function() {
+                        $ionicLoading.hide();
+                    });
+                } else {
+                    EventsService.updateEvent($state.params.eventId, $scope.event)
+                    .then(function(success) {
+                        if($scope.options.withNotif) {
+                            notifParams.id = $scope.event.id;
+                            $cordovaLocalNotification.isScheduled($scope.event.id)
+                            .then(function(success) {
+                                if(success){
+                                    $cordovaLocalNotification.update(notifParams)
+                                   .then(function(success) {
+                                       console.log(success);
+                                   })
+                                   .catch(function(error) {
+                                       console.error(error);
+                                   });
+                                } else {
+                                    $cordovaLocalNotification.schedule(notifParams)
+                                   .then(function(success) {
+                                       console.log(success);
+                                   })
+                                   .catch(function(error) {
+                                       console.error(error);
+                                   });
+                                }
+                            })
+                            .catch(function(error) {
+                                console.error(error);
+                            });
+                        }
+                        onEventSuccess("El evento se modificó correctamente!");
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    })
+                    .finally(function() {
+                        $ionicLoading.hide();
+                    });
+                }
+
+            } else {
+                $cordovaToast.showShortBottom("No se puede guardar un evento sin título!");
             }
+        else {
+            $cordovaToast.showLongBottom("Cambia la fecha y/o hora de inicio para que sea anterior a la fecha de finalización.");
+        }
     };
 
     $scope.deleteEvent = function() {

@@ -11,7 +11,6 @@ CalendarController.$inject = [
     '$ionicSideMenuDelegate',
     '$ionicGesture',
     'EventsService',
-    'DateTransformerService',
     'uiCalendarConfig'
 ];
 
@@ -22,7 +21,6 @@ function CalendarController(
     $ionicSideMenuDelegate,
     $ionicGesture,
     EventsService,
-    DateTransformerService,
     uiCalendarConfig
 ) {
     $scope.events = [];
